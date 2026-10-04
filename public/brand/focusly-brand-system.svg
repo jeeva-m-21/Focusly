@@ -1,0 +1,265 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" width="1600" height="1200" style="background:#F8F9FA;">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap');
+      .font-brand {
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+      .label-text {
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        fill: #8E8E93;
+      }
+      .panel-card {
+        fill: #FFFFFF;
+        stroke: #E5E7EB;
+        stroke-width: 1;
+        rx: 16;
+      }
+      .panel-dark {
+        fill: #18181A;
+        stroke: #27272A;
+        stroke-width: 1;
+        rx: 16;
+      }
+    </style>
+
+    <!-- Master Symbol Definition: Abstract Focus Orbit with Directional Momentum & Student Focus Core -->
+    <!-- Scaled in a 120x120 coordinate box -->
+    <!-- Base Color: #18181A, Accent: #F59E0B -->
+    <g id="focusly-symbol-accent">
+      <!-- Outer Primary Momentum Orbit: 270-degree sweeping tapered arc with subtle forward opening -->
+      <path d="M 60 12 A 48 48 0 1 1 24.5 92.8" fill="none" stroke="#18181A" stroke-width="7.5" stroke-linecap="round"/>
+      <!-- Inner Forward Progression Arc: Harmonious concentric trajectory indicating academic momentum -->
+      <path d="M 60 32 A 28 28 0 0 1 87.2 67.5" fill="none" stroke="#18181A" stroke-width="6.5" stroke-linecap="round"/>
+      <!-- Focal Center Point: Warm Amber student nucleus / clarity spark -->
+      <circle cx="60" cy="60" r="9.5" fill="#F59E0B"/>
+      <!-- Subtle Optical Coordinate Guide Point: Directional aperture dot -->
+      <circle cx="21" cy="60" r="3.2" fill="#F59E0B"/>
+    </g>
+
+    <!-- Master Symbol Definition: Pure Black Monochrome -->
+    <g id="focusly-symbol-mono-black">
+      <path d="M 60 12 A 48 48 0 1 1 24.5 92.8" fill="none" stroke="#18181A" stroke-width="7.5" stroke-linecap="round"/>
+      <path d="M 60 32 A 28 28 0 0 1 87.2 67.5" fill="none" stroke="#18181A" stroke-width="6.5" stroke-linecap="round"/>
+      <circle cx="60" cy="60" r="9.5" fill="#18181A"/>
+      <circle cx="21" cy="60" r="3.2" fill="#18181A"/>
+    </g>
+
+    <!-- Master Symbol Definition: Pure White Monochrome -->
+    <g id="focusly-symbol-mono-white">
+      <path d="M 60 12 A 48 48 0 1 1 24.5 92.8" fill="none" stroke="#FFFFFF" stroke-width="7.5" stroke-linecap="round"/>
+      <path d="M 60 32 A 28 28 0 0 1 87.2 67.5" fill="none" stroke="#FFFFFF" stroke-width="6.5" stroke-linecap="round"/>
+      <circle cx="60" cy="60" r="9.5" fill="#FFFFFF"/>
+      <circle cx="21" cy="60" r="3.2" fill="#FFFFFF"/>
+    </g>
+
+    <!-- Master Symbol Definition: Dark Background with Amber Focal Accent -->
+    <g id="focusly-symbol-dark-accent">
+      <path d="M 60 12 A 48 48 0 1 1 24.5 92.8" fill="none" stroke="#F4F4F5" stroke-width="7.5" stroke-linecap="round"/>
+      <path d="M 60 32 A 28 28 0 0 1 87.2 67.5" fill="none" stroke="#F4F4F5" stroke-width="6.5" stroke-linecap="round"/>
+      <circle cx="60" cy="60" r="9.5" fill="#F59E0B"/>
+      <circle cx="21" cy="60" r="3.2" fill="#F59E0B"/>
+    </g>
+  </defs>
+
+  <!-- Header Banner -->
+  <g transform="translate(80, 56)">
+    <text class="label-text" x="0" y="0">Focusly Brand Identity System &amp; Design Architecture</text>
+    <text class="font-brand" x="0" y="32" font-size="28" font-weight="700" fill="#18181A" letter-spacing="-0.03em">Minimalist Academic Productivity OS</text>
+    <text class="font-brand" x="0" y="54" font-size="14" font-weight="500" fill="#71717A">Concept: Abstract Focus Orbit · Progression Vector · Student at the Center of Time</text>
+  </g>
+
+  <!-- SECTION 1: PRIMARY HORIZONTAL LOCKUP (HERO CARD) -->
+  <g transform="translate(80, 140)">
+    <rect class="panel-card" width="900" height="280" />
+    <text class="label-text" x="40" y="38">01. Primary Horizontal Lockup (Symbol + Wordmark)</text>
+    
+    <g transform="translate(70, 78)">
+      <!-- Scaled Symbol -->
+      <g transform="scale(1.35)">
+        <use href="#focusly-symbol-accent"/>
+      </g>
+      <!-- Wordmark -->
+      <g transform="translate(195, 105)">
+        <text class="font-brand" x="0" y="0" font-size="78" font-weight="700" fill="#18181A" letter-spacing="-0.04em">Focus<tspan fill="#F59E0B">ly</tspan></text>
+        <text class="font-brand" x="4" y="36" font-size="13" font-weight="600" fill="#71717A" letter-spacing="0.22em">ACADEMIC OPERATING SYSTEM</text>
+      </g>
+    </g>
+    
+    <!-- Specs / Color Badges -->
+    <g transform="translate(680, 50)">
+      <rect x="0" y="0" width="180" height="40" rx="8" fill="#F4F4F5" />
+      <circle cx="20" cy="20" r="7" fill="#18181A" />
+      <text class="font-brand" x="38" y="24" font-size="12" font-weight="600" fill="#18181A">Primary #18181A</text>
+
+      <rect x="0" y="50" width="180" height="40" rx="8" fill="#FFFBEB" stroke="#FDE68A" stroke-width="1" />
+      <circle cx="20" cy="70" r="7" fill="#F59E0B" />
+      <text class="font-brand" x="38" y="74" font-size="12" font-weight="600" fill="#B45309">Accent #F59E0B</text>
+
+      <rect x="0" y="100" width="180" height="40" rx="8" fill="#FAFAFA" stroke="#E5E7EB" stroke-width="1" />
+      <text class="font-brand" x="14" y="124" font-size="11.5" font-weight="600" fill="#52525B">Type: Plus Jakarta / Geist</text>
+    </g>
+  </g>
+
+  <!-- SECTION 2: STANDALONE APP ICON (SQUIRCLE CONTAINER) -->
+  <g transform="translate(1010, 140)">
+    <rect class="panel-card" width="510" height="280" />
+    <text class="label-text" x="40" y="38">02. Mobile App Icon (60pt / Squircle)</text>
+    
+    <!-- App Icon Tile Light -->
+    <g transform="translate(65, 75)">
+      <rect width="150" height="150" rx="34" fill="#18181A" />
+      <rect x="1" y="1" width="148" height="148" rx="33" stroke="#27272A" stroke-width="1.5" fill="none" />
+      <g transform="translate(15, 15)">
+        <use href="#focusly-symbol-dark-accent"/>
+      </g>
+      <text class="font-brand" x="75" y="178" font-size="12" font-weight="600" fill="#71717A" text-anchor="middle">Dark App Tile</text>
+    </g>
+
+    <!-- App Icon Tile White / High Contrast -->
+    <g transform="translate(275, 75)">
+      <rect width="150" height="150" rx="34" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5" />
+      <g transform="translate(15, 15)">
+        <use href="#focusly-symbol-accent"/>
+      </g>
+      <text class="font-brand" x="75" y="178" font-size="12" font-weight="600" fill="#71717A" text-anchor="middle">Light App Tile</text>
+    </g>
+  </g>
+
+  <!-- SECTION 3: SYMBOL ONLY (LARGE GEOMETRIC PRESENTATION) -->
+  <g transform="translate(80, 450)">
+    <rect class="panel-card" width="440" height="340" />
+    <text class="label-text" x="40" y="38">03. Standalone Symbol Mark</text>
+    <g transform="translate(130, 85) scale(1.5)">
+      <use href="#focusly-symbol-accent"/>
+    </g>
+    <text class="font-brand" x="220" y="300" font-size="13" font-weight="500" fill="#71717A" text-anchor="middle">Abstract Orbit &amp; Progression Vector</text>
+  </g>
+
+  <!-- SECTION 4: VERTICAL / STACKED LOCKUP -->
+  <g transform="translate(550, 450)">
+    <rect class="panel-card" width="430" height="340" />
+    <text class="label-text" x="40" y="38">04. Centered Vertical Lockup</text>
+    <g transform="translate(155, 65) scale(1.0)">
+      <use href="#focusly-symbol-accent"/>
+    </g>
+    <g transform="translate(215, 215)">
+      <text class="font-brand" x="0" y="0" font-size="36" font-weight="700" fill="#18181A" letter-spacing="-0.035em" text-anchor="middle">Focus<tspan fill="#F59E0B">ly</tspan></text>
+      <text class="font-brand" x="0" y="24" font-size="10" font-weight="600" fill="#8E8E93" letter-spacing="0.22em" text-anchor="middle">STUDENT INTELLIGENCE</text>
+    </g>
+  </g>
+
+  <!-- SECTION 5: DARK BACKGROUND / WHITE MONOCHROME -->
+  <g transform="translate(1010, 450)">
+    <rect class="panel-dark" width="510" height="340" />
+    <text class="label-text" x="40" y="38" fill="#A1A1AA">05. Dark Mode Inverted Presentation</text>
+    
+    <g transform="translate(60, 95)">
+      <g transform="scale(1.05)">
+        <use href="#focusly-symbol-dark-accent"/>
+      </g>
+      <g transform="translate(150, 78)">
+        <text class="font-brand" x="0" y="0" font-size="46" font-weight="700" fill="#FFFFFF" letter-spacing="-0.035em">Focus<tspan fill="#F59E0B">ly</tspan></text>
+        <text class="font-brand" x="2" y="24" font-size="10.5" font-weight="600" fill="#A1A1AA" letter-spacing="0.2em">PRODUCTIVITY OS</text>
+      </g>
+    </g>
+    <text class="font-brand" x="255" y="300" font-size="12" font-weight="500" fill="#71717A" text-anchor="middle">OLED Dark UI Context (#18181A)</text>
+  </g>
+
+  <!-- SECTION 6: SYSTEM VARIANTS COMPARISON ROW (MONOCHROME & ACCENT VERSIONS) -->
+  <g transform="translate(80, 820)">
+    <!-- 6A. Pure Black Monochrome Lockup -->
+    <g transform="translate(0, 0)">
+      <rect class="panel-card" width="340" height="320" />
+      <text class="label-text" x="30" y="36">06A. Pure Black Monochrome</text>
+      <g transform="translate(115, 65) scale(0.9)">
+        <use href="#focusly-symbol-mono-black"/>
+      </g>
+      <g transform="translate(170, 205)">
+        <text class="font-brand" x="0" y="0" font-size="30" font-weight="700" fill="#18181A" letter-spacing="-0.035em" text-anchor="middle">Focusly</text>
+        <text class="font-brand" x="0" y="20" font-size="9" font-weight="600" fill="#71717A" letter-spacing="0.18em" text-anchor="middle">100% SINGLE INK / PRINT</text>
+      </g>
+      <rect x="30" y="270" width="280" height="28" rx="6" fill="#F4F4F5" />
+      <text class="font-brand" x="170" y="288" font-size="10.5" font-weight="600" fill="#52525B" text-anchor="middle">Strict Single-Ink Documentation</text>
+    </g>
+
+    <!-- 6B. Pure White Monochrome on Charcoal -->
+    <g transform="translate(370, 0)">
+      <rect class="panel-dark" width="340" height="320" />
+      <text class="label-text" x="30" y="36" fill="#A1A1AA">06B. Pure White Monochrome</text>
+      <g transform="translate(115, 65) scale(0.9)">
+        <use href="#focusly-symbol-mono-white"/>
+      </g>
+      <g transform="translate(170, 205)">
+        <text class="font-brand" x="0" y="0" font-size="30" font-weight="700" fill="#FFFFFF" letter-spacing="-0.035em" text-anchor="middle">Focusly</text>
+        <text class="font-brand" x="0" y="20" font-size="9" font-weight="600" fill="#A1A1AA" letter-spacing="0.18em" text-anchor="middle">NEGATIVE EMBOSS / REVERSED</text>
+      </g>
+      <rect x="30" y="270" width="280" height="28" rx="6" fill="#27272A" />
+      <text class="font-brand" x="170" y="288" font-size="10.5" font-weight="600" fill="#D4D4D8" text-anchor="middle">Reversed Dark Presentation</text>
+    </g>
+
+    <!-- 6C. Warm Orange Accent Focal Version -->
+    <g transform="translate(740, 0)">
+      <rect class="panel-card" width="340" height="320" />
+      <text class="label-text" x="30" y="36">06C. Focal Orange Highlight</text>
+      <g transform="translate(115, 65) scale(0.9)">
+        <use href="#focusly-symbol-accent"/>
+      </g>
+      <g transform="translate(170, 205)">
+        <text class="font-brand" x="0" y="0" font-size="30" font-weight="700" fill="#18181A" letter-spacing="-0.035em" text-anchor="middle">Focus<tspan fill="#F59E0B">ly</tspan></text>
+        <text class="font-brand" x="0" y="20" font-size="9" font-weight="600" fill="#D97706" letter-spacing="0.18em" text-anchor="middle">ACTIVE FOCUS STATE</text>
+      </g>
+      <rect x="30" y="270" width="280" height="28" rx="6" fill="#FFFBEB" stroke="#FDE68A" stroke-width="1" />
+      <text class="font-brand" x="170" y="288" font-size="10.5" font-weight="600" fill="#B45309" text-anchor="middle">#F59E0B Focal Centroid</text>
+    </g>
+
+    <!-- 6D. Micro-scale Optical Validation (16px, 24px, 32px, 48px Favicon test) -->
+    <g transform="translate(1110, 0)">
+      <rect class="panel-card" width="330" height="320" />
+      <text class="label-text" x="30" y="36">06D. Optical Scalability Test</text>
+      
+      <!-- 48px -->
+      <g transform="translate(45, 80)">
+        <rect width="52" height="52" rx="12" fill="#18181A" />
+        <g transform="translate(2, 2) scale(0.4)">
+          <use href="#focusly-symbol-dark-accent"/>
+        </g>
+        <text class="font-brand" x="26" y="70" font-size="10" font-weight="600" fill="#71717A" text-anchor="middle">48px</text>
+      </g>
+
+      <!-- 32px -->
+      <g transform="translate(125, 90)">
+        <rect width="36" height="36" rx="8" fill="#18181A" />
+        <g transform="translate(1, 1) scale(0.28)">
+          <use href="#focusly-symbol-dark-accent"/>
+        </g>
+        <text class="font-brand" x="18" y="52" font-size="10" font-weight="600" fill="#71717A" text-anchor="middle">32px</text>
+      </g>
+
+      <!-- 24px -->
+      <g transform="translate(188, 96)">
+        <rect width="28" height="28" rx="6" fill="#18181A" />
+        <g transform="translate(1, 1) scale(0.21)">
+          <use href="#focusly-symbol-dark-accent"/>
+        </g>
+        <text class="font-brand" x="14" y="44" font-size="10" font-weight="600" fill="#71717A" text-anchor="middle">24px</text>
+      </g>
+
+      <!-- 16px Favicon -->
+      <g transform="translate(242, 102)">
+        <rect width="20" height="20" rx="4" fill="#18181A" />
+        <g transform="translate(1, 1) scale(0.15)">
+          <use href="#focusly-symbol-dark-accent"/>
+        </g>
+        <text class="font-brand" x="10" y="36" font-size="10" font-weight="600" fill="#71717A" text-anchor="middle">16px</text>
+      </g>
+
+      <rect x="25" y="270" width="280" height="28" rx="6" fill="#F4F4F5" />
+      <text class="font-brand" x="165" y="288" font-size="10.5" font-weight="600" fill="#52525B" text-anchor="middle">Legible at 16×16px Favicon Scale</text>
+    </g>
+  </g>
+</svg>

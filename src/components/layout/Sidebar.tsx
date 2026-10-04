@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { useFocusStore, ActiveView } from '../../store/useFocusStore';
 import { cn } from '../../utils/cn';
+import { FocuslySymbol } from '../brand/FocuslyLogo';
 
 export const Sidebar: React.FC = () => {
   const {
@@ -130,21 +131,26 @@ export const Sidebar: React.FC = () => {
 
   const renderNavContent = () => (
     <>
-      {/* Brand Header */}
-      <div className="h-14 px-5 border-b border-[#eeeae3] dark:border-[#20222a] flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-lg bg-[#1c1d21] dark:bg-[#f1f2f5] flex items-center justify-center text-white dark:text-[#121316] shadow-xs font-bold text-xs">
-            F
+      {/* Brand Header with Official Identity Symbol */}
+      <div className="h-14 px-4 border-b border-[#E7E5DF] dark:border-[#2A2D36] flex items-center justify-between">
+        <button
+          onClick={() => handleSelectView('overview')}
+          className="flex items-center gap-2.5 text-left group cursor-pointer"
+        >
+          <div className="w-8 h-8 rounded-lg bg-[#FFFFFF] dark:bg-[#18181A] border border-[#E7E5DF] dark:border-[#2A2D36] flex items-center justify-center shadow-2xs group-hover:border-[#F59E0B] transition-colors">
+            <FocuslySymbol size={22} variant="accent" />
           </div>
           <div>
-            <div className="flex items-center gap-1.5">
-              <span className="text-[14px] font-bold text-[#1c1d21] dark:text-[#f0eff4] tracking-tight">Focusly</span>
+            <div className="flex items-center gap-1">
+              <span className="text-[15px] font-bold text-[#18181A] dark:text-[#F3F4F6] tracking-tight">
+                Focus<span className="text-[#F59E0B]">ly</span>
+              </span>
             </div>
-            <p className="text-[11px] text-[#787b84] dark:text-[#8d929e] leading-none mt-0.5">
-              Study & Focus Hub
+            <p className="text-[10px] font-mono tracking-[0.08em] uppercase text-[#686A70] dark:text-[#A0A3AB] leading-none mt-0.5">
+              Academic OS
             </p>
           </div>
-        </div>
+        </button>
 
         {isMobileMenuOpen && (
           <button

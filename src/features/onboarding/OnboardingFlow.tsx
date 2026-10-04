@@ -22,6 +22,7 @@ import { Button } from '../../components/common/Button';
 import { Card } from '../../components/common/Card';
 import { Chronotype } from '../../types';
 import { calculateCircadianAlertness } from '../../algorithms/circadianModel';
+import { FocuslySymbol } from '../../components/brand/FocuslyLogo';
 
 export const OnboardingFlow: React.FC = () => {
   const {
@@ -97,19 +98,21 @@ export const OnboardingFlow: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#faf8f5] dark:bg-[#0c0d10] text-[#1c1d21] dark:text-[#f0eff4] flex flex-col justify-between p-4 sm:p-6 transition-colors duration-200">
       {/* Top Header */}
-      <header className="max-w-2xl mx-auto w-full flex items-center justify-between py-3 border-b border-[#e8e5df] dark:border-[#20222a]">
+      <header className="max-w-2xl mx-auto w-full flex items-center justify-between py-3 border-b border-[#E7E5DF] dark:border-[#2A2D36]">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-[#1c1d21] dark:bg-white text-white dark:text-[#0c0d10] flex items-center justify-center font-bold text-xs shadow-xs">
-            F
+          <div className="w-8 h-8 rounded-lg bg-white dark:bg-[#18181A] border border-[#E7E5DF] dark:border-[#2A2D36] flex items-center justify-center shadow-2xs">
+            <FocuslySymbol size={22} variant="accent" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-sm font-bold text-[#1c1d21] dark:text-[#f0eff4]">Focusly</span>
-              <span className="text-[10px] font-mono font-semibold uppercase bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-900/60">
+              <span className="text-sm font-bold text-[#18181A] dark:text-[#F3F4F6]">
+                Focus<span className="text-[#F59E0B]">ly</span>
+              </span>
+              <span className="text-[10px] font-mono font-semibold uppercase bg-amber-50 dark:bg-amber-950/60 text-[#D97706] dark:text-[#F59E0B] px-2 py-0.5 rounded border border-[#F59E0B]/30">
                 Setup Wizard
               </span>
             </div>
-            <p className="text-[11px] text-[#787b84] dark:text-[#8d929e] leading-none mt-0.5">
+            <p className="text-[11px] text-[#686A70] dark:text-[#A0A3AB] leading-none mt-0.5">
               Personalizing your academic workspace
             </p>
           </div>

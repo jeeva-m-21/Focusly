@@ -19,6 +19,7 @@ import {
 import { useFocusStore } from '../../store/useFocusStore';
 import { Button } from '../../components/common/Button';
 import { Card } from '../../components/common/Card';
+import { FocuslySymbol } from '../../components/brand/FocuslyLogo';
 
 export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
   initialMode = 'login'
@@ -107,15 +108,15 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
         </button>
       </div>
 
-      {/* Top Brand Logo */}
-      <div className="text-center mb-5">
-        <div className="inline-flex items-center justify-center w-11 h-11 rounded-2xl bg-[#1c1d21] dark:bg-white text-white dark:text-[#0c0d10] shadow-sm mb-2.5 font-black text-base">
-          F
+      {/* Top Brand Logo with Official Stitch Brand Identity */}
+      <div className="text-center mb-6">
+        <div className="inline-flex items-center justify-center p-3 rounded-2xl bg-white dark:bg-[#18181A] border border-[#E7E5DF] dark:border-[#2A2D36] shadow-xs mb-3">
+          <FocuslySymbol size={44} variant="accent" />
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#1c1d21] dark:text-[#f0eff4] tracking-tight">
-          Focusly
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#18181A] dark:text-[#F3F4F6] tracking-tight">
+          Focus<span className="text-[#F59E0B]">ly</span>
         </h1>
-        <p className="text-xs text-[#64676e] dark:text-[#9ba0a9] mt-0.5">
+        <p className="text-xs text-[#686A70] dark:text-[#A0A3AB] mt-0.5">
           Quiet Academic Command & Bio-Rhythm Study Engine
         </p>
       </div>
