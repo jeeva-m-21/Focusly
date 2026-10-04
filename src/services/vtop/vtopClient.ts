@@ -86,27 +86,17 @@ export class VtopClient {
       if (authRes.data && authRes.data.success) {
         return authRes.data;
       }
-      if (authRes.data && authRes.data.message) {
-        throw new Error(authRes.data.message);
-      }
+      throw new Error(
+        authRes.data?.message || 'Authentication failed. Please check your registration number, password, and captcha.'
+      );
     } catch (err: any) {
-      if (err.response?.data?.message) {
-        throw new Error(err.response.data.message);
-      }
-      if (err.message && !err.message.includes('Network Error')) {
-        throw err;
-      }
-      console.warn('Live login error, falling back to verified offline student identity:', err.message);
+      const errorMsg =
+        err.response?.data?.message ||
+        err.message ||
+        'Authentication failed. Please check your registration number, password, and captcha.';
+      console.warn('[VTOP Client] Live authentication failed:', errorMsg);
+      throw new Error(errorMsg);
     }
-
-    const studentName = cleanReg.startsWith('22B') ? 'Aarav Sharma' : cleanReg.startsWith('23B') ? 'Maya Lin' : 'VIT Scholar';
-    return {
-      success: true,
-      studentName,
-      regNo: cleanReg,
-      branch: 'Computer Science and Engineering (SCOPE)',
-      campus: 'Vellore Institute of Technology (VIT Chennai)'
-    };
   }
 
   /**

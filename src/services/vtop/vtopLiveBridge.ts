@@ -246,34 +246,82 @@ export async function authenticateLiveStudent(
     session.cookies
   );
 
-  // Check for error patterns
-  const html = loginRes.data;
-  if (/invalid\s*captcha/i.test(html)) {
-    throw new Error('Invalid captcha verification code. Please try again.');
+  let loginHtml = loginRes.data;
+  let finalCookies = loginRes.cookies;
+
+  // Handle HTTP 302 / 301 redirects from /vtop/login
+  if (loginRes.statusCode === 302 || loginRes.statusCode === 301) {
+    const loc = loginRes.headers['location'] || '';
+    const isError = loc.includes('error');
+
+    const redirectPage = await httpsRequest(
+      {
+        hostname: 'vtopcc.vit.ac.in',
+        path: loc.startsWith('http') ? new URL(loc).pathname : loc,
+        method: 'GET'
+      },
+      null,
+      loginRes.cookies
+    );
+
+    loginHtml = redirectPage.data;
+    finalCookies = redirectPage.cookies;
+
+    if (isError) {
+      const errorMsgMatch =
+        loginHtml.match(/<span[^>]*class=["'][^"']*text-danger[^"']*["'][^>]*>([\s\S]*?)<\/span>/i) ||
+        loginHtml.match(/<strong>\s*(Invalid[^<]+)\s*<\/strong>/i) ||
+        loginHtml.match(/<div[^>]*class=["'][^"']*alert[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
+
+      let cleanMsg = errorMsgMatch ? errorMsgMatch[1].replace(/<[^>]+>/g, '').trim() : '';
+
+      if (!cleanMsg) {
+        if (/invalid\s*captcha/i.test(loginHtml)) {
+          cleanMsg = 'Invalid Captcha. Please enter the captcha code carefully.';
+        } else if (/invalid\s*(user\s*name|login\s*id|user\s*id)\s*\/\s*password/i.test(loginHtml)) {
+          cleanMsg = 'Invalid Registration Number or Password.';
+        } else if (/account\s*is\s*locked/i.test(loginHtml)) {
+          cleanMsg = 'Your VTOP account is currently locked.';
+        } else if (/maximum\s*fail\s*attempts\s*reached/i.test(loginHtml)) {
+          cleanMsg = 'Maximum failed login attempts reached. Please wait a few minutes.';
+        } else {
+          cleanMsg = 'Authentication failed. Please verify your credentials.';
+        }
+      }
+
+      console.warn(`[VTOP Gateway] Login rejected for ${regNo}: ${cleanMsg}`);
+      throw new Error(cleanMsg);
+    }
   }
-  if (/invalid\s*(user\s*name|login\s*id|user\s*id)\s*\/\s*password/i.test(html)) {
+
+  // Check for error patterns in 200 response HTML
+  if (/invalid\s*captcha/i.test(loginHtml)) {
+    throw new Error('Invalid Captcha. Please enter the captcha code carefully.');
+  }
+  if (/invalid\s*(user\s*name|login\s*id|user\s*id)\s*\/\s*password/i.test(loginHtml)) {
     throw new Error('Invalid Registration Number or Password.');
   }
-  if (/account\s*is\s*locked/i.test(html)) {
+  if (/account\s*is\s*locked/i.test(loginHtml)) {
     throw new Error('Your VTOP account is currently locked.');
   }
-  if (/maximum\s*fail\s*attempts\s*reached/i.test(html)) {
+  if (/maximum\s*fail\s*attempts\s*reached/i.test(loginHtml)) {
     throw new Error('Maximum failed login attempts reached. Please wait a few minutes.');
   }
 
-  const authIdMatch = html.match(/id=["']authorizedIDX["']\s+value=["']([^"']+)["']/i);
-  const csrfMatch = html.match(/name=["']_csrf["']\s+value=["']([^"']+)["']/i);
-  const winImageMatch = html.match(/id=["']winImage["']\s+value=["']([^"']+)["']/i);
+  const authIdMatch = loginHtml.match(/id=["']authorizedIDX["']\s+value=["']([^"']+)["']/i);
+  const csrfMatch = loginHtml.match(/name=["']_csrf["']\s+value=["']([^"']+)["']/i);
+  const winImageMatch = loginHtml.match(/id=["']winImage["']\s+value=["']([^"']+)["']/i);
 
   if (!authIdMatch) {
-    throw new Error('Authentication failed or session rejected by university portal.');
+    console.warn(`[VTOP Gateway] authorizedIDX not found in HTML response for ${regNo}. HTML length: ${loginHtml.length}`);
+    throw new Error('Authentication rejected by university portal. Please check your credentials.');
   }
 
   session.authorizedID = authIdMatch[1];
   session.csrfToken = csrfMatch ? csrfMatch[1] : session.formCsrf;
   session.winImage = winImageMatch ? winImageMatch[1] : '';
   session.regNo = regNo.toUpperCase().trim();
-  session.cookies = loginRes.cookies;
+  session.cookies = finalCookies;
 
   // Step 1: Fetch Available Semesters
   const semPayload = querystring.stringify({
