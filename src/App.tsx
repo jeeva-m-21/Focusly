@@ -38,6 +38,7 @@ export const App: React.FC = () => {
     currentView,
     setView,
     theme,
+    isAuthenticated,
     setQuickBlockModal,
     startDeepWork,
     isCommandPaletteOpen,
@@ -100,6 +101,11 @@ export const App: React.FC = () => {
     setView,
     tasks
   ]);
+
+  // Authentication Guard: strictly redirect unauthenticated sessions to Doorway
+  if (!isAuthenticated && currentView !== 'auth-signup' && currentView !== 'onboarding') {
+    return <AuthDoorway initialMode="login" />;
+  }
 
   // Doorway
   if (currentView === 'auth-login') {

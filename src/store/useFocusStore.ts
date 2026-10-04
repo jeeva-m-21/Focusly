@@ -150,6 +150,10 @@ interface FocusStore {
   // TA Queue
   joinTaQueue: (courseId: string) => void;
 
+  // Authentication Session
+  isAuthenticated: boolean;
+  signOut: () => void;
+
   // VTOP College Integration
   isVtopSyncModalOpen: boolean;
   vtopLastSyncedAt: string | null;
@@ -184,7 +188,9 @@ export const useFocusStore = create<FocusStore>()(
         set({ theme: nextTheme });
       },
 
-      currentView: 'overview',
+      // Default session starts at Login unless authenticated cookies or session exists
+      isAuthenticated: false,
+      currentView: 'auth-login',
       onboardingStep: 1,
       isCommandPaletteOpen: false,
       isQuickBlockModalOpen: false,
@@ -326,6 +332,14 @@ export const useFocusStore = create<FocusStore>()(
       setQuickBlockModal: (isOpen) => set({ isQuickBlockModalOpen: isOpen }),
       setSelectedCourseId: (id) => set({ selectedCourseId: id }),
 
+      // Authentication Session Actions
+      signOut: () => {
+        set({
+          isAuthenticated: false,
+          currentView: 'auth-login'
+        });
+      },
+
       // VTOP College Integration State & Actions
       isVtopSyncModalOpen: false,
       vtopLastSyncedAt: null,
@@ -335,6 +349,7 @@ export const useFocusStore = create<FocusStore>()(
       hydrateFromVtop: (data: VtopHarvestedData) => {
         const { profile, courses, scheduleBlocks } = adaptVtopDataToFocusly(data);
         set((state) => ({
+          isAuthenticated: true,
           user: { ...state.user, ...profile },
           courses: courses.length > 0 ? courses : state.courses,
           scheduleBlocks: scheduleBlocks.length > 0 ? scheduleBlocks : state.scheduleBlocks,
@@ -353,6 +368,7 @@ export const useFocusStore = create<FocusStore>()(
       resetToDemoAccount: (persona) => {
         if (persona === 'aarav') {
           set({
+            isAuthenticated: true,
             user: { ...initialUserProfile, onboardingCompleted: true },
             courses: initialCourses,
             tasks: initialTasks,
@@ -362,6 +378,7 @@ export const useFocusStore = create<FocusStore>()(
           });
         } else {
           set({
+            isAuthenticated: true,
             user: {
               name: 'Maya Chen',
               email: 'maya.chen@stanford.edu',
@@ -748,11 +765,16 @@ export const useFocusStore = create<FocusStore>()(
       name: 'focusly-state-storage-v2',
       partialize: (state) => ({
         theme: state.theme,
+        isAuthenticated: state.isAuthenticated,
+        vtopLastSyncedAt: state.vtopLastSyncedAt,
         user: state.user,
         courses: state.courses,
         tasks: state.tasks,
         notes: state.notes,
-        examTopics: state.examTopics
+        examTopics: state.examTopics,
+        flashcards: state.flashcards,
+        scheduleBlocks: state.scheduleBlocks,
+        currentView: state.isAuthenticated ? state.currentView : 'auth-login'
       })
     }
   )

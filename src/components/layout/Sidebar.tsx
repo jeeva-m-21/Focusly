@@ -29,7 +29,8 @@ export const Sidebar: React.FC = () => {
     activeDeepWork,
     isMobileMenuOpen,
     setMobileMenuOpen,
-    openVtopSyncModal
+    openVtopSyncModal,
+    signOut
   } = useFocusStore();
 
   const criticalTasksCount = tasks.filter((t) => t.autograder && t.autograder.valgrindLeaks > 0).length;
@@ -290,7 +291,7 @@ export const Sidebar: React.FC = () => {
               <Settings className="w-3.5 h-3.5" />
             </button>
             <button
-              onClick={() => handleSelectView('auth-login')}
+              onClick={signOut}
               title="Sign Out"
               className="p-1.5 rounded-lg text-[#96979B] hover:text-[#DC5A63] transition-colors cursor-pointer"
             >
