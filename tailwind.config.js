@@ -8,22 +8,25 @@ export default {
     extend: {
       colors: {
         canvas: {
-          DEFAULT: '#faf8f5',
-          subtle: '#f4f1eb',
-          muted: '#eeeae3',
-          border: '#e8e5df',
+          DEFAULT: '#F7F6F2',
+          card: '#FFFFFF',
+          subtle: '#FCFBF8',
+          border: '#E7E5DF',
         },
         ink: {
-          DEFAULT: '#1c1d21',
-          muted: '#64676e',
-          faint: '#94979e',
+          DEFAULT: '#18181A',
+          secondary: '#686A70',
+          muted: '#96979B',
         },
         surface: {
-          DEFAULT: '#ffffff',
-          dim: '#f4f1eb',
-          muted: '#eeeae3',
-          border: '#e8e5df',
-          hover: '#fbfaf8',
+          DEFAULT: '#FFFFFF',
+          subtle: '#FCFBF8',
+          border: '#E7E5DF',
+        },
+        focus: {
+          DEFAULT: '#F59E0B',
+          hover: '#D97706',
+          light: '#FFF7E6',
         }
       },
       fontFamily: {

@@ -4,21 +4,35 @@
 
 @layer base {
   :root {
-    --canvas: #faf8f5;
-    --canvas-card: #ffffff;
-    --canvas-subtle: #f4f1eb;
-    --canvas-border: #e8e5df;
-    --ink: #1c1d21;
-    --ink-muted: #64676e;
+    --canvas: #F7F6F2;
+    --canvas-card: #FFFFFF;
+    --canvas-subtle: #FCFBF8;
+    --canvas-border: #E7E5DF;
+    --ink: #18181A;
+    --ink-secondary: #686A70;
+    --ink-muted: #96979B;
+    --focus: #F59E0B;
+    --focus-hover: #D97706;
+    --focus-light: #FFF7E6;
+    --success: #16A368;
+    --danger: #DC5A63;
+    --info: #6D70E8;
   }
 
   .dark {
-    --canvas: #0c0d10;
-    --canvas-card: #14151a;
-    --canvas-subtle: #1a1c23;
-    --canvas-border: #232630;
-    --ink: #f0eff4;
-    --ink-muted: #9ba0a9;
+    --canvas: #0F1012;
+    --canvas-card: #15161A;
+    --canvas-subtle: #1C1E24;
+    --canvas-border: #2A2D36;
+    --ink: #F3F4F6;
+    --ink-secondary: #A0A3AB;
+    --ink-muted: #6B7280;
+    --focus: #F59E0B;
+    --focus-hover: #D97706;
+    --focus-light: rgba(245, 158, 11, 0.15);
+    --success: #10B981;
+    --danger: #EF4444;
+    --info: #818CF8;
   }
 
   body {

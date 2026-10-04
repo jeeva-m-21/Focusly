@@ -226,58 +226,60 @@ export const OverviewCockpit: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 pb-16">
+    <div className="max-w-4xl mx-auto space-y-7 pb-16">
       {/* ─────────────────────────────────────────────────────────────
-          1. HEADER CONTEXT (Quiet, uncluttered student OS greeting)
+          1. HEADER CONTEXT (Quiet greeting, Display typography: 30-32px / 700)
          ───────────────────────────────────────────────────────────── */}
-      <header className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-[#ece8df] dark:border-[#22242f] pb-4">
+      <header className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-[#E7E5DF] dark:border-[#2A2D36] pb-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#1c1d21] dark:text-[#f0eff4] tracking-tight">
+          <h1 className="text-[30px] sm:text-[32px] font-bold text-[#18181A] dark:text-[#F3F4F6] tracking-tight leading-[38px]">
             Good morning, {user.name.split(' ')[0]}
           </h1>
-          <p className="text-xs text-[#787b84] dark:text-[#8d929e] mt-1 font-medium">
+          <p className="text-[12px] text-[#686A70] dark:text-[#A0A3AB] mt-1 font-normal leading-[16px]">
             Thursday · October 24 · Stanford University · Fall '24 Week 5
           </p>
         </div>
 
         <div className="flex items-center gap-2 self-start sm:self-auto">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-medium bg-[#f2efe9] dark:bg-[#1a1b24] text-[#64676e] dark:text-[#9ba0a9] border border-[#e2ded5] dark:border-[#262836]">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-medium bg-[#FCFBF8] dark:bg-[#1C1E24] text-[#686A70] dark:text-[#A0A3AB] border border-[#E7E5DF] dark:border-[#2A2D36]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#16A368]" />
             Live Sync · 10:45 AM
           </span>
         </div>
       </header>
 
       {/* ─────────────────────────────────────────────────────────────
-          2. LEVEL 1: WHAT SHOULD I DO NOW? (Single dominant Hero Card)
+          2. LEVEL 1: WHAT SHOULD I DO NOW? (Dominant Hero Card)
+             - Surface #FFFFFF, active border #F59E0B
+             - Orange = action / focus
          ───────────────────────────────────────────────────────────── */}
       <section aria-labelledby="next-up-heading">
-        <div className="rounded-2xl border-2 border-[#1c1d21] dark:border-white/90 bg-white dark:bg-[#14151c] p-6 sm:p-7 shadow-sm transition-all relative overflow-hidden">
+        <div className="rounded-2xl border-2 border-[#F59E0B] bg-[#FFFFFF] dark:bg-[#15161A] p-6 sm:p-7 shadow-sm transition-all relative overflow-hidden">
           {/* Subtle status indicator */}
           <div className="flex items-center justify-between text-xs mb-3">
-            <span className="inline-flex items-center gap-1.5 text-[10.5px] font-mono uppercase tracking-wider font-bold text-[#b45309] dark:text-[#fbbf24] bg-[#fffbeb] dark:bg-[#78350f]/30 px-2 py-0.5 rounded border border-[#fde68a] dark:border-[#92400e]">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-[0.06em] font-semibold text-[#D97706] dark:text-[#F59E0B] bg-[#FFF7E6] dark:bg-[#F59E0B]/10 px-2.5 py-0.5 rounded border border-[#F59E0B]/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#F59E0B] animate-pulse" />
               UP NEXT · 10:30 AM → 11:20 AM
             </span>
 
-            <span className="text-xs font-mono font-semibold text-[#1c1d21] dark:text-[#f0eff4]">
+            <span className="text-[12px] font-mono font-medium text-[#18181A] dark:text-[#F3F4F6]">
               Starts in 45 min
             </span>
           </div>
 
           {/* Core Content: What & Where */}
           <div className="space-y-1.5">
-            <div className="text-xs font-mono font-bold text-[#787b84] dark:text-[#8d929e]">
+            <div className="text-[12px] font-mono font-medium text-[#686A70] dark:text-[#A0A3AB]">
               CS 106B · Programming Abstractions
             </div>
             <h2
               id="next-up-heading"
-              className="text-xl sm:text-2xl font-black text-[#1c1d21] dark:text-[#f0eff4] tracking-tight leading-snug"
+              className="text-[20px] sm:text-[22px] font-bold text-[#18181A] dark:text-[#F3F4F6] tracking-tight leading-[28px]"
             >
               Linked Lists, Pointers & Destructor Implementations
             </h2>
-            <p className="text-xs text-[#64676e] dark:text-[#9ba0a9] flex items-center gap-1.5 pt-0.5">
-              <MapPin className="w-3.5 h-3.5 text-[#9da0a6]" />
+            <p className="text-[14px] text-[#686A70] dark:text-[#A0A3AB] flex items-center gap-1.5 pt-0.5">
+              <MapPin className="w-3.5 h-3.5 text-[#96979B]" />
               <span>Hewlett Teaching Center 200</span>
               <span>·</span>
               <span>Prof. Keith Schwarz</span>
@@ -285,7 +287,7 @@ export const OverviewCockpit: React.FC = () => {
           </div>
 
           {/* Action Row: Strict Hierarchy (Primary -> Secondary) */}
-          <div className="flex items-center gap-3 mt-6 pt-5 border-t border-[#f2efe9] dark:border-[#20222d]">
+          <div className="flex items-center gap-3 mt-6 pt-5 border-t border-[#E7E5DF] dark:border-[#2A2D36]">
             <Button
               variant="primary"
               size="md"
@@ -298,7 +300,7 @@ export const OverviewCockpit: React.FC = () => {
                 setView('focus-timer');
               }}
               icon={<Flame className="w-4 h-4 fill-amber-400 text-amber-400" />}
-              className="font-bold text-xs px-5 shadow-xs"
+              className="font-bold text-xs px-5 shadow-xs bg-[#F59E0B] hover:bg-[#D97706] text-white border-transparent"
             >
               Start Focus Session
             </Button>
@@ -308,7 +310,7 @@ export const OverviewCockpit: React.FC = () => {
               size="md"
               onClick={() => setIsNextUpDetailsOpen(!isNextUpDetailsOpen)}
               icon={isNextUpDetailsOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-              className="text-xs font-semibold text-[#5a5d64] dark:text-[#9ba0a9]"
+              className="text-xs font-semibold text-[#686A70] dark:text-[#A0A3AB] border-[#E7E5DF] dark:border-[#2A2D36] hover:bg-[#FCFBF8] dark:hover:bg-[#1C1E24]"
             >
               {isNextUpDetailsOpen ? 'Hide Details' : 'View Details'}
             </Button>
@@ -316,32 +318,32 @@ export const OverviewCockpit: React.FC = () => {
 
           {/* Progressive Disclosure Panel */}
           {isNextUpDetailsOpen && (
-            <div className="mt-4 pt-4 border-t border-[#f4f1eb] dark:border-[#1e202a] text-xs space-y-2.5 animate-in fade-in duration-200">
+            <div className="mt-4 pt-4 border-t border-[#E7E5DF] dark:border-[#2A2D36] text-xs space-y-2.5 animate-in fade-in duration-200">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="p-3 rounded-xl bg-[#faf8f5] dark:bg-[#181a24] border border-[#e8e5df] dark:border-[#262836]">
-                  <span className="font-mono text-[10px] uppercase font-bold text-[#787b84] dark:text-[#8d929e] block">
+                <div className="p-3 rounded-xl bg-[#FCFBF8] dark:bg-[#1C1E24] border border-[#E7E5DF] dark:border-[#2A2D36]">
+                  <span className="font-mono text-[10px] uppercase font-semibold text-[#686A70] dark:text-[#A0A3AB] block">
                     Campus Transit Advisory
                   </span>
-                  <p className="text-[#1c1d21] dark:text-[#f0eff4] mt-0.5">
+                  <p className="text-[#18181A] dark:text-[#F3F4F6] mt-0.5">
                     15 min walk buffer recommended. Hewlett 200 doors open at 10:20 AM.
                   </p>
                 </div>
 
-                <div className="p-3 rounded-xl bg-[#faf8f5] dark:bg-[#181a24] border border-[#e8e5df] dark:border-[#262836]">
-                  <span className="font-mono text-[10px] uppercase font-bold text-[#787b84] dark:text-[#8d929e] block">
+                <div className="p-3 rounded-xl bg-[#FCFBF8] dark:bg-[#1C1E24] border border-[#E7E5DF] dark:border-[#2A2D36]">
+                  <span className="font-mono text-[10px] uppercase font-semibold text-[#686A70] dark:text-[#A0A3AB] block">
                     Durand Office Hours Status
                   </span>
-                  <p className="text-[#1c1d21] dark:text-[#f0eff4] mt-0.5">
+                  <p className="text-[#18181A] dark:text-[#F3F4F6] mt-0.5">
                     {cs106bCourse?.taQueue.studentsInLine || 4} students currently in queue (~12 min estimated wait).
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-1 text-[11px] text-[#787b84] dark:text-[#8d929e]">
+              <div className="flex items-center justify-between pt-1 text-[11px] text-[#96979B] dark:text-[#A0A3AB]">
                 <span>Slides, handout & starter code available on Canvas</span>
                 <button
                   onClick={() => setView('course-cs106b')}
-                  className="font-bold text-[#1c1d21] dark:text-white hover:underline flex items-center gap-1 cursor-pointer"
+                  className="font-semibold text-[#18181A] dark:text-white hover:underline flex items-center gap-1 cursor-pointer"
                 >
                   <span>Open CS 106B Course Portal</span>
                   <ExternalLink className="w-3 h-3" />
@@ -353,16 +355,16 @@ export const OverviewCockpit: React.FC = () => {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          3. RECOMMENDED NEXT ACTION (Intelligence Engine)
+          3. RECOMMENDED NEXT ACTION (Single Focus CTA)
          ───────────────────────────────────────────────────────────── */}
-      <section className="p-4 rounded-xl bg-[#f7f5ef] dark:bg-[#15161f] border border-[#e4dfd4] dark:border-[#222432] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+      <section className="p-4 rounded-xl bg-[#FCFBF8] dark:bg-[#15161A] border border-[#E7E5DF] dark:border-[#2A2D36] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
         <div className="flex items-start gap-2.5">
-          <Sparkles className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+          <Sparkles className="w-4 h-4 text-[#D97706] dark:text-[#F59E0B] shrink-0 mt-0.5" />
           <div>
-            <span className="font-mono uppercase font-bold text-[10px] text-amber-800 dark:text-amber-300 block tracking-wider">
+            <span className="font-mono uppercase font-semibold text-[10px] text-[#D97706] dark:text-[#F59E0B] block tracking-[0.06em]">
               RECOMMENDED NEXT
             </span>
-            <p className="text-[#1c1d21] dark:text-[#f0eff4] mt-0.5 font-medium">
+            <p className="text-[#18181A] dark:text-[#F3F4F6] mt-0.5 font-normal">
               Review CS 106B dynamic memory notes for 10 minutes before the 11:45 MATH 51 lecture.
             </p>
           </div>
@@ -373,7 +375,7 @@ export const OverviewCockpit: React.FC = () => {
             startDeepWork('t-1', 'Review Lecture Notes', 'CS 106B', 10);
             setView('focus-timer');
           }}
-          className="shrink-0 px-3 py-1.5 rounded-lg bg-[#1c1d21] dark:bg-white text-white dark:text-[#121316] font-semibold text-xs hover:opacity-90 transition-opacity cursor-pointer shadow-2xs"
+          className="shrink-0 px-3.5 py-1.5 rounded-lg bg-[#18181A] dark:bg-white text-white dark:text-[#18181A] font-semibold text-xs hover:bg-black dark:hover:bg-neutral-100 transition-colors cursor-pointer"
         >
           Start 10m review →
         </button>
@@ -383,55 +385,55 @@ export const OverviewCockpit: React.FC = () => {
           4. TODAY'S HORIZON: CONTINUOUS CHRONOLOGICAL RAIL
          ───────────────────────────────────────────────────────────── */}
       <section aria-label="Day Chronology">
-        <div className="flex items-center justify-between text-xs text-[#787b84] dark:text-[#8d929e] mb-2 font-mono">
-          <span className="font-bold uppercase tracking-wider text-[10.5px]">CHRONOLOGY</span>
+        <div className="flex items-center justify-between text-xs text-[#96979B] dark:text-[#A0A3AB] mb-2 font-mono">
+          <span className="font-semibold uppercase tracking-[0.06em] text-[10px]">CHRONOLOGY</span>
           <span className="text-[10px]">TIME → EVENT → CURRENT POSITION</span>
         </div>
 
         {/* Continuous Connected Horizontal Rail */}
-        <div className="relative py-3 px-2 sm:px-4 bg-white dark:bg-[#14151c] rounded-2xl border border-[#e8e5df] dark:border-[#22242f] shadow-2xs overflow-x-auto">
+        <div className="relative py-3 px-2 sm:px-4 bg-[#FFFFFF] dark:bg-[#15161A] rounded-xl border border-[#E7E5DF] dark:border-[#2A2D36] shadow-2xs overflow-x-auto">
           {/* Background Rail Line */}
-          <div className="absolute top-[28px] left-6 right-6 h-0.5 bg-[#e4dfd4] dark:bg-[#262836] -z-0" />
+          <div className="absolute top-[28px] left-6 right-6 h-0.5 bg-[#E7E5DF] dark:bg-[#2A2D36] -z-0" />
 
           <div className="flex items-start justify-between min-w-[520px] relative z-10">
             {/* 08:30 Focus */}
             <div className="flex flex-col items-center text-center w-24">
-              <span className="text-[11px] font-mono text-[#787b84] dark:text-[#8d929e]">08:30</span>
-              <div className="w-3.5 h-3.5 rounded-full bg-[#1c1d21] dark:bg-white border-2 border-white dark:border-[#14151c] shadow-xs my-1 flex items-center justify-center">
-                <Check className="w-2.5 h-2.5 text-white dark:text-[#14151c]" />
+              <span className="text-[11px] font-mono text-[#96979B] dark:text-[#A0A3AB]">08:30</span>
+              <div className="w-3.5 h-3.5 rounded-full bg-[#18181A] dark:bg-white border-2 border-white dark:border-[#15161A] shadow-xs my-1 flex items-center justify-center">
+                <Check className="w-2.5 h-2.5 text-white dark:text-[#18181A]" />
               </div>
-              <span className="text-xs font-medium text-[#787b84] dark:text-[#8d929e]">Peak Focus</span>
+              <span className="text-xs font-normal text-[#686A70] dark:text-[#A0A3AB]">Peak Focus</span>
             </div>
 
-            {/* 10:30 CS 106B (NOW) */}
+            {/* 10:30 CS 106B (NOW) - Single dominant signature orange */}
             <div className="flex flex-col items-center text-center w-24">
-              <span className="text-[11px] font-mono font-bold text-[#b45309] dark:text-[#fbbf24]">10:30</span>
-              <div className="w-4 h-4 rounded-full bg-amber-500 border-2 border-white dark:border-[#14151c] ring-3 ring-amber-400/40 my-1 animate-pulse" />
-              <span className="text-xs font-bold text-[#1c1d21] dark:text-white">CS 106B</span>
-              <span className="text-[9.5px] font-mono font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-1 rounded mt-0.5">
+              <span className="text-[11px] font-mono font-bold text-[#D97706] dark:text-[#F59E0B]">10:30</span>
+              <div className="w-4 h-4 rounded-full bg-[#F59E0B] border-2 border-white dark:border-[#15161A] ring-3 ring-[#F59E0B]/30 my-1 animate-pulse" />
+              <span className="text-xs font-semibold text-[#18181A] dark:text-white">CS 106B</span>
+              <span className="text-[9.5px] font-mono font-semibold uppercase tracking-wider text-[#D97706] dark:text-[#F59E0B] bg-[#FFF7E6] dark:bg-[#F59E0B]/20 px-1.5 py-0.2 rounded mt-0.5 border border-[#F59E0B]/30">
                 ● NOW
               </span>
             </div>
 
             {/* 11:45 MATH 51 */}
             <div className="flex flex-col items-center text-center w-24">
-              <span className="text-[11px] font-mono text-[#787b84] dark:text-[#8d929e]">11:45</span>
-              <div className="w-3 h-3 rounded-full bg-[#bbb7ad] dark:bg-[#383b4b] border-2 border-white dark:border-[#14151c] my-1.5" />
-              <span className="text-xs font-medium text-[#1c1d21] dark:text-[#f0eff4]">MATH 51</span>
+              <span className="text-[11px] font-mono text-[#96979B] dark:text-[#A0A3AB]">11:45</span>
+              <div className="w-3 h-3 rounded-full bg-[#E7E5DF] dark:bg-[#383B4B] border-2 border-white dark:border-[#15161A] my-1.5" />
+              <span className="text-xs font-normal text-[#18181A] dark:text-[#F3F4F6]">MATH 51</span>
             </div>
 
             {/* 14:00 P-Set 4 */}
             <div className="flex flex-col items-center text-center w-24">
-              <span className="text-[11px] font-mono text-[#787b84] dark:text-[#8d929e]">14:00</span>
-              <div className="w-3 h-3 rounded-full bg-[#bbb7ad] dark:bg-[#383b4b] border-2 border-white dark:border-[#14151c] my-1.5" />
-              <span className="text-xs font-medium text-[#1c1d21] dark:text-[#f0eff4]">P-Set 4</span>
+              <span className="text-[11px] font-mono text-[#96979B] dark:text-[#A0A3AB]">14:00</span>
+              <div className="w-3 h-3 rounded-full bg-[#E7E5DF] dark:bg-[#383B4B] border-2 border-white dark:border-[#15161A] my-1.5" />
+              <span className="text-xs font-normal text-[#18181A] dark:text-[#F3F4F6]">P-Set 4</span>
             </div>
 
             {/* 16:00 TA Queue */}
             <div className="flex flex-col items-center text-center w-24">
-              <span className="text-[11px] font-mono text-[#787b84] dark:text-[#8d929e]">16:00</span>
-              <div className="w-3 h-3 rounded-full bg-[#bbb7ad] dark:bg-[#383b4b] border-2 border-white dark:border-[#14151c] my-1.5" />
-              <span className="text-xs font-medium text-[#1c1d21] dark:text-[#f0eff4]">TA Queue</span>
+              <span className="text-[11px] font-mono text-[#96979B] dark:text-[#A0A3AB]">16:00</span>
+              <div className="w-3 h-3 rounded-full bg-[#E7E5DF] dark:bg-[#383B4B] border-2 border-white dark:border-[#15161A] my-1.5" />
+              <span className="text-xs font-normal text-[#18181A] dark:text-[#F3F4F6]">TA Queue</span>
             </div>
           </div>
         </div>
@@ -442,23 +444,23 @@ export const OverviewCockpit: React.FC = () => {
           (Clean dividers, no excessive nested card boxes)
          ───────────────────────────────────────────────────────────── */}
       <section aria-labelledby="schedule-heading" className="space-y-4">
-        <div className="flex items-center justify-between border-b border-[#ece8df] dark:border-[#22242f] pb-2">
+        <div className="flex items-center justify-between border-b border-[#E7E5DF] dark:border-[#2A2D36] pb-2">
           <div>
-            <h2 id="schedule-heading" className="text-base font-bold text-[#1c1d21] dark:text-[#f0eff4]">
+            <h2 id="schedule-heading" className="text-[18px] font-bold text-[#18181A] dark:text-[#F3F4F6] leading-[24px]">
               Today's Schedule
             </h2>
-            <p className="text-xs text-[#787b84] dark:text-[#8d929e]">
+            <p className="text-[12px] text-[#686A70] dark:text-[#A0A3AB] leading-[16px]">
               Unified chronological timeline of classes, problem sets, transit buffers and office hours
             </p>
           </div>
 
-          <span className="text-xs font-mono text-[#787b84] dark:text-[#8d929e]">
+          <span className="text-[12px] font-mono text-[#96979B] dark:text-[#A0A3AB]">
             {timeline.length} events
           </span>
         </div>
 
         {/* Clean Timeline List with subtle dividers */}
-        <div className="divide-y divide-[#ece8df] dark:divide-[#1f212c]">
+        <div className="divide-y divide-[#E7E5DF] dark:divide-[#2A2D36]">
           {timeline.map((entry) => {
             const isExpanded = expandedTimelineId === entry.id;
 
@@ -466,18 +468,18 @@ export const OverviewCockpit: React.FC = () => {
               <div
                 key={entry.id}
                 className={`py-3.5 sm:py-4 transition-colors ${
-                  entry.isCurrent ? 'bg-amber-50/30 dark:bg-amber-950/10 -mx-3 px-3 rounded-xl' : ''
+                  entry.isCurrent ? 'bg-[#FFF7E6]/60 dark:bg-[#F59E0B]/5 -mx-3 px-3 rounded-xl border border-[#F59E0B]/30' : ''
                 }`}
               >
                 <div className="flex items-start justify-between gap-4">
                   {/* Left: Time & Tag */}
                   <div className="flex items-start gap-4 min-w-0 flex-1">
                     <div className="w-14 sm:w-16 shrink-0 pt-0.5">
-                      <div className="font-mono text-xs font-bold text-[#1c1d21] dark:text-[#f0eff4]">
+                      <div className="font-mono text-xs font-semibold text-[#18181A] dark:text-[#F3F4F6]">
                         {entry.time}
                       </div>
                       {entry.endTime && (
-                        <div className="font-mono text-[10.5px] text-[#9da0a6] dark:text-[#676b76]">
+                        <div className="font-mono text-[11px] text-[#96979B] dark:text-[#6B7280]">
                           {entry.endTime}
                         </div>
                       )}
@@ -486,78 +488,74 @@ export const OverviewCockpit: React.FC = () => {
                     {/* Middle: Content */}
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2 flex-wrap mb-1">
-                        {/* Semantic Tag Chip */}
+                        {/* Disciplined Semantic Tag Chip - Neutral by default, Orange for focus */}
                         <span
-                          className={`text-[9.5px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.2 rounded ${
-                            entry.tag === 'CLASS'
-                              ? 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700'
-                              : entry.tag === 'TASK'
-                              ? 'bg-sky-50 dark:bg-sky-950/40 text-sky-800 dark:text-sky-300 border border-sky-200 dark:border-sky-800'
-                              : entry.tag === 'FOCUS'
-                              ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800'
-                              : entry.tag === 'OFFICE_HOURS'
-                              ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
-                              : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 border border-stone-200 dark:border-stone-700'
+                          className={`text-[10px] font-mono font-medium uppercase tracking-[0.05em] px-2 py-0.5 rounded ${
+                            entry.tag === 'FOCUS'
+                              ? 'bg-[#FFF7E6] dark:bg-[#F59E0B]/15 text-[#D97706] dark:text-[#F59E0B] border border-[#F59E0B]/30'
+                              : entry.tag === 'CLASS'
+                              ? 'bg-[#FCFBF8] dark:bg-[#1C1E24] text-[#18181A] dark:text-[#F3F4F6] border border-[#E7E5DF] dark:border-[#2A2D36]'
+                              : 'bg-[#FCFBF8] dark:bg-[#1C1E24] text-[#686A70] dark:text-[#A0A3AB] border border-[#E7E5DF] dark:border-[#2A2D36]'
                           }`}
                         >
                           {entry.tag}
                         </span>
 
                         {entry.courseCode && (
-                          <span className="text-[10.5px] font-mono font-semibold text-[#64676e] dark:text-[#9ba0a9]">
+                          <span className="text-[11px] font-mono font-medium text-[#686A70] dark:text-[#A0A3AB]">
                             {entry.courseCode}
                           </span>
                         )}
 
                         {entry.isCurrent && (
-                          <span className="text-[10px] font-mono font-bold text-amber-700 dark:text-amber-400 bg-amber-100/80 dark:bg-amber-950/60 px-1.5 rounded">
+                          <span className="text-[10px] font-mono font-bold text-[#D97706] dark:text-[#F59E0B] bg-[#FFF7E6] dark:bg-[#F59E0B]/20 px-1.5 rounded border border-[#F59E0B]/30">
                             ● NOW
                           </span>
                         )}
 
                         {entry.isCompleted && (
-                          <span className="text-[10.5px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-0.5">
+                          <span className="text-[11px] text-[#16A368] dark:text-[#10B981] font-semibold flex items-center gap-0.5">
                             ✓ Done
                           </span>
                         )}
                       </div>
 
                       <h3
-                        className={`text-sm sm:text-base font-bold text-[#1c1d21] dark:text-[#f0eff4] leading-snug ${
-                          entry.isCompleted ? 'line-through text-[#9da0a6] dark:text-[#676b76]' : ''
+                        className={`text-sm sm:text-base font-bold text-[#18181A] dark:text-[#F3F4F6] leading-snug ${
+                          entry.isCompleted ? 'line-through text-[#96979B] dark:text-[#6B7280]' : ''
                         }`}
                       >
                         {entry.title}
                       </h3>
 
                       {entry.subtitle && (
-                        <p className="text-xs text-[#64676e] dark:text-[#9ba0a9] mt-0.5">
+                        <p className="text-xs text-[#686A70] dark:text-[#A0A3AB] mt-0.5">
                           {entry.subtitle}
                         </p>
                       )}
 
                       {entry.location && (
-                        <p className="text-[11.5px] text-[#787b84] dark:text-[#8d929e] mt-1 flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-[#9da0a6]" />
+                        <p className="text-[12px] text-[#96979B] dark:text-[#A0A3AB] mt-1 flex items-center gap-1">
+                          <MapPin className="w-3 h-3 text-[#96979B]" />
                           <span>{entry.location}</span>
                         </p>
                       )}
 
                       {/* Progressive Disclosure: Details */}
                       {isExpanded && entry.details && (
-                        <div className="mt-3 p-3 rounded-xl bg-[#faf8f5] dark:bg-[#181924] border border-[#e8e5df] dark:border-[#262836] text-xs space-y-2 animate-in fade-in duration-150">
+                        <div className="mt-3 p-3.5 rounded-xl bg-[#FCFBF8] dark:bg-[#1C1E24] border border-[#E7E5DF] dark:border-[#2A2D36] text-xs space-y-2 animate-in fade-in duration-150">
                           {entry.details.estimatedMinutes && (
-                            <div className="text-[11px] font-mono text-[#787b84] dark:text-[#8d929e]">
-                              Estimated duration: <strong className="text-[#1c1d21] dark:text-white">{entry.details.estimatedMinutes} minutes</strong>
+                            <div className="text-[11px] font-mono text-[#686A70] dark:text-[#A0A3AB]">
+                              Estimated duration: <strong className="text-[#18181A] dark:text-white font-semibold">{entry.details.estimatedMinutes} minutes</strong>
                             </div>
                           )}
 
                           {entry.details.subtasks && entry.details.subtasks.length > 0 && (
                             <div>
-                              <span className="font-mono text-[10px] uppercase font-bold text-[#787b84] dark:text-[#8d929e] block mb-1">
+                              <span className="font-mono text-[10px] uppercase font-semibold text-[#686A70] dark:text-[#A0A3AB] block mb-1">
                                 Action Items:
                               </span>
-                              <ul className="list-disc list-inside space-y-0.5 text-xs text-[#52555d] dark:text-[#a0a5b2]">
+                              <ul className="list-disc list-inside space-y-0.5 text-xs text-[#686A70] dark:text-[#A0A3AB]">
                                 {entry.details.subtasks.map((st, i) => (
                                   <li key={i}>{st}</li>
                                 ))}
@@ -567,13 +565,13 @@ export const OverviewCockpit: React.FC = () => {
 
                           {entry.details.autograder && (
                             <div className="flex items-center gap-2 pt-1">
-                              <span className="text-[10.5px] font-mono bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800">
+                              <span className="text-[11px] font-mono bg-emerald-50 dark:bg-emerald-950/40 text-[#16A368] dark:text-[#10B981] px-2 py-0.5 rounded border border-[#16A368]/30 font-medium">
                                 {entry.details.autograder.passing}/{entry.details.autograder.total} Tests Passing
                               </span>
                               {entry.details.autograder.leaks > 0 && (
                                 <button
                                   onClick={() => openAutograder(entry.taskId!)}
-                                  className="text-[10.5px] font-mono bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400 px-2 py-0.5 rounded border border-rose-200 dark:border-rose-900 hover:underline cursor-pointer flex items-center gap-1"
+                                  className="text-[11px] font-mono bg-rose-50 dark:bg-rose-950/40 text-[#DC5A63] dark:text-rose-400 px-2 py-0.5 rounded border border-[#DC5A63]/30 hover:underline cursor-pointer flex items-center gap-1 font-medium"
                                 >
                                   <Terminal className="w-3 h-3" />
                                   <span>Inspect 1 Valgrind Leak →</span>
@@ -584,12 +582,12 @@ export const OverviewCockpit: React.FC = () => {
 
                           {entry.details.taQueueInfo && (
                             <div className="pt-1 flex items-center justify-between">
-                              <span className="text-[11px] text-[#64676e] dark:text-[#9ba0a9]">
+                              <span className="text-[11px] text-[#686A70] dark:text-[#A0A3AB]">
                                 {entry.details.taQueueInfo}
                               </span>
                               <button
                                 onClick={() => joinTaQueue('cs106b')}
-                                className="font-bold text-xs text-[#1c1d21] dark:text-white hover:underline cursor-pointer"
+                                className="font-semibold text-xs text-[#18181A] dark:text-white hover:underline cursor-pointer"
                               >
                                 Join Durand Queue →
                               </button>
@@ -607,7 +605,7 @@ export const OverviewCockpit: React.FC = () => {
                         type="checkbox"
                         checked={entry.isCompleted}
                         onChange={() => toggleTask(entry.taskId!)}
-                        className="w-4 h-4 rounded border-[#d5d0c7] dark:border-[#383b48] text-[#1c1d21] dark:text-white focus:ring-0 cursor-pointer accent-[#1c1d21] dark:accent-white"
+                        className="w-4 h-4 rounded border-[#E7E5DF] dark:border-[#2A2D36] text-[#18181A] dark:text-white focus:ring-0 cursor-pointer accent-[#18181A] dark:accent-white"
                         title="Mark task completed"
                       />
                     )}
@@ -618,7 +616,7 @@ export const OverviewCockpit: React.FC = () => {
                           startDeepWork(entry.taskId!, entry.title, entry.courseCode);
                           setView('focus-timer');
                         }}
-                        className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#1c1d21] dark:bg-white text-white dark:text-[#121316] hover:opacity-90 transition-opacity cursor-pointer shadow-2xs"
+                        className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#F59E0B] hover:bg-[#D97706] text-white transition-colors cursor-pointer shadow-2xs"
                       >
                         Focus
                       </button>
@@ -629,7 +627,7 @@ export const OverviewCockpit: React.FC = () => {
                         onClick={() =>
                           setExpandedTimelineId(isExpanded ? null : entry.id)
                         }
-                        className="p-1 rounded-lg text-[#787b84] dark:text-[#8d929e] hover:text-[#1c1d21] dark:hover:text-white hover:bg-[#f2efe9] dark:hover:bg-[#1a1b24] transition-colors cursor-pointer"
+                        className="p-1 rounded-lg text-[#96979B] dark:text-[#A0A3AB] hover:text-[#18181A] dark:hover:text-white hover:bg-[#FCFBF8] dark:hover:bg-[#1C1E24] transition-colors cursor-pointer"
                         title={isExpanded ? 'Collapse' : 'Expand details'}
                       >
                         {isExpanded ? (
@@ -649,85 +647,87 @@ export const OverviewCockpit: React.FC = () => {
 
       {/* ─────────────────────────────────────────────────────────────
           6. LEVEL 3: HOW AM I DOING? (Quiet, single-row KPI summary)
+             - Clear anchor numbers + clean explanatory text underneath
+             - No rainbow metrics, neutral + semantic green only
          ───────────────────────────────────────────────────────────── */}
       <section aria-label="Weekly Academic Performance" className="space-y-2">
-        <div className="flex items-center justify-between text-xs text-[#787b84] dark:text-[#8d929e] font-mono">
-          <span className="font-bold uppercase tracking-wider text-[10.5px]">THIS WEEK</span>
+        <div className="flex items-center justify-between text-xs text-[#96979B] dark:text-[#A0A3AB] font-mono">
+          <span className="font-semibold uppercase tracking-[0.06em] text-[10px]">THIS WEEK</span>
           <span>PACE: +1.2H AHEAD</span>
         </div>
 
         {/* Compact Single Horizontal Module */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#14151c] border border-[#e8e5df] dark:border-[#22242f] shadow-2xs grid grid-cols-2 sm:grid-cols-4 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-[#f0ede6] dark:divide-[#22242f]">
+        <div className="p-4 sm:p-5 rounded-xl bg-[#FFFFFF] dark:bg-[#15161A] border border-[#E7E5DF] dark:border-[#2A2D36] shadow-2xs grid grid-cols-2 sm:grid-cols-4 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-[#E7E5DF] dark:divide-[#2A2D36]">
           {/* Focus Hours */}
           <div className="pt-2 sm:pt-0 sm:px-3 first:pl-0">
-            <span className="text-[10.5px] font-mono uppercase font-bold text-[#787b84] dark:text-[#8d929e] block">
+            <span className="text-[11px] font-mono uppercase font-semibold text-[#686A70] dark:text-[#A0A3AB] block">
               Study Focus
             </span>
-            <div className="text-xl font-bold font-mono text-[#1c1d21] dark:text-[#f0eff4] mt-0.5">
+            <div className="text-[22px] font-bold font-mono text-[#18181A] dark:text-[#F3F4F6] mt-0.5">
               18.5h
             </div>
-            <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold mt-0.5">
-              77% of 24h target
+            <p className="text-[12px] text-[#686A70] dark:text-[#A0A3AB] font-normal mt-0.5">
+              Focused this week
             </p>
           </div>
 
           {/* Attendance Health */}
           <div className="pt-2 sm:pt-0 sm:px-3">
-            <span className="text-[10.5px] font-mono uppercase font-bold text-[#787b84] dark:text-[#8d929e] block">
+            <span className="text-[11px] font-mono uppercase font-semibold text-[#686A70] dark:text-[#A0A3AB] block">
               Attendance
             </span>
-            <div className="text-xl font-bold font-mono text-[#1c1d21] dark:text-[#f0eff4] mt-0.5">
+            <div className="text-[22px] font-bold font-mono text-[#18181A] dark:text-[#F3F4F6] mt-0.5">
               94.1%
             </div>
-            <p className="text-[11px] text-sky-600 dark:text-sky-400 font-semibold mt-0.5">
-              Safe ✓ (1 buffer remaining)
+            <p className="text-[12px] text-[#16A368] dark:text-[#10B981] font-medium mt-0.5">
+              Safe · 1 cushion remaining
             </p>
           </div>
 
           {/* Term GPA */}
           <div className="pt-2 sm:pt-0 sm:px-3">
-            <span className="text-[10.5px] font-mono uppercase font-bold text-[#787b84] dark:text-[#8d929e] block">
+            <span className="text-[11px] font-mono uppercase font-semibold text-[#686A70] dark:text-[#A0A3AB] block">
               Academic GPA
             </span>
-            <div className="text-xl font-bold font-mono text-[#1c1d21] dark:text-[#f0eff4] mt-0.5">
+            <div className="text-[22px] font-bold font-mono text-[#18181A] dark:text-[#F3F4F6] mt-0.5">
               3.88
             </div>
-            <p className="text-[11px] text-indigo-600 dark:text-indigo-400 font-semibold mt-0.5">
-              Dean's List standing ★
+            <p className="text-[12px] text-[#686A70] dark:text-[#A0A3AB] font-normal mt-0.5">
+              Dean's List · Honors
             </p>
           </div>
 
           {/* Focus Readiness with Informational Tooltip */}
           <div className="pt-2 sm:pt-0 sm:px-3 last:pr-0 relative">
             <div className="flex items-center gap-1">
-              <span className="text-[10.5px] font-mono uppercase font-bold text-[#787b84] dark:text-[#8d929e] block">
+              <span className="text-[11px] font-mono uppercase font-semibold text-[#686A70] dark:text-[#A0A3AB] block">
                 Focus Readiness
               </span>
               <button
                 type="button"
                 onClick={() => setShowReadinessTooltip(!showReadinessTooltip)}
-                className="text-[#9da0a6] hover:text-[#1c1d21] dark:hover:text-white cursor-pointer"
+                className="text-[#96979B] hover:text-[#18181A] dark:hover:text-white cursor-pointer"
                 title="What does this mean?"
               >
                 <Info className="w-3 h-3" />
               </button>
             </div>
 
-            <div className="text-xl font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-0.5">
+            <div className="text-[22px] font-bold font-mono text-[#16A368] dark:text-[#10B981] mt-0.5">
               High ↑
             </div>
-            <p className="text-[11px] text-[#787b84] dark:text-[#8d929e] mt-0.5">
-              Best window for deep work
+            <p className="text-[12px] text-[#686A70] dark:text-[#A0A3AB] mt-0.5">
+              Peak deep work window
             </p>
 
             {/* Explanatory Tooltip Popover */}
             {showReadinessTooltip && (
-              <div className="absolute bottom-full right-0 mb-2 w-64 p-3 bg-white dark:bg-[#1b1c26] rounded-xl border border-[#e8e5df] dark:border-[#282a3a] shadow-calm-lg text-xs z-30 animate-in fade-in duration-150">
-                <p className="text-[#1c1d21] dark:text-[#f0eff4] font-semibold mb-1">
+              <div className="absolute bottom-full right-0 mb-2 w-64 p-3 bg-[#FFFFFF] dark:bg-[#1C1E24] rounded-xl border border-[#E7E5DF] dark:border-[#2A2D36] shadow-calm-lg text-xs z-30 animate-in fade-in duration-150">
+                <p className="text-[#18181A] dark:text-[#F3F4F6] font-semibold mb-1">
                   Borbély Alertness Model
                 </p>
-                <p className="text-[#64676e] dark:text-[#9ba0a9] leading-relaxed text-[11px]">
-                  Based on your chronotype, time awake, and academic schedule. Process C harmonic peak provides optimal mental acuity between 1:30 and 5:30 PM.
+                <p className="text-[#686A70] dark:text-[#A0A3AB] leading-relaxed text-[11px]">
+                  Based on chronotype, sleep schedule, and cognitive load. Peak mental acuity is sustained between 1:30 and 5:30 PM today.
                 </p>
               </div>
             )}
@@ -736,24 +736,24 @@ export const OverviewCockpit: React.FC = () => {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          7. LEVEL 4: OPTIONAL OPTIMIZATIONS (Actionable Recommendation)
+          7. LEVEL 4: OPTIONAL OPTIMIZATIONS (Study Window)
          ───────────────────────────────────────────────────────────── */}
       <section aria-label="Study Window Recommendation">
-        <div className="p-5 rounded-2xl bg-gradient-to-r from-amber-50/70 via-white to-white dark:from-amber-950/20 dark:via-[#151620] dark:to-[#14151c] border border-amber-200/90 dark:border-amber-900/60 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="p-5 rounded-xl bg-[#FCFBF8] dark:bg-[#15161A] border border-[#E7E5DF] dark:border-[#2A2D36] shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
-            <span className="text-[10px] font-mono uppercase font-bold text-amber-800 dark:text-amber-300 tracking-wider flex items-center gap-1.5">
-              <Zap className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-              YOUR BEST STUDY WINDOW TODAY
+            <span className="text-[10px] font-mono uppercase font-semibold text-[#D97706] dark:text-[#F59E0B] tracking-[0.06em] flex items-center gap-1.5">
+              <Zap className="w-3.5 h-3.5 text-[#F59E0B]" />
+              OPTIMAL STUDY WINDOW TODAY
             </span>
 
-            <div className="text-lg font-bold text-[#1c1d21] dark:text-[#f0eff4]">
+            <div className="text-[18px] font-bold text-[#18181A] dark:text-[#F3F4F6] leading-[24px]">
               1:30 PM — 5:30 PM
             </div>
 
-            <p className="text-xs text-[#64676e] dark:text-[#9ba0a9]">
-              <strong className="text-[#1c1d21] dark:text-white font-semibold">Recommended:</strong> P-Set 4 · Priority Queue Debugging.
-              <span className="block text-[11px] text-[#787b84] dark:text-[#8d929e] mt-0.5">
-                Why: Your focus quality is typically highest in this period and you have no lectures scheduled.
+            <p className="text-xs text-[#686A70] dark:text-[#A0A3AB]">
+              <strong className="text-[#18181A] dark:text-white font-semibold">Recommended:</strong> P-Set 4 · Priority Queue Debugging.
+              <span className="block text-[11px] text-[#96979B] dark:text-[#A0A3AB] mt-0.5">
+                Why: Peak alertness window with no lecture overlap.
               </span>
             </p>
           </div>
@@ -763,8 +763,8 @@ export const OverviewCockpit: React.FC = () => {
               variant="primary"
               size="md"
               onClick={handlePlanRecommendedSession}
-              icon={<CalendarDays className="w-4 h-4 text-amber-400" />}
-              className="text-xs font-bold px-4 py-2"
+              icon={<CalendarDays className="w-4 h-4 text-white" />}
+              className="text-xs font-bold px-4 py-2 bg-[#F59E0B] hover:bg-[#D97706] text-white border-transparent"
             >
               Plan this session
             </Button>
@@ -772,7 +772,7 @@ export const OverviewCockpit: React.FC = () => {
         </div>
 
         {plannedNotice && (
-          <div className="mt-2 p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-xs font-medium text-emerald-800 dark:text-emerald-300 flex items-center gap-2 animate-in fade-in duration-200">
+          <div className="mt-2 p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-[#16A368]/30 text-xs font-medium text-[#16A368] dark:text-[#10B981] flex items-center gap-2 animate-in fade-in duration-200">
             <CheckCircle2 className="w-4 h-4" />
             <span>P-Set 4 deep focus session has been scheduled from 1:30 PM to 3:30 PM in your timetable!</span>
           </div>
@@ -782,13 +782,13 @@ export const OverviewCockpit: React.FC = () => {
       {/* ─────────────────────────────────────────────────────────────
           8. AMBIENT SOUNDSCAPE UTILITY (Quiet, Minimalist Dock)
          ───────────────────────────────────────────────────────────── */}
-      <section className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl border border-[#ece8df] dark:border-[#22242f] bg-[#faf8f5] dark:bg-[#121319] text-xs">
+      <section className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl border border-[#E7E5DF] dark:border-[#2A2D36] bg-[#FCFBF8] dark:bg-[#15161A] text-xs">
         <div className="flex items-center gap-2">
-          <Volume2 className="w-3.5 h-3.5 text-[#787b84] dark:text-[#8d929e]" />
-          <span className="font-semibold text-[#1c1d21] dark:text-[#f0eff4]">
+          <Volume2 className="w-3.5 h-3.5 text-[#96979B] dark:text-[#A0A3AB]" />
+          <span className="font-semibold text-[#18181A] dark:text-[#F3F4F6]">
             Focus Audio Ambience
           </span>
-          <span className="text-[#787b84] dark:text-[#8d929e]">• Procedural sound generator</span>
+          <span className="text-[#96979B] dark:text-[#A0A3AB]">• Procedural sound generator</span>
         </div>
 
         <div className="flex items-center gap-1.5">
@@ -808,8 +808,8 @@ export const OverviewCockpit: React.FC = () => {
                 }}
                 className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors cursor-pointer ${
                   isActive
-                    ? 'bg-[#1c1d21] dark:bg-white text-white dark:text-[#121316] font-semibold'
-                    : 'bg-white dark:bg-[#1b1c26] text-[#787b84] dark:text-[#8d929e] hover:text-[#1c1d21] dark:hover:text-white border border-[#e4dfd4] dark:border-[#252735]'
+                    ? 'bg-[#18181A] dark:bg-white text-white dark:text-[#18181A] font-semibold'
+                    : 'bg-[#FFFFFF] dark:bg-[#1C1E24] text-[#686A70] dark:text-[#A0A3AB] hover:text-[#18181A] dark:hover:text-white border border-[#E7E5DF] dark:border-[#2A2D36]'
                 }`}
               >
                 {mode.label}
