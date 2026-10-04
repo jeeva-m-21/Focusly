@@ -14,6 +14,7 @@ import { FloatingFocusDock } from './components/layout/FloatingFocusDock';
 import { CommandPalette } from './components/command/CommandPalette';
 import { QuickBlockModal } from './components/command/QuickBlockModal';
 import { AutograderModal } from './components/debugger/AutograderModal';
+import { VtopSyncModal } from './components/vtop/VtopSyncModal';
 import { cn } from './utils/cn';
 
 // Features
@@ -195,6 +196,9 @@ export const App: React.FC = () => {
 
       {/* Interactive Valgrind & Gradescope Debugger Modal */}
       <AutograderModal />
+
+      {/* College Portal (VTOP) Sync & Captcha Modal */}
+      <VtopSyncModal />
     </div>
   );
 };

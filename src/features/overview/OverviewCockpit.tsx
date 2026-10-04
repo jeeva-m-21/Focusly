@@ -69,7 +69,9 @@ export const OverviewCockpit: React.FC = () => {
     setQuickBlockModal,
     addScheduleBlock,
     activeDeepWork,
-    setAmbientSound
+    setAmbientSound,
+    openVtopSyncModal,
+    vtopLastSyncedAt
   } = useFocusStore();
 
   // State for progressive disclosure
@@ -241,10 +243,16 @@ export const OverviewCockpit: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-2 self-start sm:self-auto">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-medium bg-[#FCFBF8] dark:bg-[#1C1E24] text-[#686A70] dark:text-[#A0A3AB] border border-[#E7E5DF] dark:border-[#2A2D36]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#16A368]" />
-            Live Sync · 10:45 AM
-          </span>
+          <button
+            onClick={openVtopSyncModal}
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-medium bg-[#FCFBF8] dark:bg-[#1C1E24] text-[#686A70] dark:text-[#A0A3AB] border border-[#E7E5DF] dark:border-[#2A2D36] hover:border-[#F59E0B] transition-colors cursor-pointer group shadow-2xs"
+            title="Click to sync timetable, courses, and attendance directly from VTOP"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#16A368] focus-pulse-node" />
+            <span className="group-hover:text-[#18181A] dark:group-hover:text-white">
+              {vtopLastSyncedAt ? 'VTOP Synced' : 'Sync College Portal (VTOP)'}
+            </span>
+          </button>
         </div>
       </header>
 

@@ -24,7 +24,7 @@ import { FocuslySymbol } from '../../components/brand/FocuslyLogo';
 export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
   initialMode = 'login'
 }) => {
-  const { setView, updateUser, resetToDemoAccount, theme, toggleTheme } = useFocusStore();
+  const { setView, updateUser, resetToDemoAccount, theme, toggleTheme, openVtopSyncModal } = useFocusStore();
 
   const [isLogin, setIsLogin] = useState(initialMode === 'login');
   const [showPassword, setShowPassword] = useState(false);
@@ -207,10 +207,34 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
         <div className="space-y-2 mb-4">
           <button
             type="button"
-            onClick={() => handleTriggerSSO('stanford')}
-            className="w-full flex items-center justify-center gap-2.5 px-4 py-2.5 border border-[#e8e5df] dark:border-[#262836] bg-[#faf8f5] dark:bg-[#181a23] hover:bg-[#f3f0e8] dark:hover:bg-[#202230] rounded-xl text-[#1c1d21] dark:text-[#f0eff4] text-xs font-semibold shadow-2xs transition-all cursor-pointer group"
+            onClick={openVtopSyncModal}
+            className="w-full flex items-center justify-between px-3.5 py-2.5 border border-[#F59E0B]/40 bg-[#FFF7E6]/70 dark:bg-[#F59E0B]/10 hover:bg-[#FFF7E6] dark:hover:bg-[#F59E0B]/20 rounded-xl text-[#18181A] dark:text-[#F3F4F6] text-xs font-semibold shadow-2xs transition-all cursor-pointer group"
           >
-            <div className="w-4 h-4 rounded-full bg-[#8c1515] text-white flex items-center justify-center text-[9px] font-bold shadow-2xs">
+            <div className="flex items-center gap-2.5">
+              <div className="w-5 h-5 rounded-md bg-[#F59E0B] text-white flex items-center justify-center shadow-xs">
+                <School className="w-3 h-3" />
+              </div>
+              <div className="text-left">
+                <div className="flex items-center gap-1.5">
+                  <span>Connect College Portal (VTOP)</span>
+                  <span className="text-[9px] font-mono uppercase bg-[#F59E0B] text-white px-1.5 py-0.2 rounded font-bold">
+                    Direct Sync
+                  </span>
+                </div>
+                <p className="text-[10px] text-[#686A70] dark:text-[#A0A3AB] font-normal">
+                  Import timetable, registered slots & attendance
+                </p>
+              </div>
+            </div>
+            <ArrowRight className="w-3.5 h-3.5 text-[#F59E0B] group-hover:translate-x-0.5 transition-transform" />
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleTriggerSSO('stanford')}
+            className="w-full flex items-center justify-center gap-2.5 px-4 py-2 border border-[#E7E5DF] dark:border-[#262836] bg-[#FCFBF8] dark:bg-[#181A23] hover:bg-[#F7F6F2] dark:hover:bg-[#202230] rounded-xl text-[#18181A] dark:text-[#F0EFF4] text-xs font-medium shadow-2xs transition-all cursor-pointer group"
+          >
+            <div className="w-4 h-4 rounded-full bg-[#8C1515] text-white flex items-center justify-center text-[9px] font-bold shadow-2xs">
               S
             </div>
             <span>Continue with Stanford Cardinal Key / SSO</span>
@@ -219,9 +243,9 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
           <button
             type="button"
             onClick={() => handleTriggerSSO('google')}
-            className="w-full flex items-center justify-center gap-2.5 px-4 py-2.5 border border-[#e8e5df] dark:border-[#262836] bg-[#faf8f5] dark:bg-[#181a23] hover:bg-[#f3f0e8] dark:hover:bg-[#202230] rounded-xl text-[#1c1d21] dark:text-[#f0eff4] text-xs font-medium shadow-2xs transition-all cursor-pointer"
+            className="w-full flex items-center justify-center gap-2.5 px-4 py-2 border border-[#E7E5DF] dark:border-[#262836] bg-[#FCFBF8] dark:bg-[#181A23] hover:bg-[#F7F6F2] dark:hover:bg-[#202230] rounded-xl text-[#18181A] dark:text-[#F0EFF4] text-xs font-medium shadow-2xs transition-all cursor-pointer"
           >
-            <svg className="w-4 h-4" viewBox="0 0 24 24">
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
               <path
                 fill="#4285F4"
                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"

@@ -28,6 +28,8 @@ import {
 import { soundscapes } from '../utils/soundscapes';
 import { optimizeStudySchedule } from '../algorithms/scheduleOptimizer';
 import { calculateSM2, ReviewGrade } from '../algorithms/spacedRepetition';
+import { VtopHarvestedData } from '../services/vtop/vtopTypes';
+import { adaptVtopDataToFocusly } from '../services/vtop/vtopAdapter';
 
 export type ActiveView =
   | 'auth-login'
@@ -147,6 +149,13 @@ interface FocusStore {
 
   // TA Queue
   joinTaQueue: (courseId: string) => void;
+
+  // VTOP College Integration
+  isVtopSyncModalOpen: boolean;
+  vtopLastSyncedAt: string | null;
+  openVtopSyncModal: () => void;
+  closeVtopSyncModal: () => void;
+  hydrateFromVtop: (data: VtopHarvestedData) => void;
 
   // Deep Work Engine
   startDeepWork: (taskId?: string, taskTitle?: string, courseCode?: string, durationMinutes?: number) => void;
@@ -316,6 +325,25 @@ export const useFocusStore = create<FocusStore>()(
       setCommandPalette: (isOpen) => set({ isCommandPaletteOpen: isOpen }),
       setQuickBlockModal: (isOpen) => set({ isQuickBlockModalOpen: isOpen }),
       setSelectedCourseId: (id) => set({ selectedCourseId: id }),
+
+      // VTOP College Integration State & Actions
+      isVtopSyncModalOpen: false,
+      vtopLastSyncedAt: null,
+      openVtopSyncModal: () => set({ isVtopSyncModalOpen: true }),
+      closeVtopSyncModal: () => set({ isVtopSyncModalOpen: false }),
+
+      hydrateFromVtop: (data: VtopHarvestedData) => {
+        const { profile, courses, scheduleBlocks } = adaptVtopDataToFocusly(data);
+        set((state) => ({
+          user: { ...state.user, ...profile },
+          courses: courses.length > 0 ? courses : state.courses,
+          scheduleBlocks: scheduleBlocks.length > 0 ? scheduleBlocks : state.scheduleBlocks,
+          selectedCourseId: courses[0]?.id || state.selectedCourseId,
+          vtopLastSyncedAt: data.syncedAt,
+          isVtopSyncModalOpen: false,
+          currentView: 'overview'
+        }));
+      },
 
       updateUser: (profile) =>
         set((state) => ({

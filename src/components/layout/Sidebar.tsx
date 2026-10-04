@@ -13,7 +13,8 @@ import {
   BarChart3,
   Settings,
   LogOut,
-  X
+  X,
+  School
 } from 'lucide-react';
 import { useFocusStore, ActiveView } from '../../store/useFocusStore';
 import { cn } from '../../utils/cn';
@@ -27,7 +28,8 @@ export const Sidebar: React.FC = () => {
     tasks,
     activeDeepWork,
     isMobileMenuOpen,
-    setMobileMenuOpen
+    setMobileMenuOpen,
+    openVtopSyncModal
   } = useFocusStore();
 
   const criticalTasksCount = tasks.filter((t) => t.autograder && t.autograder.valgrindLeaks > 0).length;
@@ -271,6 +273,13 @@ export const Sidebar: React.FC = () => {
           </div>
           
           <div className="flex items-center gap-1 shrink-0 ml-1">
+            <button
+              onClick={openVtopSyncModal}
+              title="Connect & Sync College Portal (VTOP)"
+              className="p-1.5 rounded-lg text-[#96979B] hover:text-[#F59E0B] dark:hover:text-[#F59E0B] hover:bg-[#FFF7E6] dark:hover:bg-[#F59E0B]/10 transition-colors cursor-pointer"
+            >
+              <School className="w-3.5 h-3.5" />
+            </button>
             <button
               onClick={() => handleSelectView('settings')}
               title="Settings & Preferences"

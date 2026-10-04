@@ -15,7 +15,8 @@ import {
   Volume2,
   Sparkles,
   Footprints,
-  Bike
+  Bike,
+  School
 } from 'lucide-react';
 import { useFocusStore } from '../../store/useFocusStore';
 import { Button } from '../../components/common/Button';
@@ -32,7 +33,9 @@ export const SettingsView: React.FC = () => {
     setSoundMixerVolume,
     setView,
     resetToDemoAccount,
-    setOnboardingStep
+    setOnboardingStep,
+    openVtopSyncModal,
+    vtopLastSyncedAt
   } = useFocusStore();
 
   const [name, setName] = useState(user.name);
@@ -107,6 +110,51 @@ export const SettingsView: React.FC = () => {
 
       {/* PWA Mobile & Desktop App Install Banner */}
       <PwaInstallPrompt />
+
+      {/* College Portal (VTOP) Integration Card */}
+      <Card className="bg-[#FFFFFF] dark:bg-[#15161A] border border-[#E7E5DF] dark:border-[#2A2D36] shadow-xs">
+        <CardHeader
+          title={
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-md bg-[#FFF7E6] dark:bg-[#F59E0B]/10 flex items-center justify-center border border-[#F59E0B]/20">
+                <School className="w-3.5 h-3.5 text-[#F59E0B]" />
+              </div>
+              <span className="font-bold text-[#18181A] dark:text-[#F3F4F6]">
+                College Portal Sync (VTOP)
+              </span>
+            </div>
+          }
+          subtitle="Direct reverse-engineered integration with college database. Automatically extracts registered courses, weekly time slots, campus room venues, and calculates live 75% attendance cushions."
+        />
+        <CardBody className="space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-[#FCFBF8] dark:bg-[#1C1E24] border border-[#E7E5DF] dark:border-[#2A2D36]">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold text-[#18181A] dark:text-[#F3F4F6]">
+                  Portal Connection Status:
+                </span>
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded font-medium bg-emerald-50 dark:bg-emerald-950/40 text-[#16A368] border border-[#16A368]/30">
+                  {vtopLastSyncedAt ? `Active Sync (${new Date(vtopLastSyncedAt).toLocaleDateString()})` : 'Ready to Connect'}
+                </span>
+              </div>
+              <p className="text-[11px] text-[#686A70] dark:text-[#A0A3AB] mt-0.5">
+                Target Gateway: <code className="font-mono text-[#18181A] dark:text-white">vtopcc.vit.ac.in</code> with live Captcha challenge.
+              </p>
+            </div>
+
+            <Button
+              type="button"
+              variant="primary"
+              size="sm"
+              onClick={openVtopSyncModal}
+              className="text-xs font-semibold bg-[#F59E0B] hover:bg-[#D97706] text-white border-transparent shrink-0"
+              icon={<School className="w-3.5 h-3.5" />}
+            >
+              {vtopLastSyncedAt ? 'Re-sync Portal Data' : 'Connect & Import Records'}
+            </Button>
+          </div>
+        </CardBody>
+      </Card>
 
       {/* Interactive Flow Demonstration & Auth Suite */}
       <Card className="bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent dark:from-amber-950/30 dark:via-amber-950/10 border border-amber-200 dark:border-amber-900/60 shadow-xs">
