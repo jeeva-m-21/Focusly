@@ -258,7 +258,7 @@ export const OverviewCockpit: React.FC = () => {
             Good morning, {user.name.split(' ')[0]}
           </h1>
           <p className="text-[12px] text-[#686A70] dark:text-[#A0A3AB] mt-0.5 font-normal leading-[16px]">
-            Thursday · October 24 · Stanford University · Fall '24 Week 5
+            Thursday · Day 1 · {user.institution || 'VIT Vellore'} · {user.term || 'Winter Semester 2025-26'}
           </p>
         </div>
 

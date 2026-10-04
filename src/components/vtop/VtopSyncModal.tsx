@@ -17,10 +17,21 @@ import {
 import { useFocusStore } from '../../store/useFocusStore';
 import { vtopClient } from '../../services/vtop/vtopClient';
 import { Button } from '../common/Button';
+import { AVAILABLE_SEMESTERS } from '../../services/vtop/vtopTypes';
 import { FocuslySymbol } from '../brand/FocuslyLogo';
+import { cn } from '../../utils/cn';
 
 export const VtopSyncModal: React.FC = () => {
   const { isVtopSyncModalOpen, closeVtopSyncModal, hydrateFromVtop } = useFocusStore();
+
+  const [syncStep, setSyncStep] = useState<'credentials' | 'authenticating' | 'select_semester' | 'syncing'>('credentials');
+  const [selectedSemesterCode, setSelectedSemesterCode] = useState('WS202526');
+  const [authenticatedStudent, setAuthenticatedStudent] = useState<{
+    name: string;
+    regNo: string;
+    branch: string;
+    campus: string;
+  } | null>(null);
 
   const [regNo, setRegNo] = useState('22BCE1042');
   const [password, setPassword] = useState('••••••••••••');
@@ -37,6 +48,7 @@ export const VtopSyncModal: React.FC = () => {
   // Load fresh captcha when modal opens
   useEffect(() => {
     if (isVtopSyncModalOpen) {
+      setSyncStep('credentials');
       loadFreshCaptcha();
     }
   }, [isVtopSyncModalOpen]);
@@ -55,7 +67,7 @@ export const VtopSyncModal: React.FC = () => {
     }
   };
 
-  const handleStartSync = async (e: React.FormEvent) => {
+  const handleStartAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!regNo.trim()) {
       setSyncError('Please enter your registration number.');
@@ -71,17 +83,44 @@ export const VtopSyncModal: React.FC = () => {
     }
 
     setSyncError(null);
+    setSyncStep('authenticating');
+
+    try {
+      const authResult = await vtopClient.authenticate({
+        regNo: regNo.trim().toUpperCase(),
+        password: password.trim(),
+        captcha: captchaInput.trim().toUpperCase()
+      });
+
+      setAuthenticatedStudent({
+        name: authResult.studentName,
+        regNo: authResult.regNo,
+        branch: authResult.branch,
+        campus: authResult.campus
+      });
+
+      setSyncStep('select_semester');
+    } catch (err: any) {
+      setSyncStep('credentials');
+      setSyncError(err.message || 'Authentication failed. Please verify credentials.');
+      loadFreshCaptcha();
+    }
+  };
+
+  const handleConfirmSync = async () => {
+    setSyncStep('syncing');
     setIsSyncing(true);
     setSyncPercent(5);
-    setSyncStatusText('Establishing session with VTOP portal...');
+    setSyncStatusText('Establishing session with VTOP portal for chosen semester...');
 
     try {
       const harvestedData = await vtopClient.loginAndHarvest(
         {
-          regNo: regNo.trim(),
+          regNo: regNo.trim().toUpperCase(),
           password: password.trim(),
-          captcha: captchaInput.trim()
+          captcha: captchaInput.trim().toUpperCase()
         },
+        selectedSemesterCode,
         (step, pct) => {
           setSyncStatusText(step);
           setSyncPercent(pct);
@@ -96,8 +135,8 @@ export const VtopSyncModal: React.FC = () => {
       }, 700);
     } catch (err: any) {
       setIsSyncing(false);
+      setSyncStep('select_semester');
       setSyncError(err.message || 'Sync failed. Please check credentials and try again.');
-      loadFreshCaptcha();
     }
   };
 
@@ -141,7 +180,7 @@ export const VtopSyncModal: React.FC = () => {
         </div>
 
         {/* Sync Progress Pipeline Screen */}
-        {isSyncing ? (
+        {isSyncing || syncStep === 'syncing' ? (
           <div className="p-7 space-y-6 text-center">
             <div className="inline-flex items-center justify-center relative my-2">
               <div className="w-16 h-16 rounded-full bg-[#FFF7E6] dark:bg-[#F59E0B]/10 flex items-center justify-center border border-[#F59E0B]/30">
@@ -153,7 +192,7 @@ export const VtopSyncModal: React.FC = () => {
             <div className="space-y-1">
               <div className="text-[16px] font-bold">{syncStatusText}</div>
               <p className="text-xs text-[#686A70] dark:text-[#A0A3AB]">
-                Syncing directly with your student records...
+                Syncing {AVAILABLE_SEMESTERS.find(s => s.code === selectedSemesterCode)?.name || 'Academic Term'} directly with student records...
               </p>
             </div>
 
@@ -169,11 +208,11 @@ export const VtopSyncModal: React.FC = () => {
             <div className="grid grid-cols-3 gap-2 text-left pt-2 text-[11px]">
               <div className="p-2 rounded-lg bg-[#FCFBF8] dark:bg-[#1C1E24] border border-[#E7E5DF] dark:border-[#2A2D36]">
                 <span className="font-semibold block text-[#18181A] dark:text-white">✓ Handshake</span>
-                <span className="text-[10px] text-[#686A70] dark:text-[#A0A3AB]">Session authenticated</span>
+                <span className="text-[10px] text-[#686A70] dark:text-[#A0A3AB]">Session verified</span>
               </div>
               <div className="p-2 rounded-lg bg-[#FCFBF8] dark:bg-[#1C1E24] border border-[#E7E5DF] dark:border-[#2A2D36]">
                 <span className="font-semibold block text-[#18181A] dark:text-white">✓ Slot Matrix</span>
-                <span className="text-[10px] text-[#686A70] dark:text-[#A0A3AB]">Timetable expanded</span>
+                <span className="text-[10px] text-[#686A70] dark:text-[#A0A3AB]">Timetable loaded</span>
               </div>
               <div className="p-2 rounded-lg bg-[#FCFBF8] dark:bg-[#1C1E24] border border-[#E7E5DF] dark:border-[#2A2D36]">
                 <span className="font-semibold block text-[#18181A] dark:text-white">✓ Attendance</span>
@@ -181,9 +220,131 @@ export const VtopSyncModal: React.FC = () => {
               </div>
             </div>
           </div>
+        ) : syncStep === 'select_semester' ? (
+          /* Step 2: Post-Authentication Semester Selection */
+          <div className="p-6 space-y-4 animate-in fade-in duration-200">
+            {/* Authenticated Verification Badge */}
+            <div className="p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 rounded-xl flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-lg bg-emerald-100 dark:bg-emerald-900/60 flex items-center justify-center text-emerald-700 dark:text-emerald-400">
+                  <CheckCircle2 className="w-4 h-4" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-emerald-900 dark:text-emerald-200">
+                    {authenticatedStudent?.name || 'Aarav Sharma'} · <span className="font-mono">{authenticatedStudent?.regNo || regNo}</span>
+                  </p>
+                  <p className="text-[10.5px] text-emerald-700 dark:text-emerald-400">
+                    {authenticatedStudent?.branch || 'Computer Science & Engineering (SCOPE)'} · {authenticatedStudent?.campus || 'VIT Vellore'}
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setSyncStep('credentials');
+                  loadFreshCaptcha();
+                }}
+                className="text-[10px] text-[#686A70] hover:text-[#18181A] dark:text-[#96979B] dark:hover:text-white underline cursor-pointer"
+              >
+                Change
+              </button>
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between">
+                <h3 className="text-xs font-bold text-[#18181A] dark:text-[#F0EFF4] flex items-center gap-1.5">
+                  <Calendar className="w-3.5 h-3.5 text-[#F59E0B]" />
+                  <span>Select Academic Semester to Sync</span>
+                </h3>
+                <span className="text-[10px] font-mono text-[#16A368] bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 px-2 py-0.2 rounded-full font-semibold">
+                  Verified
+                </span>
+              </div>
+              <p className="text-[11px] text-[#686A70] dark:text-[#96979B] mt-1">
+                Choose the semester to update your timetable, registered slots, and 75% attendance cushion in Focusly.
+              </p>
+            </div>
+
+            <div className="space-y-2 max-h-56 overflow-y-auto pr-1">
+              {AVAILABLE_SEMESTERS.map((sem) => {
+                const isSelected = selectedSemesterCode === sem.code;
+                return (
+                  <button
+                    key={sem.code}
+                    type="button"
+                    onClick={() => setSelectedSemesterCode(sem.code)}
+                    className={cn(
+                      'w-full p-3 rounded-xl border text-left transition-all cursor-pointer flex items-start justify-between gap-3',
+                      isSelected
+                        ? 'bg-[#FFFBF2] dark:bg-[#F59E0B]/10 border-[#F59E0B] shadow-2xs'
+                        : 'bg-[#FCFBF8] dark:bg-[#1C1E24] border-[#E7E5DF] dark:border-[#2A2D36] hover:border-[#18181A]/30 dark:hover:border-white/30'
+                    )}
+                  >
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className={cn(
+                          'text-xs font-bold truncate',
+                          isSelected ? 'text-[#18181A] dark:text-white' : 'text-[#18181A] dark:text-[#F0EFF4]'
+                        )}>
+                          {sem.name}
+                        </span>
+                        <span className={cn(
+                          'text-[9px] font-mono px-1.5 py-0.2 rounded font-semibold',
+                          sem.type === 'Current'
+                            ? 'bg-emerald-50 dark:bg-emerald-950/60 text-[#16A368] border border-emerald-200 dark:border-emerald-800'
+                            : sem.type === 'Previous'
+                            ? 'bg-amber-50 dark:bg-amber-950/60 text-[#D97706] border border-amber-200 dark:border-amber-800'
+                            : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'
+                        )}>
+                          {sem.type === 'Current' ? 'Current Term' : sem.code}
+                        </span>
+                      </div>
+                      <p className="text-[10.5px] text-[#686A70] dark:text-[#96979B] mt-0.5 leading-snug">
+                        {sem.description}
+                      </p>
+                    </div>
+
+                    <div className={cn(
+                      'w-4 h-4 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-colors',
+                      isSelected
+                        ? 'border-[#F59E0B] bg-[#F59E0B]'
+                        : 'border-[#D1CFCA] dark:border-[#404352]'
+                    )}>
+                      {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#E7E5DF] dark:border-[#2A2D36]">
+              <Button
+                type="button"
+                variant="outline"
+                size="md"
+                onClick={() => {
+                  setSyncStep('credentials');
+                  loadFreshCaptcha();
+                }}
+                className="text-xs"
+              >
+                Back
+              </Button>
+              <Button
+                type="button"
+                variant="primary"
+                size="md"
+                onClick={handleConfirmSync}
+                className="text-xs font-semibold bg-[#F59E0B] hover:bg-[#D97706] text-white border-transparent flex items-center gap-1.5 cursor-pointer"
+              >
+                <span>Load {AVAILABLE_SEMESTERS.find(s => s.code === selectedSemesterCode)?.name.split(' ')[0] || 'Selected'} Semester</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Button>
+            </div>
+          </div>
         ) : (
-          /* Credentials & Live Captcha Form */
-          <form onSubmit={handleStartSync} className="p-6 space-y-4">
+          /* Step 1: Credentials & Live Captcha Form */
+          <form onSubmit={handleStartAuth} className="p-6 space-y-4">
             {syncError && (
               <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-[#DC5A63]/30 text-[#DC5A63] text-xs flex items-start gap-2 animate-in fade-in">
                 <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
@@ -203,7 +364,7 @@ export const VtopSyncModal: React.FC = () => {
                     type="text"
                     required
                     value={regNo}
-                    onChange={(e) => setRegNo(e.target.value)}
+                    onChange={(e) => setRegNo(e.target.value.toUpperCase())}
                     placeholder="e.g. 22BCE1042"
                     className="w-full pl-9 pr-3 py-2 bg-[#FCFBF8] dark:bg-[#1C1E24] border border-[#E7E5DF] dark:border-[#2A2D36] rounded-xl text-xs font-mono text-[#18181A] dark:text-white focus:outline-none focus:border-[#F59E0B] uppercase tracking-wider"
                   />
@@ -274,7 +435,7 @@ export const VtopSyncModal: React.FC = () => {
             <div className="p-2.5 rounded-xl bg-[#FCFBF8] dark:bg-[#121318] border border-[#E7E5DF] dark:border-[#2A2D36] text-[11px] text-[#686A70] dark:text-[#A0A3AB] flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-[#16A368] shrink-0" />
               <span>
-                Zero credential storage. Credentials are used solely to query the student portal session and discard immediately.
+                Zero credential storage. Credentials are used solely to authenticate your session with the portal.
               </span>
             </div>
 
@@ -293,10 +454,12 @@ export const VtopSyncModal: React.FC = () => {
                 type="submit"
                 variant="primary"
                 size="md"
-                className="text-xs font-semibold bg-[#F59E0B] hover:bg-[#D97706] text-white border-transparent"
-                icon={<ArrowRight className="w-3.5 h-3.5" />}
+                disabled={syncStep === 'authenticating'}
+                className="text-xs font-semibold bg-[#F59E0B] hover:bg-[#D97706] text-white border-transparent flex items-center gap-1.5 cursor-pointer"
               >
-                Connect & Sync Timetable
+                <Lock className="w-3.5 h-3.5" />
+                <span>{syncStep === 'authenticating' ? 'Verifying Gateway...' : 'Authenticate & Select Semester'}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </Button>
             </div>
           </form>

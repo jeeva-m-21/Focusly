@@ -28,6 +28,7 @@ export const CourseDetailView: React.FC = () => {
     tasks,
     notes,
     examTopics,
+    user,
     joinTaQueue,
     setView,
     startDeepWork,
@@ -85,7 +86,7 @@ export const CourseDetailView: React.FC = () => {
           <div>
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-xs font-mono font-bold uppercase bg-[#f4f1eb] dark:bg-[#1e202a] text-[#1c1d21] dark:text-[#f0eff4] px-2.5 py-0.5 rounded border border-[#e8e5df] dark:border-[#2b2e3c]">
-                {course.code} • {course.units} Units • Fall Quarter
+                {course.code} • {course.units} Credits • {user.term || 'Winter Semester 2025-26'}
               </span>
               <span className="text-xs text-[#64676e] dark:text-[#9ba0a9]">
                 {course.instructor}

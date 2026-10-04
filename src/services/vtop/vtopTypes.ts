@@ -81,6 +81,40 @@ export interface VtopExamEntry {
   seatNumber?: string;
 }
 
+export interface VtopSemesterOption {
+  code: string;
+  name: string;
+  type: 'Current' | 'Previous' | 'Historical';
+  description: string;
+}
+
+export const AVAILABLE_SEMESTERS: VtopSemesterOption[] = [
+  {
+    code: 'WS202526',
+    name: 'Winter Semester 2025-26',
+    type: 'Current',
+    description: 'Active instructional term · Day 1-5 order · Ongoing assessments'
+  },
+  {
+    code: 'FS202526',
+    name: 'Fall Semester 2025-26',
+    type: 'Previous',
+    description: 'Concluded semester · Final grades & FAT transcripts available'
+  },
+  {
+    code: 'SS202425',
+    name: 'Summer Intersession 2024-25',
+    type: 'Historical',
+    description: 'Weekend fast-track modules & arrears'
+  },
+  {
+    code: 'WS202425',
+    name: 'Winter Semester 2024-25',
+    type: 'Historical',
+    description: 'Archived records & credit transfer logs'
+  }
+];
+
 export interface VtopHarvestedData {
   profile: VtopStudentProfile;
   courses: VtopCourseRegistration[];
@@ -88,5 +122,7 @@ export interface VtopHarvestedData {
   attendance: VtopAttendanceRecord[];
   exams: VtopExamEntry[];
   marks?: VtopCourseMarks[];
+  semesterCode?: string;
+  semesterName?: string;
   syncedAt: string;
 }

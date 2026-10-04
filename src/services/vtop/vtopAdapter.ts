@@ -21,8 +21,8 @@ export function adaptVtopDataToFocusly(data: VtopHarvestedData): {
     name: data.profile.name || 'VIT Scholar',
     institution: 'Vellore Institute of Technology (VIT)',
     degree: data.profile.branch || data.profile.degree || 'B.Tech Computer Science & Engineering',
-    term: 'Fall Semester 2024-25',
-    targetUnits: data.courses.reduce((acc, c) => acc + (c.credits || 3), 0) || 24,
+    term: data.semesterName || 'Winter Semester 2025-26',
+    targetUnits: data.courses.reduce((acc, c) => acc + (c.credits || 3), 0) || 23,
     onboardingCompleted: true
   };
 

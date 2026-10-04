@@ -18,10 +18,12 @@ import {
   Moon,
   Mail,
   Smartphone,
-  X
+  X,
+  ChevronLeft
 } from 'lucide-react';
 import { useFocusStore } from '../../store/useFocusStore';
 import { vtopClient } from '../../services/vtop/vtopClient';
+import { AVAILABLE_SEMESTERS, VtopSemesterOption } from '../../services/vtop/vtopTypes';
 import { Button } from '../../components/common/Button';
 import { Card } from '../../components/common/Card';
 import { FocuslySymbol } from '../../components/brand/FocuslyLogo';
@@ -44,10 +46,19 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
   const [isLogin, setIsLogin] = useState(initialMode === 'login');
   const [showPassword, setShowPassword] = useState(false);
 
-  // VTOP Form State
+  // VTOP Two-Phase Authentication State
+  // Phase 1: 'credentials' -> User enters Reg No, Password, Captcha (NO pre-selected semester)
+  // Phase 2: 'select_semester' -> Once authenticated, user explicitly chooses which semester to sync
+  const [vtopStep, setVtopStep] = useState<'credentials' | 'authenticating' | 'select_semester' | 'syncing'>('credentials');
   const [vtopRegNo, setVtopRegNo] = useState('22BCE1042');
   const [vtopPassword, setVtopPassword] = useState('••••••••••••');
-  const [vtopSemester, setVtopSemester] = useState('WS202526');
+  const [selectedSemesterCode, setSelectedSemesterCode] = useState('WS202526');
+  const [authenticatedStudent, setAuthenticatedStudent] = useState<{
+    name: string;
+    regNo: string;
+    branch: string;
+    campus: string;
+  } | null>(null);
   const [captchaInput, setCaptchaInput] = useState('');
   const [captchaImage, setCaptchaImage] = useState<string>('');
   const [isLoadingCaptcha, setIsLoadingCaptcha] = useState(false);
@@ -87,7 +98,7 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
     }
   };
 
-  const handleVtopLogin = async (e: React.FormEvent) => {
+  const handleVtopAuthenticate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!vtopRegNo.trim()) {
       setVtopError('Please enter your registration number.');
@@ -103,9 +114,35 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
     }
 
     setVtopError(null);
+    setVtopStep('authenticating');
+
+    try {
+      const authResult = await vtopClient.authenticate({
+        regNo: vtopRegNo.trim().toUpperCase(),
+        password: vtopPassword.trim(),
+        captcha: captchaInput.trim().toUpperCase()
+      });
+
+      setAuthenticatedStudent({
+        name: authResult.studentName,
+        regNo: authResult.regNo,
+        branch: authResult.branch,
+        campus: authResult.campus
+      });
+
+      setVtopStep('select_semester');
+    } catch (err: any) {
+      setVtopStep('credentials');
+      setVtopError(err.message || 'Authentication failed. Please verify credentials.');
+      loadFreshCaptcha();
+    }
+  };
+
+  const handleConfirmSemesterSync = async () => {
+    setVtopStep('syncing');
     setIsVtopSyncing(true);
     setVtopPercent(10);
-    setVtopStatusText('Connecting to university gateway...');
+    setVtopStatusText('Connecting to university gateway for chosen semester...');
 
     try {
       const harvestedData = await vtopClient.loginAndHarvest(
@@ -114,6 +151,7 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
           password: vtopPassword.trim(),
           captcha: captchaInput.trim().toUpperCase()
         },
+        selectedSemesterCode,
         (step, pct) => {
           setVtopStatusText(step);
           setVtopPercent(pct);
@@ -127,8 +165,8 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
       }, 700);
     } catch (err: any) {
       setIsVtopSyncing(false);
-      setVtopError(err.message || 'Authentication failed. Please verify credentials.');
-      loadFreshCaptcha();
+      setVtopStep('select_semester');
+      setVtopError(err.message || 'Synchronization failed for the chosen semester.');
     }
   };
 
@@ -317,14 +355,14 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
               </div>
             )}
 
-            {isVtopSyncing ? (
+            {isVtopSyncing || vtopStep === 'syncing' ? (
               <div className="py-6 px-4 bg-[#FCFBF8] dark:bg-[#181924] rounded-xl border border-[#E7E5DF] dark:border-[#2A2D36] text-center space-y-4">
                 <div className="w-10 h-10 rounded-xl bg-[#FFF7E6] dark:bg-[#F59E0B]/20 text-[#F59E0B] flex items-center justify-center mx-auto animate-pulse">
                   <School className="w-5 h-5 animate-spin" />
                 </div>
                 <div>
                   <h3 className="text-xs font-bold text-[#18181A] dark:text-white">
-                    Synchronizing Academic Profile
+                    Synchronizing Academic Workspace
                   </h3>
                   <p className="text-[11px] text-[#686A70] dark:text-[#96979B] mt-1">
                     {vtopStatusText}
@@ -337,12 +375,139 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
                   />
                 </div>
                 <div className="flex justify-between items-center text-[10px] text-[#96979B] font-mono">
-                  <span>Harvesting VTOP Datasets</span>
+                  <span>Harvesting {AVAILABLE_SEMESTERS.find(s => s.code === selectedSemesterCode)?.name.split(' ')[0] || 'Academic'} Term</span>
                   <span>{vtopPercent}%</span>
                 </div>
               </div>
+            ) : vtopStep === 'select_semester' ? (
+              /* PHASE 2: SEMESTER SELECTION POST-AUTHENTICATION */
+              <div className="space-y-4 animate-in fade-in duration-200">
+                {/* Authenticated Verification Badge */}
+                <div className="p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 rounded-xl flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-7 h-7 rounded-lg bg-emerald-100 dark:bg-emerald-900/60 flex items-center justify-center text-emerald-700 dark:text-emerald-400">
+                      <CheckCircle2 className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-emerald-900 dark:text-emerald-200">
+                        {authenticatedStudent?.name || 'Aarav Sharma'} · <span className="font-mono">{authenticatedStudent?.regNo || vtopRegNo}</span>
+                      </p>
+                      <p className="text-[10.5px] text-emerald-700 dark:text-emerald-400">
+                        {authenticatedStudent?.branch || 'Computer Science & Engineering (SCOPE)'} · {authenticatedStudent?.campus || 'VIT Vellore'}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setVtopStep('credentials');
+                      loadFreshCaptcha();
+                    }}
+                    className="text-[10px] text-[#686A70] hover:text-[#18181A] dark:text-[#96979B] dark:hover:text-white underline cursor-pointer"
+                  >
+                    Change
+                  </button>
+                </div>
+
+                {/* Heading & Subtitle */}
+                <div>
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xs font-bold text-[#18181A] dark:text-[#F0EFF4] flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-[#F59E0B]" />
+                      <span>Select Academic Semester to Sync</span>
+                    </h3>
+                    <span className="text-[10px] font-mono text-[#16A368] bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 px-2 py-0.2 rounded-full font-semibold">
+                      Authenticated
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-[#686A70] dark:text-[#96979B] mt-1">
+                    Choose which instructional term to load into your Focusly workspace for timetable, attendance cushions, and assessment marks.
+                  </p>
+                </div>
+
+                {/* Semester Options Radio Cards */}
+                <div className="space-y-2">
+                  {AVAILABLE_SEMESTERS.map((sem) => {
+                    const isSelected = selectedSemesterCode === sem.code;
+                    return (
+                      <button
+                        key={sem.code}
+                        type="button"
+                        onClick={() => setSelectedSemesterCode(sem.code)}
+                        className={cn(
+                          'w-full p-3 rounded-xl border text-left transition-all cursor-pointer flex items-start justify-between gap-3',
+                          isSelected
+                            ? 'bg-[#FFFBF2] dark:bg-[#F59E0B]/10 border-[#F59E0B] shadow-2xs'
+                            : 'bg-[#FCFBF8] dark:bg-[#181924] border-[#E7E5DF] dark:border-[#262836] hover:border-[#18181A]/30 dark:hover:border-white/30'
+                        )}
+                      >
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
+                            <span className={cn(
+                              'text-xs font-bold truncate',
+                              isSelected ? 'text-[#18181A] dark:text-white' : 'text-[#18181A] dark:text-[#F0EFF4]'
+                            )}>
+                              {sem.name}
+                            </span>
+                            <span className={cn(
+                              'text-[9px] font-mono px-1.5 py-0.2 rounded font-semibold',
+                              sem.type === 'Current'
+                                ? 'bg-emerald-50 dark:bg-emerald-950/60 text-[#16A368] border border-emerald-200 dark:border-emerald-800'
+                                : sem.type === 'Previous'
+                                ? 'bg-amber-50 dark:bg-amber-950/60 text-[#D97706] border border-amber-200 dark:border-amber-800'
+                                : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'
+                            )}>
+                              {sem.type === 'Current' ? 'Current Term' : sem.code}
+                            </span>
+                          </div>
+                          <p className="text-[10.5px] text-[#686A70] dark:text-[#96979B] mt-0.5 leading-snug">
+                            {sem.description}
+                          </p>
+                        </div>
+
+                        <div className={cn(
+                          'w-4 h-4 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-colors',
+                          isSelected
+                            ? 'border-[#F59E0B] bg-[#F59E0B]'
+                            : 'border-[#D1CFCA] dark:border-[#404352]'
+                        )}>
+                          {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Confirm Action */}
+                <div className="flex items-center gap-2 pt-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setVtopStep('credentials');
+                      loadFreshCaptcha();
+                    }}
+                    className="text-xs"
+                  >
+                    <ChevronLeft className="w-3.5 h-3.5 mr-0.5" />
+                    <span>Back</span>
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="primary"
+                    onClick={handleConfirmSemesterSync}
+                    className="flex-1 py-2.5 text-xs font-semibold shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <School className="w-3.5 h-3.5" />
+                    <span>Load {AVAILABLE_SEMESTERS.find(s => s.code === selectedSemesterCode)?.name.split(' ')[0] || 'Selected'} Semester</span>
+                    <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                  </Button>
+                </div>
+              </div>
             ) : (
-              <form onSubmit={handleVtopLogin} className="space-y-3.5">
+              /* PHASE 1: CREDENTIALS & CAPTCHA ONLY (NO PRE-SELECTED SEMESTER) */
+              <form onSubmit={handleVtopAuthenticate} className="space-y-3.5">
                 {/* Registration Number */}
                 <div>
                   <label className="block text-xs font-medium text-[#18181A] dark:text-[#F0EFF4] mb-1">
@@ -383,26 +548,6 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
                     >
                       {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                     </button>
-                  </div>
-                </div>
-
-                {/* Active Semester: Auto-Selected from Portal */}
-                <div>
-                  <div className="flex items-center justify-between mb-1">
-                    <label className="block text-xs font-medium text-[#18181A] dark:text-[#F0EFF4]">
-                      Academic Semester
-                    </label>
-                    <span className="text-[10px] font-mono text-[#16A368] bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 px-2 py-0.2 rounded-full font-semibold flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#16A368]" />
-                      Auto-Selected
-                    </span>
-                  </div>
-                  <div className="relative">
-                    <Calendar className="w-3.5 h-3.5 absolute left-3 top-2.5 text-[#F59E0B]" />
-                    <div className="w-full pl-9 pr-3 py-2 text-xs border border-[#E7E5DF] dark:border-[#262836] bg-[#FCFBF8] dark:bg-[#181924] text-[#18181A] dark:text-[#F0EFF4] rounded-xl flex items-center justify-between shadow-2xs">
-                      <span className="font-semibold text-[#18181A] dark:text-white">Winter Semester 2025-26</span>
-                      <span className="font-mono text-[10px] text-[#686A70] dark:text-[#96979B] bg-[#F7F6F2] dark:bg-[#20222B] px-1.5 py-0.5 rounded border border-[#E7E5DF] dark:border-[#2A2D36]">WS202526</span>
-                    </div>
                   </div>
                 </div>
 
@@ -458,10 +603,11 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
                 <Button
                   type="submit"
                   variant="primary"
+                  disabled={vtopStep === 'authenticating'}
                   className="w-full py-2.5 text-xs font-semibold mt-2 shadow-xs cursor-pointer flex items-center justify-center gap-1.5"
                 >
-                  <School className="w-3.5 h-3.5" />
-                  <span>Log In & Harvest Academic Data</span>
+                  <Lock className="w-3.5 h-3.5" />
+                  <span>{vtopStep === 'authenticating' ? 'Verifying Gateway Credentials...' : 'Authenticate with College Gateway'}</span>
                   <ArrowRight className="w-3.5 h-3.5 ml-1" />
                 </Button>
               </form>

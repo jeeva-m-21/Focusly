@@ -30,6 +30,7 @@ export const CalendarView: React.FC = () => {
     tasks,
     courses,
     scheduleBlocks,
+    user,
     toggleTask,
     togglePinTask,
     pinTaskToDate,
@@ -236,7 +237,7 @@ export const CalendarView: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-xs font-mono font-medium bg-[#f4f1eb] dark:bg-[#1f212a] text-[#1c1d21] dark:text-[#f0eff4] px-2 py-0.5 rounded border border-[#e8e5df] dark:border-[#2a2d39]">
-              Winter Semester 2025-26 • VIT Vellore
+              {user.term || 'Winter Semester 2025-26'} • {user.institution || 'VIT Vellore'}
             </span>
             <span className="text-xs text-[#787b84] dark:text-[#8d929e]">Instructional Day Order: Day 1 - Day 5</span>
           </div>
