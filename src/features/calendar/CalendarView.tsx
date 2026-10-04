@@ -15,7 +15,8 @@ import {
   Zap,
   ArrowRight,
   X,
-  AlertTriangle
+  AlertTriangle,
+  School
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import confetti from 'canvas-confetti';
@@ -33,7 +34,8 @@ export const CalendarView: React.FC = () => {
     togglePinTask,
     pinTaskToDate,
     startDeepWork,
-    setView
+    setView,
+    openVtopSyncModal
   } = useFocusStore();
 
   // Current calendar viewing month: year = 2026, month = 9 (October, 0-indexed)
@@ -277,6 +279,16 @@ export const CalendarView: React.FC = () => {
             className="text-xs font-medium"
           >
             Today
+          </Button>
+
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={openVtopSyncModal}
+            className="text-xs font-semibold border-[#F59E0B]/40 hover:bg-[#FFF7E6] dark:hover:bg-[#F59E0B]/10 text-[#D97706] dark:text-[#F59E0B] flex items-center gap-1.5"
+            icon={<School className="w-3.5 h-3.5" />}
+          >
+            <span>Sync VTOP Schedule</span>
           </Button>
 
           <Button
