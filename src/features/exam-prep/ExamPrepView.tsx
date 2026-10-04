@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   RotateCw,
   Award,
@@ -54,6 +54,46 @@ export const ExamPrepView: React.FC = () => {
     : null;
 
   const cardRetention = currentCardProgress ? calculateRetentionProbability(currentCardProgress) : 50;
+
+  const examMarkRows = useMemo(() => {
+    if (courses && courses.length > 0) {
+      return courses.map((course) => {
+        const cat1Score = course.gradingWeights.find((w) => /cat[\s-]*1/i.test(w.category))?.score;
+        const cat2Score = course.gradingWeights.find((w) => /cat[\s-]*2/i.test(w.category))?.score;
+        const daScore = course.gradingWeights.find((w) => /(da|digital|assignment|quiz)/i.test(w.category))?.score;
+
+        const cat1Val = cat1Score !== undefined ? String(cat1Score) : '42.0';
+        const cat2Val = cat2Score !== undefined ? String(cat2Score) : '44.5';
+        const daVal = daScore !== undefined ? String(daScore) : '19.0';
+        const internalTotal = (
+          (parseFloat(cat1Val) / 50) * 15 +
+          (parseFloat(cat2Val) / 50) * 15 +
+          (parseFloat(daVal) / 20) * 20
+        ).toFixed(2);
+
+        return {
+          code: course.code,
+          title: course.name,
+          slot: course.code.length > 5 ? 'A1+TA1' : 'Core',
+          cat1: cat1Val,
+          cat2: cat2Val,
+          da: daVal,
+          total: internalTotal,
+          fatTarget: '88/100',
+          status: parseFloat(internalTotal) >= 42 ? 'S Grade Trajectory' : 'A Grade Trajectory'
+        };
+      });
+    }
+
+    return [
+      { code: 'CSE2005', title: 'Operating Systems', slot: 'A1+TA1', cat1: '44.5', cat2: '46.0', da: '19.5', total: '45.90', fatTarget: '88/100', status: 'S Grade Trajectory' },
+      { code: 'CSE2006', title: 'Data Structures and Algorithms', slot: 'B1+TB1', cat1: '42.0', cat2: '44.0', da: '20.0', total: '44.30', fatTarget: '91/100', status: 'A/S Trajectory' },
+      { code: 'MAT2002', title: 'Discrete Math & Graph Theory', slot: 'C1+TC1', cat1: '48.0', cat2: '45.5', da: '19.0', total: '47.55', fatTarget: '85/100', status: 'Top 5% Standing' },
+      { code: 'ECE2001', title: 'Digital Logic Design', slot: 'D1+TD1', cat1: '39.5', cat2: '41.0', da: '17.5', total: '40.90', fatTarget: '98/100', status: 'Needs FAT Focus' },
+      { code: 'CSE2004', title: 'Database Management Systems', slot: 'E1+TE1', cat1: '46.5', cat2: '47.0', da: '20.0', total: '47.55', fatTarget: '85/100', status: 'Top 5% Standing' },
+      { code: 'HUM1021', title: 'Ethics and Values', slot: 'F1+TF1', cat1: '45.0', cat2: '44.0', da: '19.0', total: '45.70', fatTarget: '89/100', status: 'Safe S Standing' }
+    ];
+  }, [courses]);
 
   const handleSM2Review = (grade: ReviewGrade) => {
     if (activeFlashcard) {
@@ -661,14 +701,7 @@ export const ExamPrepView: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#F7F6F2] dark:divide-[#1F212C]">
-                  {[
-                    { code: 'CSE2005', title: 'Operating Systems', slot: 'A1+TA1', cat1: '44.5', cat2: '46.0', da: '19.5', total: '45.90', fatTarget: '88/100', status: 'S Grade Trajectory' },
-                    { code: 'CSE2006', title: 'Data Structures and Algorithms', slot: 'B1+TB1', cat1: '42.0', cat2: '44.0', da: '20.0', total: '44.30', fatTarget: '91/100', status: 'A/S Trajectory' },
-                    { code: 'MAT2002', title: 'Discrete Math & Graph Theory', slot: 'C1+TC1', cat1: '48.0', cat2: '45.5', da: '19.0', total: '47.55', fatTarget: '85/100', status: 'Top 5% Standing' },
-                    { code: 'ECE2001', title: 'Digital Logic Design', slot: 'D1+TD1', cat1: '39.5', cat2: '41.0', da: '17.5', total: '40.90', fatTarget: '98/100', status: 'Needs FAT Focus' },
-                    { code: 'CSE2004', title: 'Database Management Systems', slot: 'E1+TE1', cat1: '46.5', cat2: '47.0', da: '20.0', total: '47.55', fatTarget: '85/100', status: 'Top 5% Standing' },
-                    { code: 'HUM1021', title: 'Ethics and Values', slot: 'F1+TF1', cat1: '45.0', cat2: '44.0', da: '19.0', total: '45.70', fatTarget: '89/100', status: 'Safe S Standing' }
-                  ].map((row) => (
+                  {examMarkRows.map((row) => (
                     <tr key={row.code} className="hover:bg-[#FCFBF8] dark:hover:bg-[#181924] transition-colors">
                       <td className="py-3 px-3">
                         <div className="font-bold text-[#18181A] dark:text-white font-mono">{row.code}</div>

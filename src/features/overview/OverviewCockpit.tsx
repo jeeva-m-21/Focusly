@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Flame,
   Clock,
@@ -87,149 +87,184 @@ export const OverviewCockpit: React.FC = () => {
   // Compute scientific alertness: 10:45 AM
   const bioTelemetry = calculateCircadianAlertness(10.75, user?.chronotype || 'afternoon');
 
-  // Unified Chronological Timeline Items (VIT Day 1 Instructional Schedule)
-  const timeline: TimelineEntry[] = [
-    {
-      id: 'item-1',
-      time: '08:30',
-      endTime: '09:20',
-      tag: 'CLASS',
-      title: 'CSE2005: Operating Systems (Slot A1)',
-      subtitle: 'Process Scheduling, Context Switching & Dual-Mode Execution',
-      location: 'SJT 411 (Silver Jubilee Tower)',
-      instructor: 'Dr. K. Senthil Kumar',
-      courseCode: 'CSE2005',
-      isCompleted: true,
-      cognitiveLoad: 'high',
-      details: {
-        estimatedMinutes: 50,
-        subtasks: ['Reviewed kernel vs user mode transitions', 'Analyzed Round-Robin context switch overheads'],
-        relatedNotes: 'CSE2005 Lecture 14: Semaphore & Mutex Invariants'
-      }
-    },
-    {
-      id: 'item-2',
-      time: '09:30',
-      endTime: '10:20',
-      tag: 'CLASS',
-      title: 'CSE2006: Data Structures & Algorithms (Slot B1)',
-      subtitle: 'Red-Black Tree Insertion Balancing & AVL Double Rotations',
-      location: 'TT 204 (Technology Tower)',
-      instructor: 'Dr. Priya R',
-      courseCode: 'CSE2006',
-      isCurrent: true,
-      cognitiveLoad: 'high',
-      details: {
-        estimatedMinutes: 50,
-        subtasks: ['Prove 2^(bh) - 1 height lower bound for Red-Black trees', 'Left-Right double rotation code demo'],
-        transitNote: '6 min walk via Periyar Central Library',
-        taQueueInfo: `${cse2005Course?.taQueue.studentsInLine || 3} students currently queued at SJT 411 Cabin (~10m wait)`
-      }
-    },
-    {
-      id: 'item-3',
-      time: '10:30',
-      endTime: '11:20',
-      tag: 'CLASS',
-      title: 'MAT2002: Discrete Mathematics & Graph Theory (Slot C1)',
-      subtitle: 'Planar Graphs, Euler Formula (V - E + F = 2) & Kuratowski Theorem',
-      location: 'MB 112 (Main Building / Dr. MGR Block)',
-      instructor: 'Dr. Ramesh Babu',
-      courseCode: 'MAT2002',
-      cognitiveLoad: 'high',
-      details: {
-        estimatedMinutes: 50,
-        subtasks: ['Derive E <= 3V - 6 planar edge bound', 'Solve non-planarity for K5 and K3,3']
-      }
-    },
-    {
-      id: 'item-4',
-      time: '11:30',
-      endTime: '12:20',
-      tag: 'CLASS',
-      title: 'ECE2001: Digital Logic Design (Slot D1)',
-      subtitle: 'Carry Lookahead Adders & Synchronous State Machine Design',
-      location: 'TT 418 (Technology Tower)',
-      instructor: 'Prof. Anitha M',
-      courseCode: 'ECE2001',
-      cognitiveLoad: 'high',
-      details: {
-        estimatedMinutes: 50,
-        subtasks: ['Carry generate and propagate boolean equations', 'State transition minimization table']
-      }
-    },
-    {
-      id: 'item-5',
-      time: '12:30',
-      endTime: '13:45',
-      tag: 'BUFFER',
-      title: 'Foodys Gazebo Lunch & Circadian Recharge',
-      subtitle: 'Central Dining Area & Outdoor Lawn · Restorative cognitive buffer',
-      location: 'Foodys Central / Anna Auditorium Lawn'
-    },
-    {
-      id: 'item-6',
-      time: '14:00',
-      endTime: '15:40',
-      tag: 'CLASS',
-      title: 'ECE2001: Digital Electronics Laboratory (Slot L15+L16)',
-      subtitle: 'Verilog HDL Structural Modeling of 4-Bit ALU on FPGA Board',
-      courseCode: 'ECE2001',
-      location: 'TT 401 (Digital Electronics Lab)',
-      cognitiveLoad: 'high',
-      details: {
-        estimatedMinutes: 100,
-        subtasks: ['Synthesize Verilog HDL module in ModelSim', 'Verify testbench vectors for overflow flags']
-      }
-    },
-    {
-      id: 'item-7',
-      time: '16:00',
-      endTime: '17:30',
-      tag: 'FOCUS',
-      title: 'Periyar Central Library: Deep Focus Study Window',
-      subtitle: 'POSIX Semaphores Lab implementation & thread synchronization',
-      location: 'Periyar Central Library (Floor 2 Quiet Study Room)',
-      courseCode: 'CSE2005',
-      taskId: 't-1',
-      isCompleted: tasks.find((t) => t.id === 't-1')?.completed || false,
-      cognitiveLoad: 'high',
-      details: {
-        estimatedMinutes: 90,
-        subtasks: ['Implement sem_wait and sem_post loops', 'Verify Valgrind zero leaks on exit']
-      }
-    },
-    {
-      id: 'item-8',
-      time: '17:45',
-      endTime: '18:30',
-      tag: 'OFFICE_HOURS',
-      title: 'SJT 411 Faculty Cabin Consultation',
-      subtitle: 'Dr. K. Senthil Kumar · Operating Systems DA-1 Doubt Clearing',
-      location: 'SJT 411 Faculty Cabin',
-      courseCode: 'CSE2005',
-      cognitiveLoad: 'medium',
-      details: {
-        taQueueInfo: `${cse2005Course?.taQueue.studentsInLine || 3} students in line (~10m wait)`
-      }
-    },
-    {
-      id: 'item-8',
-      time: '17:00',
-      endTime: '17:45',
-      tag: 'TASK',
-      title: 'Review Lecture Notes: Matrix Kernel & Image',
-      subtitle: 'Synthesize lecture audio notes into cheat sheet for Friday discussion',
-      courseCode: 'MATH 51',
-      taskId: 't-8',
-      isCompleted: tasks.find((t) => t.id === 't-8')?.completed || false,
-      cognitiveLoad: 'medium',
-      details: {
-        estimatedMinutes: 45,
-        subtasks: ['Verify kernel nullity theorem', 'Summarize column space projection']
-      }
+  // Unified Chronological Timeline Items (Dynamically generated from real scheduleBlocks & courses)
+  const timeline: TimelineEntry[] = useMemo(() => {
+    if (scheduleBlocks && scheduleBlocks.length > 0) {
+      const sorted = [...scheduleBlocks].sort((a, b) => a.startTime.localeCompare(b.startTime));
+
+      return sorted.map((block, idx) => {
+        const course = courses.find((c) => c.code === block.courseCode);
+        const isClass = block.type === 'lecture' || block.type === 'section';
+        const isLab = block.type === 'section' || block.title.toLowerCase().includes('lab');
+
+        return {
+          id: `item-${block.id || idx}`,
+          time: block.startTime,
+          endTime: block.endTime,
+          tag: isClass ? 'CLASS' : block.type === 'deep_work' ? 'FOCUS' : 'BUFFER',
+          title: `${block.courseCode ? `${block.courseCode}: ` : ''}${block.title}`,
+          subtitle: course ? `${course.name} · ${course.instructor}` : block.title,
+          location: block.location || (course?.taQueue?.location || 'Academic Block'),
+          instructor: course?.instructor,
+          courseCode: block.courseCode,
+          isCompleted: idx === 0,
+          isCurrent: idx === 1,
+          cognitiveLoad: block.cognitiveLoad || (isLab ? 'high' : 'medium'),
+          details: {
+            estimatedMinutes: 50,
+            subtasks: [
+              `Lecture session for ${block.courseCode || 'course'}`,
+              `Review course handouts and practice problems`
+            ],
+            transitNote: block.location ? `Venue: ${block.location}` : undefined
+          }
+        };
+      });
     }
-  ];
+
+    return [
+      {
+        id: 'item-1',
+        time: '08:30',
+        endTime: '09:20',
+        tag: 'CLASS',
+        title: 'CSE2005: Operating Systems (Slot A1)',
+        subtitle: 'Process Scheduling, Context Switching & Dual-Mode Execution',
+        location: 'SJT 411 (Silver Jubilee Tower)',
+        instructor: 'Dr. K. Senthil Kumar',
+        courseCode: 'CSE2005',
+        isCompleted: true,
+        cognitiveLoad: 'high',
+        details: {
+          estimatedMinutes: 50,
+          subtasks: ['Reviewed kernel vs user mode transitions', 'Analyzed Round-Robin context switch overheads'],
+          relatedNotes: 'CSE2005 Lecture 14: Semaphore & Mutex Invariants'
+        }
+      },
+      {
+        id: 'item-2',
+        time: '09:30',
+        endTime: '10:20',
+        tag: 'CLASS',
+        title: 'CSE2006: Data Structures & Algorithms (Slot B1)',
+        subtitle: 'Red-Black Tree Insertion Balancing & AVL Double Rotations',
+        location: 'TT 204 (Technology Tower)',
+        instructor: 'Dr. Priya R',
+        courseCode: 'CSE2006',
+        isCurrent: true,
+        cognitiveLoad: 'high',
+        details: {
+          estimatedMinutes: 50,
+          subtasks: ['Prove 2^(bh) - 1 height lower bound for Red-Black trees', 'Left-Right double rotation code demo'],
+          transitNote: '6 min walk via Periyar Central Library',
+          taQueueInfo: `${cse2005Course?.taQueue.studentsInLine || 3} students currently queued at SJT 411 Cabin (~10m wait)`
+        }
+      },
+      {
+        id: 'item-3',
+        time: '10:30',
+        endTime: '11:20',
+        tag: 'CLASS',
+        title: 'MAT2002: Discrete Mathematics & Graph Theory (Slot C1)',
+        subtitle: 'Planar Graphs, Euler Formula (V - E + F = 2) & Kuratowski Theorem',
+        location: 'MB 112 (Main Building / Dr. MGR Block)',
+        instructor: 'Dr. Ramesh Babu',
+        courseCode: 'MAT2002',
+        cognitiveLoad: 'high',
+        details: {
+          estimatedMinutes: 50,
+          subtasks: ['Derive E <= 3V - 6 planar edge bound', 'Solve non-planarity for K5 and K3,3']
+        }
+      },
+      {
+        id: 'item-4',
+        time: '11:30',
+        endTime: '12:20',
+        tag: 'CLASS',
+        title: 'ECE2001: Digital Logic Design (Slot D1)',
+        subtitle: 'Carry Lookahead Adders & Synchronous State Machine Design',
+        location: 'TT 418 (Technology Tower)',
+        instructor: 'Prof. Anitha M',
+        courseCode: 'ECE2001',
+        cognitiveLoad: 'high',
+        details: {
+          estimatedMinutes: 50,
+          subtasks: ['Carry generate and propagate boolean equations', 'State transition minimization table']
+        }
+      },
+      {
+        id: 'item-5',
+        time: '12:30',
+        endTime: '13:45',
+        tag: 'BUFFER',
+        title: 'Foodys Gazebo Lunch & Circadian Recharge',
+        subtitle: 'Central Dining Area & Outdoor Lawn · Restorative cognitive buffer',
+        location: 'Foodys Central / Anna Auditorium Lawn'
+      },
+      {
+        id: 'item-6',
+        time: '14:00',
+        endTime: '15:40',
+        tag: 'CLASS',
+        title: 'ECE2001: Digital Electronics Laboratory (Slot L15+L16)',
+        subtitle: 'Verilog HDL Structural Modeling of 4-Bit ALU on FPGA Board',
+        courseCode: 'ECE2001',
+        location: 'TT 401 (Digital Electronics Lab)',
+        cognitiveLoad: 'high',
+        details: {
+          estimatedMinutes: 100,
+          subtasks: ['Synthesize Verilog HDL module in ModelSim', 'Verify testbench vectors for overflow flags']
+        }
+      },
+      {
+        id: 'item-7',
+        time: '16:00',
+        endTime: '17:30',
+        tag: 'FOCUS',
+        title: 'Periyar Central Library: Deep Focus Study Window',
+        subtitle: 'POSIX Semaphores Lab implementation & thread synchronization',
+        location: 'Periyar Central Library (Floor 2 Quiet Study Room)',
+        courseCode: 'CSE2005',
+        taskId: 't-1',
+        isCompleted: tasks.find((t) => t.id === 't-1')?.completed || false,
+        cognitiveLoad: 'high',
+        details: {
+          estimatedMinutes: 90,
+          subtasks: ['Implement sem_wait and sem_post loops', 'Verify Valgrind zero leaks on exit']
+        }
+      },
+      {
+        id: 'item-8',
+        time: '17:45',
+        endTime: '18:30',
+        tag: 'OFFICE_HOURS',
+        title: 'SJT 411 Faculty Cabin Consultation',
+        subtitle: 'Dr. K. Senthil Kumar · Operating Systems DA-1 Doubt Clearing',
+        location: 'SJT 411 Faculty Cabin',
+        courseCode: 'CSE2005',
+        cognitiveLoad: 'medium',
+        details: {
+          taQueueInfo: `${cse2005Course?.taQueue.studentsInLine || 3} students in line (~10m wait)`
+        }
+      },
+      {
+        id: 'item-9',
+        time: '17:00',
+        endTime: '17:45',
+        tag: 'TASK',
+        title: 'Review Lecture Notes: Matrix Kernel & Image',
+        subtitle: 'Synthesize lecture audio notes into cheat sheet for Friday discussion',
+        courseCode: 'MATH 51',
+        taskId: 't-8',
+        isCompleted: tasks.find((t) => t.id === 't-8')?.completed || false,
+        cognitiveLoad: 'medium',
+        details: {
+          estimatedMinutes: 45,
+          subtasks: ['Verify kernel nullity theorem', 'Summarize column space projection']
+        }
+      }
+    ];
+  }, [scheduleBlocks, courses]);
 
   // Action: Plan the recommended session directly onto the schedule
   const handlePlanRecommendedSession = () => {

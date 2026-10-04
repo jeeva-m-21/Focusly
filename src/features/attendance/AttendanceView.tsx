@@ -45,6 +45,23 @@ export const AttendanceView: React.FC = () => {
     { course: 'MAT2002', date: 'Yesterday, 11:30 AM', status: 'Present', location: 'MB 112 (Slot C1)', sync: 'Faculty Roll Call Verified' }
   ];
 
+  const totalAttended = courses.reduce((sum, c) => sum + (c.attendance?.attended || 0), 0);
+  const totalHours = courses.reduce((sum, c) => sum + (c.attendance?.total || 0), 0);
+  const overallStanding = totalHours > 0 ? ((totalAttended / totalHours) * 100).toFixed(1) : '91.8';
+
+  const lowestBufferCourse = courses.length > 0 ? [...courses].sort((a, b) => {
+    const remA = Math.max(0, a.attendance.maxAllowedAbsences - a.attendance.currentAbsences);
+    const remB = Math.max(0, b.attendance.maxAllowedAbsences - b.attendance.currentAbsences);
+    return remA - remB;
+  })[0] : null;
+
+  const lowestCushion = lowestBufferCourse
+    ? Math.max(0, lowestBufferCourse.attendance.maxAllowedAbsences - lowestBufferCourse.attendance.currentAbsences)
+    : 1;
+  const lowestPct = lowestBufferCourse && lowestBufferCourse.attendance.total > 0
+    ? ((lowestBufferCourse.attendance.attended / lowestBufferCourse.attendance.total) * 100).toFixed(1)
+    : '84.0';
+
   return (
     <div className="space-y-6 max-w-6xl mx-auto">
       {/* Header */}
@@ -62,9 +79,9 @@ export const AttendanceView: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <Badge variant="emerald">
+          <Badge variant={parseFloat(overallStanding) >= 75 ? 'emerald' : 'rose'}>
             <ShieldCheck className="w-3.5 h-3.5" />
-            <span>Overall Standing: 91.8% (Eligible for FAT)</span>
+            <span>Overall Standing: {overallStanding}% ({parseFloat(overallStanding) >= 75 ? 'Eligible for FAT' : 'Debarred Risk'})</span>
           </Badge>
         </div>
       </div>
@@ -81,10 +98,10 @@ export const AttendanceView: React.FC = () => {
         <ShieldAlert className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
         <div className="space-y-0.5">
           <h4 className="text-xs font-bold text-[#1c1d21] dark:text-[#f0eff4]">
-            VTOP 75% Policy Alert: ECE2001 (Digital Logic Design) Buffer Narrowing
+            VTOP 75% Policy Alert: {lowestBufferCourse ? `${lowestBufferCourse.code} (${lowestBufferCourse.name}) Buffer Narrowing` : 'Attendance Health Safe'}
           </h4>
           <p className="text-xs text-[#64676e] dark:text-[#9ba0a9] leading-relaxed">
-            Current attendance is <strong className="text-[#1c1d21] dark:text-[#f0eff4]">84.0% (21/25 hrs)</strong>. Under the mandatory VIT 75% rule, you have a safe cushion of only <strong className="text-amber-600 dark:text-amber-400">1 class</strong> remaining before entering the debarment warning zone for Final Assessment Tests (FAT).
+            Current attendance is <strong className="text-[#1c1d21] dark:text-[#f0eff4]">{lowestPct}% ({lowestBufferCourse?.attendance.attended || 0}/{lowestBufferCourse?.attendance.total || 0} hrs)</strong>. Under the mandatory VIT 75% rule, you have a safe cushion of only <strong className="text-amber-600 dark:text-amber-400">{lowestCushion} {lowestCushion === 1 ? 'class' : 'classes'}</strong> remaining before entering the debarment warning zone for Final Assessment Tests (FAT).
           </p>
         </div>
       </div>

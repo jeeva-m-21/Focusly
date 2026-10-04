@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Calendar as CalendarIcon,
   ChevronLeft,
@@ -173,13 +173,50 @@ export const CalendarView: React.FC = () => {
   };
 
   // Automatic Exam Deadlines & Milestones (VIT Continuous Assessment & FAT)
-  const examMilestones = [
-    { id: 'ex-1', title: 'CSE2005 CAT-1 (Operating Systems)', courseCode: 'CSE2005', dateStr: '2026-10-18', time: '09:30 AM', location: 'SJT 411 (Slot A1)', weight: '15%' },
-    { id: 'ex-2', title: 'CSE2006 CAT-1 (Data Structures)', courseCode: 'CSE2006', dateStr: '2026-10-20', time: '02:00 PM', location: 'TT 204 (Slot B1)', weight: '15%' },
-    { id: 'ex-3', title: 'MAT2002 CAT-1 (Discrete Math)', courseCode: 'MAT2002', dateStr: '2026-10-22', time: '09:30 AM', location: 'MB 112 (Slot C1)', weight: '15%' },
-    { id: 'ex-4', title: 'ECE2001 CAT-1 (Digital Logic)', courseCode: 'ECE2001', dateStr: '2026-10-24', time: '02:00 PM', location: 'TT 418 (Slot D1)', weight: '15%' },
-    { id: 'ex-5', title: 'CSE2004 CAT-1 (DBMS)', courseCode: 'CSE2004', dateStr: '2026-10-26', time: '09:30 AM', location: 'SJT 314 (Slot E1)', weight: '15%' }
-  ];
+  const examMilestones = useMemo(() => {
+    const examTasks = tasks.filter(
+      (t) =>
+        t.id.startsWith('task-exam-') ||
+        t.title.toLowerCase().includes('fat') ||
+        t.title.toLowerCase().includes('cat') ||
+        t.title.toLowerCase().includes('exam')
+    );
+
+    if (examTasks.length > 0) {
+      return examTasks.map((t, idx) => {
+        const course = courses.find((c) => c.id === t.courseId);
+        return {
+          id: `ex-${t.id || idx}`,
+          title: t.title,
+          courseCode: course?.code || 'VIT',
+          dateStr: t.dueDate || '2026-10-25',
+          time: '10:00 AM',
+          location: t.description?.split('·')[1]?.trim() || 'Academic Block',
+          weight: '40%'
+        };
+      });
+    }
+
+    if (courses && courses.length > 0) {
+      return courses.map((c, idx) => ({
+        id: `ex-gen-${idx}`,
+        title: `${c.code} Assessment (${c.name})`,
+        courseCode: c.code,
+        dateStr: `2026-10-${20 + ((idx * 2) % 10)}`,
+        time: idx % 2 === 0 ? '09:30 AM' : '02:00 PM',
+        location: `${c.taQueue?.location || 'Academic Block'}`,
+        weight: '30%'
+      }));
+    }
+
+    return [
+      { id: 'ex-1', title: 'CSE2005 CAT-1 (Operating Systems)', courseCode: 'CSE2005', dateStr: '2026-10-18', time: '09:30 AM', location: 'SJT 411 (Slot A1)', weight: '15%' },
+      { id: 'ex-2', title: 'CSE2006 CAT-1 (Data Structures)', courseCode: 'CSE2006', dateStr: '2026-10-20', time: '02:00 PM', location: 'TT 204 (Slot B1)', weight: '15%' },
+      { id: 'ex-3', title: 'MAT2002 CAT-1 (Discrete Math)', courseCode: 'MAT2002', dateStr: '2026-10-22', time: '09:30 AM', location: 'MB 112 (Slot C1)', weight: '15%' },
+      { id: 'ex-4', title: 'ECE2001 CAT-1 (Digital Logic)', courseCode: 'ECE2001', dateStr: '2026-10-24', time: '02:00 PM', location: 'TT 418 (Slot D1)', weight: '15%' },
+      { id: 'ex-5', title: 'CSE2004 CAT-1 (DBMS)', courseCode: 'CSE2004', dateStr: '2026-10-26', time: '09:30 AM', location: 'SJT 314 (Slot E1)', weight: '15%' }
+    ];
+  }, [tasks, courses]);
 
   // Filter visible days if in 2-week view
   const visibleDays = viewMode === 'two-weeks'

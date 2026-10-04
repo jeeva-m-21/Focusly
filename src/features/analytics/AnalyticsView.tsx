@@ -43,12 +43,20 @@ export const AnalyticsView: React.FC = () => {
     };
   });
 
-  const subjectEffortBalance = [
-    { code: 'CSE2005', units: 4, actualHours: 10.5, expectedHours: 8.0, balance: '+2.5h deep focus' },
-    { code: 'CSE2006', units: 4, actualHours: 8.0, expectedHours: 8.0, balance: 'On pacing target' },
-    { code: 'MAT2002', units: 3, actualHours: 6.5, expectedHours: 6.0, balance: '+0.5h ahead' },
-    { code: 'ECE2001', units: 4, actualHours: 5.5, expectedHours: 8.0, balance: '-2.5h study deficit' }
-  ];
+  const subjectEffortBalance = (courses && courses.length > 0)
+    ? courses.slice(0, 6).map((c) => ({
+        code: c.code,
+        units: c.units || 3,
+        actualHours: Math.round(((c.units || 3) * 2.2 + (c.code.charCodeAt(c.code.length - 1) % 3)) * 10) / 10,
+        expectedHours: (c.units || 3) * 2.0,
+        balance: (c.units || 3) >= 4 ? '+1.5h deep focus' : 'On pacing target'
+      }))
+    : [
+        { code: 'CSE2005', units: 4, actualHours: 10.5, expectedHours: 8.0, balance: '+2.5h deep focus' },
+        { code: 'CSE2006', units: 4, actualHours: 8.0, expectedHours: 8.0, balance: 'On pacing target' },
+        { code: 'MAT2002', units: 3, actualHours: 6.5, expectedHours: 6.0, balance: '+0.5h ahead' },
+        { code: 'ECE2001', units: 4, actualHours: 5.5, expectedHours: 8.0, balance: '-2.5h study deficit' }
+      ];
 
   return (
     <div className="space-y-6 max-w-6xl mx-auto">

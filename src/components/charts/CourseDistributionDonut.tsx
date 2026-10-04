@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { BookOpen, PieChart } from 'lucide-react';
 import { Card, CardHeader, CardBody } from '../common/Card';
 import { Badge } from '../common/Badge';
+import { useFocusStore } from '../../store/useFocusStore';
 
 interface CourseShare {
   id: string;
@@ -13,15 +14,30 @@ interface CourseShare {
   colorDark: string;
 }
 
-const courseShares: CourseShare[] = [
-  { id: 'cse2005', code: 'CSE2005', name: 'Operating Systems', hours: 11.5, expectedHours: 10.0, color: '#F59E0B', colorDark: '#D97706' },
-  { id: 'cse2006', code: 'CSE2006', name: 'Data Structures and Algorithms', hours: 8.5, expectedHours: 10.0, color: '#6366F1', colorDark: '#4F46E5' },
-  { id: 'mat2002', code: 'MAT2002', name: 'Discrete Math & Graph Theory', hours: 9.0, expectedHours: 8.0, color: '#10B981', colorDark: '#059669' },
-  { id: 'ece2001', code: 'ECE2001', name: 'Digital Logic Design', hours: 6.0, expectedHours: 6.0, color: '#EC4899', colorDark: '#DB2777' }
-];
-
 export const CourseDistributionDonut: React.FC<{ className?: string }> = ({ className }) => {
+  const { courses } = useFocusStore();
   const [hoveredCourseId, setHoveredCourseId] = useState<string | null>(null);
+
+  const courseShares: CourseShare[] = useMemo(() => {
+    if (courses && courses.length > 0) {
+      return courses.slice(0, 6).map((c) => ({
+        id: c.id,
+        code: c.code,
+        name: c.name,
+        hours: (c.units || 3) * 2.5,
+        expectedHours: (c.units || 3) * 2.0,
+        color: c.color || '#F59E0B',
+        colorDark: c.color || '#D97706'
+      }));
+    }
+
+    return [
+      { id: 'cse2005', code: 'CSE2005', name: 'Operating Systems', hours: 11.5, expectedHours: 10.0, color: '#F59E0B', colorDark: '#D97706' },
+      { id: 'cse2006', code: 'CSE2006', name: 'Data Structures and Algorithms', hours: 8.5, expectedHours: 10.0, color: '#6366F1', colorDark: '#4F46E5' },
+      { id: 'mat2002', code: 'MAT2002', name: 'Discrete Math & Graph Theory', hours: 9.0, expectedHours: 8.0, color: '#10B981', colorDark: '#059669' },
+      { id: 'ece2001', code: 'ECE2001', name: 'Digital Logic Design', hours: 6.0, expectedHours: 6.0, color: '#EC4899', colorDark: '#DB2777' }
+    ];
+  }, [courses]);
 
   const totalHours = courseShares.reduce((sum, c) => sum + c.hours, 0);
 

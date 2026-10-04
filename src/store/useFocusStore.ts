@@ -157,6 +157,7 @@ interface FocusStore {
   // VTOP College Integration
   isVtopSyncModalOpen: boolean;
   vtopLastSyncedAt: string | null;
+  vtopHarvestedData: VtopHarvestedData | null;
   openVtopSyncModal: () => void;
   closeVtopSyncModal: () => void;
   hydrateFromVtop: (data: VtopHarvestedData) => void;
@@ -343,18 +344,21 @@ export const useFocusStore = create<FocusStore>()(
       // VTOP College Integration State & Actions
       isVtopSyncModalOpen: false,
       vtopLastSyncedAt: null,
+      vtopHarvestedData: null,
       openVtopSyncModal: () => set({ isVtopSyncModalOpen: true }),
       closeVtopSyncModal: () => set({ isVtopSyncModalOpen: false }),
 
       hydrateFromVtop: (data: VtopHarvestedData) => {
-        const { profile, courses, scheduleBlocks } = adaptVtopDataToFocusly(data);
+        const { profile, courses, scheduleBlocks, tasks } = adaptVtopDataToFocusly(data);
         set((state) => ({
           isAuthenticated: true,
           user: { ...state.user, ...profile },
           courses: courses.length > 0 ? courses : state.courses,
           scheduleBlocks: scheduleBlocks.length > 0 ? scheduleBlocks : state.scheduleBlocks,
+          tasks: tasks && tasks.length > 0 ? tasks : state.tasks,
           selectedCourseId: courses[0]?.id || state.selectedCourseId,
           vtopLastSyncedAt: data.syncedAt,
+          vtopHarvestedData: data,
           isVtopSyncModalOpen: false,
           currentView: 'overview'
         }));
