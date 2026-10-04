@@ -161,7 +161,7 @@ export const Sidebar: React.FC = () => {
       <div className="flex-1 overflow-y-auto px-3 py-3.5 space-y-5">
         {navSections.map((section) => (
           <div key={section.title}>
-            <div className="px-2 mb-1.5 text-[10px] font-semibold tracking-wider text-[#9da0a6] dark:text-[#656976] uppercase font-sans">
+            <div className="px-2 mb-1.5 text-[10px] font-semibold tracking-[0.06em] text-[#96979B] dark:text-[#6B7280] uppercase font-sans">
               {section.title}
             </div>
             <div className="space-y-0.5">
@@ -172,14 +172,22 @@ export const Sidebar: React.FC = () => {
                     key={item.id}
                     onClick={() => handleSelectView(item.id)}
                     className={cn(
-                      'w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 cursor-pointer text-left',
+                      'w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all duration-150 cursor-pointer text-left group',
                       isActive
-                        ? 'bg-[#1c1d21]/90 dark:bg-white/10 text-white font-semibold shadow-2xs'
-                        : 'text-[#62656d] dark:text-[#9ba0a9] hover:text-[#1c1d21] dark:hover:text-white hover:bg-[#f4f1eb] dark:hover:bg-[#181a22]'
+                        ? 'bg-[#FFFFFF] dark:bg-[#1C1E24] text-[#18181A] dark:text-white font-semibold shadow-xs border border-[#E7E5DF] dark:border-[#2A2D36]'
+                        : 'text-[#686A70] dark:text-[#A0A3AB] hover:text-[#18181A] dark:hover:text-white hover:bg-[#F7F6F2] dark:hover:bg-[#181A22] font-normal border border-transparent'
                     )}
                   >
                     <div className="flex items-center gap-2.5">
-                      <span className={cn(isActive ? 'text-white' : 'text-[#858890] dark:text-[#8d929e]')}>
+                      {/* Consistent 24x24 optical container with stroke discipline */}
+                      <span
+                        className={cn(
+                          'w-6 h-6 rounded-md flex items-center justify-center shrink-0 transition-colors',
+                          isActive
+                            ? 'text-[#F59E0B] bg-[#FFF7E6] dark:bg-[#F59E0B]/10'
+                            : 'text-[#686A70] dark:text-[#A0A3AB] group-hover:text-[#18181A] dark:group-hover:text-white'
+                        )}
+                      >
                         {item.icon}
                       </span>
                       <span className="truncate">{item.label}</span>
@@ -189,14 +197,14 @@ export const Sidebar: React.FC = () => {
                     {item.badge !== undefined && (
                       <span
                         className={cn(
-                          'px-1.5 py-0.2 rounded text-[10.5px] font-mono font-medium shrink-0',
+                          'px-1.5 py-0.2 rounded text-[10px] font-mono font-medium shrink-0',
                           isActive
-                            ? 'bg-white/20 text-white dark:bg-black/20 dark:text-[#121316]'
+                            ? 'bg-[#F7F6F2] text-[#18181A] dark:bg-[#2A2D36] dark:text-white border border-[#E7E5DF] dark:border-[#383B48]'
                             : item.badgeVariant === 'amber'
-                            ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800/60'
+                            ? 'bg-[#FFF7E6] dark:bg-amber-950/40 text-[#D97706] dark:text-[#F59E0B] border border-[#F59E0B]/30'
                             : item.badgeVariant === 'rose'
-                            ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-800/60'
-                            : 'bg-[#eeece6] dark:bg-[#20222a] text-[#64676e] dark:text-[#9ba0a9] border border-[#e2ded6] dark:border-[#282b36]'
+                            ? 'bg-rose-50 dark:bg-rose-950/40 text-[#DC5A63] dark:text-rose-400 border border-[#DC5A63]/30'
+                            : 'bg-[#FCFBF8] dark:bg-[#20222A] text-[#686A70] dark:text-[#A0A3AB] border border-[#E7E5DF] dark:border-[#2A2D36]'
                         )}
                       >
                         {item.badge}
@@ -209,19 +217,19 @@ export const Sidebar: React.FC = () => {
                         {item.pulse ? (
                           <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#16A368]" />
                           </span>
                         ) : item.dot === 'rose' ? (
                           <span
                             className={cn(
-                              'w-2 h-2 rounded-full bg-rose-500',
+                              'w-2 h-2 rounded-full bg-[#DC5A63]',
                               isActive ? 'ring-2 ring-white/60 dark:ring-black/40' : 'ring-2 ring-rose-400/30'
                             )}
                           />
                         ) : (
                           <span
                             className={cn(
-                              'w-2 h-2 rounded-full bg-amber-500',
+                              'w-2 h-2 rounded-full bg-[#F59E0B]',
                               isActive ? 'ring-2 ring-white/60 dark:ring-black/40' : 'ring-2 ring-amber-400/30'
                             )}
                           />
@@ -237,22 +245,22 @@ export const Sidebar: React.FC = () => {
       </div>
 
       {/* User Profile Card Footer */}
-      <div className="p-3 border-t border-[#eeeae3] dark:border-[#20222a] bg-[#f8f6f2] dark:bg-[#121318]">
-        <div className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-[#16171d] border border-[#e8e5df] dark:border-[#242732] shadow-xs">
+      <div className="p-3 border-t border-[#E7E5DF] dark:border-[#2A2D36] bg-[#FCFBF8] dark:bg-[#121318]">
+        <div className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-[#16171D] border border-[#E7E5DF] dark:border-[#2A2D36] shadow-xs">
           <div
             onClick={() => handleSelectView('settings')}
             className="flex items-center gap-2.5 min-w-0 cursor-pointer flex-1 group"
             title="Open Account & Focus Settings"
           >
-            <div className="w-7 h-7 rounded-full bg-[#f4f1eb] dark:bg-[#20222b] border border-[#e8e5df] dark:border-[#282b36] text-[#1c1d21] dark:text-[#f0eff4] text-xs font-semibold flex items-center justify-center shrink-0 group-hover:border-[#1c1d21] dark:group-hover:border-white transition-colors">
+            <div className="w-7 h-7 rounded-full bg-[#F7F6F2] dark:bg-[#20222B] border border-[#E7E5DF] dark:border-[#2A2D36] text-[#18181A] dark:text-[#F3F4F6] text-xs font-semibold flex items-center justify-center shrink-0 group-hover:border-[#F59E0B] transition-colors">
               {user.name.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase() || 'AS'}
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
-                <p className="text-xs font-semibold text-[#1c1d21] dark:text-[#f0eff4] truncate group-hover:underline">{user.name}</p>
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                <p className="text-xs font-semibold text-[#18181A] dark:text-[#F3F4F6] truncate group-hover:underline">{user.name}</p>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#16A368] shrink-0" />
               </div>
-              <p className="text-[10.5px] text-[#787b84] dark:text-[#8d929e] truncate">{user.degree}</p>
+              <p className="text-[11px] text-[#686A70] dark:text-[#A0A3AB] truncate">{user.degree}</p>
             </div>
           </div>
           
@@ -260,8 +268,8 @@ export const Sidebar: React.FC = () => {
             <button
               onClick={() => handleSelectView('settings')}
               title="Settings & Preferences"
-              className={`p-1.5 rounded-lg text-[#9da0a6] hover:text-[#1c1d21] dark:hover:text-white transition-colors cursor-pointer ${
-                currentView === 'settings' ? 'text-[#1c1d21] dark:text-white bg-[#f4f1eb] dark:bg-[#20222b]' : ''
+              className={`p-1.5 rounded-lg text-[#96979B] hover:text-[#18181A] dark:hover:text-white transition-colors cursor-pointer ${
+                currentView === 'settings' ? 'text-[#18181A] dark:text-white bg-[#F7F6F2] dark:bg-[#20222B]' : ''
               }`}
             >
               <Settings className="w-3.5 h-3.5" />
@@ -269,7 +277,7 @@ export const Sidebar: React.FC = () => {
             <button
               onClick={() => handleSelectView('auth-login')}
               title="Sign Out"
-              className="p-1.5 rounded-lg text-[#9da0a6] hover:text-rose-600 transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg text-[#96979B] hover:text-[#DC5A63] transition-colors cursor-pointer"
             >
               <LogOut className="w-3.5 h-3.5" />
             </button>
@@ -282,7 +290,7 @@ export const Sidebar: React.FC = () => {
   return (
     <>
       {/* Desktop Persistent Sidebar */}
-      <aside className="hidden md:flex flex-col w-64 bg-[#fcfbf9] dark:bg-[#101115] border-r border-[#e8e5df] dark:border-[#20222a] h-screen shrink-0 select-none transition-colors duration-200">
+      <aside className="hidden md:flex flex-col w-64 bg-[#FCFBF8] dark:bg-[#101115] border-r border-[#E7E5DF] dark:border-[#2A2D36] h-screen shrink-0 select-none transition-colors duration-200">
         {renderNavContent()}
       </aside>
 
@@ -293,7 +301,7 @@ export const Sidebar: React.FC = () => {
             className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity"
             onClick={() => setMobileMenuOpen(false)}
           />
-          <aside className="relative flex flex-col w-72 max-w-[85vw] h-full bg-[#fcfbf9] dark:bg-[#101115] border-r border-[#e8e5df] dark:border-[#20222a] z-10 shadow-calm-lg animate-in slide-in-from-left duration-200 select-none">
+          <aside className="relative flex flex-col w-72 max-w-[85vw] h-full bg-[#FCFBF8] dark:bg-[#101115] border-r border-[#E7E5DF] dark:border-[#2A2D36] z-10 shadow-calm-lg animate-in slide-in-from-left duration-200 select-none">
             {renderNavContent()}
           </aside>
         </div>

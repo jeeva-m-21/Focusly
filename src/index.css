@@ -142,6 +142,26 @@
   transform: rotateY(180deg);
 }
 
+/* Focusly Signature Focus Pulse */
+@keyframes focus-pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.45);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 7px rgba(245, 158, 11, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+  }
+}
+
+.focus-pulse-node {
+  animation: focus-pulse-ring 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 /* Subtle scrollbars */
 ::-webkit-scrollbar {
   width: 5px;

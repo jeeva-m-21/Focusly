@@ -226,16 +226,16 @@ export const OverviewCockpit: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-7 pb-16">
+    <div className="max-w-4xl mx-auto space-y-6 pb-16">
       {/* ─────────────────────────────────────────────────────────────
-          1. HEADER CONTEXT (Quiet greeting, Display typography: 30-32px / 700)
+          1. HEADER CONTEXT (Quiet greeting, tight vertical whitespace)
          ───────────────────────────────────────────────────────────── */}
-      <header className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-[#E7E5DF] dark:border-[#2A2D36] pb-4">
+      <header className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1.5 border-b border-[#E7E5DF] dark:border-[#2A2D36] pb-3">
         <div>
-          <h1 className="text-[30px] sm:text-[32px] font-bold text-[#18181A] dark:text-[#F3F4F6] tracking-tight leading-[38px]">
+          <h1 className="text-[30px] sm:text-[32px] font-bold text-[#18181A] dark:text-[#F3F4F6] tracking-tight leading-[36px]">
             Good morning, {user.name.split(' ')[0]}
           </h1>
-          <p className="text-[12px] text-[#686A70] dark:text-[#A0A3AB] mt-1 font-normal leading-[16px]">
+          <p className="text-[12px] text-[#686A70] dark:text-[#A0A3AB] mt-0.5 font-normal leading-[16px]">
             Thursday · October 24 · Stanford University · Fall '24 Week 5
           </p>
         </div>
@@ -249,36 +249,40 @@ export const OverviewCockpit: React.FC = () => {
       </header>
 
       {/* ─────────────────────────────────────────────────────────────
-          2. LEVEL 1: WHAT SHOULD I DO NOW? (Dominant Hero Card)
-             - Surface #FFFFFF, active border #F59E0B
-             - Orange = action / focus
+          2. LEVEL 1: WHAT SHOULD I DO NOW? (Upcoming Event Card)
+             - Surface #FFFFFF, subtle neutral border with subtle orange emphasis
+             - Starts in 45 min quiet contextual info
+             - Start Focus Session dominant, View Details secondary
          ───────────────────────────────────────────────────────────── */}
       <section aria-labelledby="next-up-heading">
-        <div className="rounded-2xl border-2 border-[#F59E0B] bg-[#FFFFFF] dark:bg-[#15161A] p-6 sm:p-7 shadow-sm transition-all relative overflow-hidden">
-          {/* Subtle status indicator */}
-          <div className="flex items-center justify-between text-xs mb-3">
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-[0.06em] font-semibold text-[#D97706] dark:text-[#F59E0B] bg-[#FFF7E6] dark:bg-[#F59E0B]/10 px-2.5 py-0.5 rounded border border-[#F59E0B]/30">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#F59E0B] animate-pulse" />
-              UP NEXT · 10:30 AM → 11:20 AM
+        <div className="rounded-2xl border border-[#E7E5DF] dark:border-[#2A2D36] bg-[#FFFFFF] dark:bg-[#15161A] p-5 sm:p-6 shadow-xs relative overflow-hidden transition-all hover:border-[#F59E0B]/40">
+          {/* Subtle top indicator bar */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F59E0B] via-[#F59E0B]/60 to-transparent" />
+
+          {/* Contextual status row */}
+          <div className="flex items-center justify-between text-xs mb-2.5">
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-[0.06em] font-semibold text-[#D97706] dark:text-[#F59E0B]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#F59E0B] focus-pulse-node" />
+              UP NEXT · 10:30 AM — 11:20 AM
             </span>
 
-            <span className="text-[12px] font-mono font-medium text-[#18181A] dark:text-[#F3F4F6]">
+            <span className="text-[12px] font-mono font-normal text-[#96979B] dark:text-[#A0A3AB]">
               Starts in 45 min
             </span>
           </div>
 
           {/* Core Content: What & Where */}
-          <div className="space-y-1.5">
+          <div className="space-y-1">
             <div className="text-[12px] font-mono font-medium text-[#686A70] dark:text-[#A0A3AB]">
               CS 106B · Programming Abstractions
             </div>
             <h2
               id="next-up-heading"
-              className="text-[20px] sm:text-[22px] font-bold text-[#18181A] dark:text-[#F3F4F6] tracking-tight leading-[28px]"
+              className="text-[17px] sm:text-[18px] font-semibold text-[#18181A] dark:text-[#F3F4F6] tracking-tight leading-[26px]"
             >
               Linked Lists, Pointers & Destructor Implementations
             </h2>
-            <p className="text-[14px] text-[#686A70] dark:text-[#A0A3AB] flex items-center gap-1.5 pt-0.5">
+            <p className="text-[13px] text-[#686A70] dark:text-[#A0A3AB] flex items-center gap-1.5 pt-0.5">
               <MapPin className="w-3.5 h-3.5 text-[#96979B]" />
               <span>Hewlett Teaching Center 200</span>
               <span>·</span>
@@ -287,7 +291,7 @@ export const OverviewCockpit: React.FC = () => {
           </div>
 
           {/* Action Row: Strict Hierarchy (Primary -> Secondary) */}
-          <div className="flex items-center gap-3 mt-6 pt-5 border-t border-[#E7E5DF] dark:border-[#2A2D36]">
+          <div className="flex items-center gap-3 mt-5 pt-4 border-t border-[#E7E5DF] dark:border-[#2A2D36]">
             <Button
               variant="primary"
               size="md"
@@ -299,8 +303,8 @@ export const OverviewCockpit: React.FC = () => {
                 }
                 setView('focus-timer');
               }}
-              icon={<Flame className="w-4 h-4 fill-amber-400 text-amber-400" />}
-              className="font-bold text-xs px-5 shadow-xs bg-[#F59E0B] hover:bg-[#D97706] text-white border-transparent"
+              icon={<Flame className="w-4 h-4 text-white" />}
+              className="font-semibold text-xs px-5 bg-[#F59E0B] hover:bg-[#D97706] text-white border-transparent shadow-xs"
             >
               Start Focus Session
             </Button>
@@ -310,7 +314,7 @@ export const OverviewCockpit: React.FC = () => {
               size="md"
               onClick={() => setIsNextUpDetailsOpen(!isNextUpDetailsOpen)}
               icon={isNextUpDetailsOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-              className="text-xs font-semibold text-[#686A70] dark:text-[#A0A3AB] border-[#E7E5DF] dark:border-[#2A2D36] hover:bg-[#FCFBF8] dark:hover:bg-[#1C1E24]"
+              className="text-xs font-medium text-[#686A70] dark:text-[#A0A3AB] border-[#E7E5DF] dark:border-[#2A2D36] hover:bg-[#FCFBF8] dark:hover:bg-[#1C1E24]"
             >
               {isNextUpDetailsOpen ? 'Hide Details' : 'View Details'}
             </Button>
@@ -343,7 +347,7 @@ export const OverviewCockpit: React.FC = () => {
                 <span>Slides, handout & starter code available on Canvas</span>
                 <button
                   onClick={() => setView('course-cs106b')}
-                  className="font-semibold text-[#18181A] dark:text-white hover:underline flex items-center gap-1 cursor-pointer"
+                  className="font-medium text-[#18181A] dark:text-white hover:underline flex items-center gap-1 cursor-pointer"
                 >
                   <span>Open CS 106B Course Portal</span>
                   <ExternalLink className="w-3 h-3" />
@@ -355,17 +359,28 @@ export const OverviewCockpit: React.FC = () => {
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          3. RECOMMENDED NEXT ACTION (Single Focus CTA)
+          3. RECOMMENDED NEXT: Intelligent Recommendation Module
+             - Tells student WHAT, WHY, and ESTIMATED DURATION
+             - Subtle orange emphasis on indicator and primary action
          ───────────────────────────────────────────────────────────── */}
-      <section className="p-4 rounded-xl bg-[#FCFBF8] dark:bg-[#15161A] border border-[#E7E5DF] dark:border-[#2A2D36] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-        <div className="flex items-start gap-2.5">
-          <Sparkles className="w-4 h-4 text-[#D97706] dark:text-[#F59E0B] shrink-0 mt-0.5" />
-          <div>
-            <span className="font-mono uppercase font-semibold text-[10px] text-[#D97706] dark:text-[#F59E0B] block tracking-[0.06em]">
-              RECOMMENDED NEXT
-            </span>
-            <p className="text-[#18181A] dark:text-[#F3F4F6] mt-0.5 font-normal">
-              Review CS 106B dynamic memory notes for 10 minutes before the 11:45 MATH 51 lecture.
+      <section className="p-4 rounded-xl bg-[#FFFFFF] dark:bg-[#15161A] border border-[#E7E5DF] dark:border-[#2A2D36] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+        <div className="flex items-start gap-3">
+          <div className="w-7 h-7 rounded-lg bg-[#FFF7E6] dark:bg-[#F59E0B]/10 flex items-center justify-center shrink-0 border border-[#F59E0B]/20">
+            <Sparkles className="w-4 h-4 text-[#F59E0B]" />
+          </div>
+          <div className="space-y-0.5">
+            <div className="flex items-center gap-2">
+              <span className="font-mono uppercase font-semibold text-[10px] text-[#D97706] dark:text-[#F59E0B] tracking-[0.06em]">
+                RECOMMENDED NEXT
+              </span>
+              <span className="text-[#96979B] dark:text-[#A0A3AB] text-[11px]">·</span>
+              <span className="text-[#96979B] dark:text-[#A0A3AB] text-[11px] font-mono">10 min estimated</span>
+            </div>
+            <p className="text-[13px] text-[#18181A] dark:text-[#F3F4F6] font-medium">
+              Review CS 106B dynamic memory notes
+            </p>
+            <p className="text-[11px] text-[#686A70] dark:text-[#A0A3AB]">
+              Why: Reinforces pointer destructor concepts 25 minutes before lecture starts.
             </p>
           </div>
         </div>
@@ -383,53 +398,66 @@ export const OverviewCockpit: React.FC = () => {
 
       {/* ─────────────────────────────────────────────────────────────
           4. TODAY'S HORIZON: CONTINUOUS CHRONOLOGICAL RAIL
+             - Time → Event → Current Position
+             - Distinctive Focus Pulse concentric rings
+             - Horizontal day progress indicator
          ───────────────────────────────────────────────────────────── */}
       <section aria-label="Day Chronology">
         <div className="flex items-center justify-between text-xs text-[#96979B] dark:text-[#A0A3AB] mb-2 font-mono">
-          <span className="font-semibold uppercase tracking-[0.06em] text-[10px]">CHRONOLOGY</span>
-          <span className="text-[10px]">TIME → EVENT → CURRENT POSITION</span>
+          <div className="flex items-center gap-2">
+            <span className="font-semibold uppercase tracking-[0.06em] text-[10px]">CHRONOLOGY</span>
+            <span className="text-[10px] text-[#96979B]">· Time → Event → Current Position</span>
+          </div>
+          <span className="text-[10px]">Current Time: 10:45 AM</span>
         </div>
 
-        {/* Continuous Connected Horizontal Rail */}
-        <div className="relative py-3 px-2 sm:px-4 bg-[#FFFFFF] dark:bg-[#15161A] rounded-xl border border-[#E7E5DF] dark:border-[#2A2D36] shadow-2xs overflow-x-auto">
-          {/* Background Rail Line */}
-          <div className="absolute top-[28px] left-6 right-6 h-0.5 bg-[#E7E5DF] dark:bg-[#2A2D36] -z-0" />
+        {/* Continuous Connected Horizontal Rail with day progress */}
+        <div className="relative py-4 px-3 sm:px-5 bg-[#FFFFFF] dark:bg-[#15161A] rounded-xl border border-[#E7E5DF] dark:border-[#2A2D36] shadow-xs overflow-x-auto">
+          {/* Subtle Day Progress Background Rail Line */}
+          <div className="absolute top-[32px] left-6 right-6 h-0.5 bg-[#E7E5DF] dark:bg-[#2A2D36] -z-0" />
+          {/* Active progress fill to 10:45 AM position */}
+          <div className="absolute top-[32px] left-6 w-[28%] h-0.5 bg-[#F59E0B] -z-0 transition-all duration-500" />
 
-          <div className="flex items-start justify-between min-w-[520px] relative z-10">
-            {/* 08:30 Focus */}
+          <div className="flex items-start justify-between min-w-[540px] relative z-10">
+            {/* 08:30 Focus (Completed - Muted) */}
             <div className="flex flex-col items-center text-center w-24">
               <span className="text-[11px] font-mono text-[#96979B] dark:text-[#A0A3AB]">08:30</span>
               <div className="w-3.5 h-3.5 rounded-full bg-[#18181A] dark:bg-white border-2 border-white dark:border-[#15161A] shadow-xs my-1 flex items-center justify-center">
-                <Check className="w-2.5 h-2.5 text-white dark:text-[#18181A]" />
+                <Check className="w-2 h-2 text-white dark:text-[#18181A]" />
               </div>
-              <span className="text-xs font-normal text-[#686A70] dark:text-[#A0A3AB]">Peak Focus</span>
+              <span className="text-xs font-normal text-[#96979B] dark:text-[#A0A3AB]">Peak Focus</span>
             </div>
 
-            {/* 10:30 CS 106B (NOW) - Single dominant signature orange */}
+            {/* 10:30 CS 106B (NOW) - Distinctive Focus Pulse Concentric Language */}
             <div className="flex flex-col items-center text-center w-24">
               <span className="text-[11px] font-mono font-bold text-[#D97706] dark:text-[#F59E0B]">10:30</span>
-              <div className="w-4 h-4 rounded-full bg-[#F59E0B] border-2 border-white dark:border-[#15161A] ring-3 ring-[#F59E0B]/30 my-1 animate-pulse" />
+              <div className="relative my-1 flex items-center justify-center">
+                {/* Outer concentric pulse ring */}
+                <div className="absolute w-6 h-6 rounded-full bg-[#F59E0B]/20 animate-ping opacity-60" />
+                {/* Core focus node */}
+                <div className="w-4 h-4 rounded-full bg-[#F59E0B] border-2 border-white dark:border-[#15161A] shadow-xs focus-pulse-node relative z-10" />
+              </div>
               <span className="text-xs font-semibold text-[#18181A] dark:text-white">CS 106B</span>
-              <span className="text-[9.5px] font-mono font-semibold uppercase tracking-wider text-[#D97706] dark:text-[#F59E0B] bg-[#FFF7E6] dark:bg-[#F59E0B]/20 px-1.5 py-0.2 rounded mt-0.5 border border-[#F59E0B]/30">
+              <span className="text-[9px] font-mono font-semibold uppercase tracking-wider text-[#D97706] dark:text-[#F59E0B] bg-[#FFF7E6] dark:bg-[#F59E0B]/20 px-1.5 py-0.2 rounded mt-0.5 border border-[#F59E0B]/30">
                 ● NOW
               </span>
             </div>
 
-            {/* 11:45 MATH 51 */}
+            {/* 11:45 MATH 51 (Upcoming - Neutral) */}
             <div className="flex flex-col items-center text-center w-24">
               <span className="text-[11px] font-mono text-[#96979B] dark:text-[#A0A3AB]">11:45</span>
               <div className="w-3 h-3 rounded-full bg-[#E7E5DF] dark:bg-[#383B4B] border-2 border-white dark:border-[#15161A] my-1.5" />
               <span className="text-xs font-normal text-[#18181A] dark:text-[#F3F4F6]">MATH 51</span>
             </div>
 
-            {/* 14:00 P-Set 4 */}
+            {/* 14:00 P-Set 4 (Upcoming - Neutral) */}
             <div className="flex flex-col items-center text-center w-24">
               <span className="text-[11px] font-mono text-[#96979B] dark:text-[#A0A3AB]">14:00</span>
               <div className="w-3 h-3 rounded-full bg-[#E7E5DF] dark:bg-[#383B4B] border-2 border-white dark:border-[#15161A] my-1.5" />
               <span className="text-xs font-normal text-[#18181A] dark:text-[#F3F4F6]">P-Set 4</span>
             </div>
 
-            {/* 16:00 TA Queue */}
+            {/* 16:00 TA Queue (Upcoming - Neutral) */}
             <div className="flex flex-col items-center text-center w-24">
               <span className="text-[11px] font-mono text-[#96979B] dark:text-[#A0A3AB]">16:00</span>
               <div className="w-3 h-3 rounded-full bg-[#E7E5DF] dark:bg-[#383B4B] border-2 border-white dark:border-[#15161A] my-1.5" />
@@ -459,7 +487,7 @@ export const OverviewCockpit: React.FC = () => {
           </span>
         </div>
 
-        {/* Clean Timeline List with subtle dividers */}
+        {/* Clean Academic Timeline with subtle dividers and state tints */}
         <div className="divide-y divide-[#E7E5DF] dark:divide-[#2A2D36]">
           {timeline.map((entry) => {
             const isExpanded = expandedTimelineId === entry.id;
@@ -468,14 +496,26 @@ export const OverviewCockpit: React.FC = () => {
               <div
                 key={entry.id}
                 className={`py-3.5 sm:py-4 transition-colors ${
-                  entry.isCurrent ? 'bg-[#FFF7E6]/60 dark:bg-[#F59E0B]/5 -mx-3 px-3 rounded-xl border border-[#F59E0B]/30' : ''
+                  entry.isCurrent
+                    ? 'bg-[#FFFBF2] dark:bg-[#F59E0B]/5 -mx-3 px-3 rounded-xl border border-[#F59E0B]/25'
+                    : entry.isCompleted
+                    ? 'opacity-80'
+                    : ''
                 }`}
               >
                 <div className="flex items-start justify-between gap-4">
                   {/* Left: Time & Tag */}
                   <div className="flex items-start gap-4 min-w-0 flex-1">
                     <div className="w-14 sm:w-16 shrink-0 pt-0.5">
-                      <div className="font-mono text-xs font-semibold text-[#18181A] dark:text-[#F3F4F6]">
+                      <div
+                        className={`font-mono text-xs ${
+                          entry.isCurrent
+                            ? 'font-bold text-[#D97706] dark:text-[#F59E0B]'
+                            : entry.isCompleted
+                            ? 'font-normal text-[#96979B] dark:text-[#6B7280]'
+                            : 'font-semibold text-[#18181A] dark:text-[#F3F4F6]'
+                        }`}
+                      >
                         {entry.time}
                       </div>
                       {entry.endTime && (
@@ -488,7 +528,7 @@ export const OverviewCockpit: React.FC = () => {
                     {/* Middle: Content */}
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2 flex-wrap mb-1">
-                        {/* Disciplined Semantic Tag Chip - Neutral by default, Orange for focus */}
+                        {/* Disciplined Semantic Tag Chip */}
                         <span
                           className={`text-[10px] font-mono font-medium uppercase tracking-[0.05em] px-2 py-0.5 rounded ${
                             entry.tag === 'FOCUS'
@@ -508,8 +548,9 @@ export const OverviewCockpit: React.FC = () => {
                         )}
 
                         {entry.isCurrent && (
-                          <span className="text-[10px] font-mono font-bold text-[#D97706] dark:text-[#F59E0B] bg-[#FFF7E6] dark:bg-[#F59E0B]/20 px-1.5 rounded border border-[#F59E0B]/30">
-                            ● NOW
+                          <span className="inline-flex items-center gap-1 text-[10px] font-mono font-semibold uppercase tracking-wider text-[#D97706] dark:text-[#F59E0B] bg-[#FFF7E6] dark:bg-[#F59E0B]/20 px-1.5 py-0.2 rounded border border-[#F59E0B]/30">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#F59E0B] focus-pulse-node" />
+                            NOW
                           </span>
                         )}
 
@@ -521,7 +562,7 @@ export const OverviewCockpit: React.FC = () => {
                       </div>
 
                       <h3
-                        className={`text-sm sm:text-base font-bold text-[#18181A] dark:text-[#F3F4F6] leading-snug ${
+                        className={`text-sm sm:text-base font-semibold text-[#18181A] dark:text-[#F3F4F6] leading-snug ${
                           entry.isCompleted ? 'line-through text-[#96979B] dark:text-[#6B7280]' : ''
                         }`}
                       >
