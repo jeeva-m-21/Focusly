@@ -63,7 +63,7 @@ export const CircadianEnergySimulator: React.FC = () => {
         cortisol: 'Moderate (0.42)',
         adenosine: 'Transient Spike (0.58)',
         recommendedDuration: '15-25 min light sprint',
-        targetActivities: 'Stanford campus walk, healthy lunch, lecture slide skimming, administrative email',
+        targetActivities: 'VIT campus walk via Foodys Gazebo, healthy lunch, lecture slide skimming, administrative email',
         tagColor: 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20',
         waveColor: '#64748b',
         glowColor: 'rgba(100, 116, 139, 0.2)',
@@ -187,7 +187,7 @@ export const CircadianEnergySimulator: React.FC = () => {
               </span>
             </div>
             <p className="text-xs text-[#64676e] dark:text-[#9ba0a9] mt-0.5">
-              Diurnal biological alertness synchronized to your Stanford course schedule.
+              Diurnal biological alertness synchronized to your VIT slot timetable.
             </p>
           </div>
         </div>
@@ -429,7 +429,7 @@ export const CircadianEnergySimulator: React.FC = () => {
 
             <button
               onClick={() => {
-                startDeepWork('sb-1', 'Peak Circadian Deep Work Session', 'CS 106B');
+                startDeepWork('sb-1', 'Peak Circadian Deep Work Session', 'CSE2005');
                 setView('focus-timer');
               }}
               className="text-xs font-semibold text-[#1c1d21] dark:text-white flex items-center gap-1 hover:underline cursor-pointer"

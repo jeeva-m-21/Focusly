@@ -6,7 +6,7 @@ import { Button } from '../common/Button';
 import { calculateCircadianAlertness } from '../../algorithms/circadianModel';
 
 export const CompactCircadianGuide: React.FC = () => {
-  const { simulatedCircadianTime, setSimulatedCircadianTime, setView, startDeepWork, tasks, user } = useFocusStore();
+  const { simulatedCircadianTime, setSimulatedCircadianTime, setView, startDeepWork, tasks, courses, user } = useFocusStore();
 
   const [h, m] = simulatedCircadianTime.split(':').map(Number);
   const hourDecimal = h + (m || 0) / 60;
@@ -117,9 +117,10 @@ export const CompactCircadianGuide: React.FC = () => {
         onClick={() => {
           const topTask = tasks.find(t => !t.completed);
           if (topTask) {
-            startDeepWork(topTask.id, topTask.title, 'CS 106B', bio.recommendedDurationMinutes);
+            const courseCode = topTask.courseId ? (courses.find(c => c.id === topTask.courseId)?.code || 'CSE2005') : 'CSE2005';
+            startDeepWork(topTask.id, topTask.title, courseCode, bio.recommendedDurationMinutes);
           } else {
-            startDeepWork('t-1', 'Circadian Peak Deep Work', 'CS 106B', bio.recommendedDurationMinutes);
+            startDeepWork('t-1', 'Circadian Peak Deep Work', 'CSE2005', bio.recommendedDurationMinutes);
           }
           setView('focus-timer');
         }}

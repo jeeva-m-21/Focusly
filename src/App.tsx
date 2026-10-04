@@ -44,7 +44,8 @@ export const App: React.FC = () => {
     isCommandPaletteOpen,
     isQuickBlockModalOpen,
     isAutograderModalOpen,
-    tasks
+    tasks,
+    courses
   } = useFocusStore();
 
   useEffect(() => {
@@ -84,7 +85,8 @@ export const App: React.FC = () => {
         e.preventDefault();
         const topTask = tasks.find((t) => !t.completed) || tasks[0];
         if (topTask) {
-          startDeepWork(topTask.id, topTask.title, 'CS 106B');
+          const courseCode = topTask.courseId ? (courses.find((c) => c.id === topTask.courseId)?.code || 'CSE2005') : 'CSE2005';
+          startDeepWork(topTask.id, topTask.title, courseCode);
         }
         setView('focus-timer');
       }

@@ -80,117 +80,137 @@ export const OverviewCockpit: React.FC = () => {
   const [plannedNotice, setPlannedNotice] = useState(false);
   const [showReadinessTooltip, setShowReadinessTooltip] = useState(false);
 
-  const cs106bCourse = courses.find((c) => c.id === 'cs106b');
-  const math51Course = courses.find((c) => c.id === 'math51');
-  const highLoadTask = tasks.find((t) => t.id === 't-1');
+  const cse2005Course = courses.find((c) => c.code === 'CSE2005') || courses[0];
+  const cse2006Course = courses.find((c) => c.code === 'CSE2006') || courses[1];
+  const highLoadTask = tasks.find((t) => t.id === 't-1') || tasks[0];
 
   // Compute scientific alertness: 10:45 AM
   const bioTelemetry = calculateCircadianAlertness(10.75, user?.chronotype || 'afternoon');
 
-  // Unified Chronological Timeline Items
+  // Unified Chronological Timeline Items (VIT Day 1 Instructional Schedule)
   const timeline: TimelineEntry[] = [
     {
       id: 'item-1',
       time: '08:30',
-      endTime: '10:00',
-      tag: 'FOCUS',
-      title: 'Circadian Peak Focus Window',
-      subtitle: 'Morning deep work block · Tree invariants & algorithmic recursion',
-      courseCode: 'CS 106B',
+      endTime: '09:20',
+      tag: 'CLASS',
+      title: 'CSE2005: Operating Systems (Slot A1)',
+      subtitle: 'Process Scheduling, Context Switching & Dual-Mode Execution',
+      location: 'SJT 411 (Silver Jubilee Tower)',
+      instructor: 'Dr. K. Senthil Kumar',
+      courseCode: 'CSE2005',
       isCompleted: true,
       cognitiveLoad: 'high',
       details: {
-        estimatedMinutes: 90,
-        subtasks: ['Reviewed binary search tree properties', 'Completed recursion trace problem set'],
-        relatedNotes: 'CS 106B Lecture 11: Tree Invariants'
+        estimatedMinutes: 50,
+        subtasks: ['Reviewed kernel vs user mode transitions', 'Analyzed Round-Robin context switch overheads'],
+        relatedNotes: 'CSE2005 Lecture 14: Semaphore & Mutex Invariants'
       }
     },
     {
       id: 'item-2',
-      time: '10:30',
-      endTime: '11:20',
+      time: '09:30',
+      endTime: '10:20',
       tag: 'CLASS',
-      title: 'CS 106B: Programming Abstractions',
-      subtitle: 'Linked Lists, Pointers & Destructor Implementations',
-      location: 'Hewlett Teaching Center 200',
-      instructor: 'Prof. Keith Schwarz',
-      courseCode: 'CS 106B',
+      title: 'CSE2006: Data Structures & Algorithms (Slot B1)',
+      subtitle: 'Red-Black Tree Insertion Balancing & AVL Double Rotations',
+      location: 'TT 204 (Technology Tower)',
+      instructor: 'Dr. Priya R',
+      courseCode: 'CSE2006',
       isCurrent: true,
       cognitiveLoad: 'high',
       details: {
         estimatedMinutes: 50,
-        subtasks: ['Dynamic memory deallocation rules', 'Self-assignment guard in operator='],
-        transitNote: '15 min buffer advised from Durand / Quad',
-        taQueueInfo: `${cs106bCourse?.taQueue.studentsInLine || 4} students currently queued at Durand 353 (~12m wait)`
+        subtasks: ['Prove 2^(bh) - 1 height lower bound for Red-Black trees', 'Left-Right double rotation code demo'],
+        transitNote: '6 min walk via Periyar Central Library',
+        taQueueInfo: `${cse2005Course?.taQueue.studentsInLine || 3} students currently queued at SJT 411 Cabin (~10m wait)`
       }
     },
     {
       id: 'item-3',
-      time: '11:20',
-      endTime: '11:45',
-      tag: 'BUFFER',
-      title: 'Campus Transit Buffer',
-      subtitle: 'Hewlett Teaching Center → Sloan Math Corner (6 min walk · 0.35 mi)',
-      location: 'Main Quad Transit Path',
+      time: '10:30',
+      endTime: '11:20',
+      tag: 'CLASS',
+      title: 'MAT2002: Discrete Mathematics & Graph Theory (Slot C1)',
+      subtitle: 'Planar Graphs, Euler Formula (V - E + F = 2) & Kuratowski Theorem',
+      location: 'MB 112 (Main Building / Dr. MGR Block)',
+      instructor: 'Dr. Ramesh Babu',
+      courseCode: 'MAT2002',
+      cognitiveLoad: 'high',
       details: {
-        estimatedMinutes: 25,
-        transitNote: 'Dijkstra shortest path router estimates 6m walk or 3m bike.'
+        estimatedMinutes: 50,
+        subtasks: ['Derive E <= 3V - 6 planar edge bound', 'Solve non-planarity for K5 and K3,3']
       }
     },
     {
       id: 'item-4',
-      time: '11:45',
-      endTime: '12:35',
+      time: '11:30',
+      endTime: '12:20',
       tag: 'CLASS',
-      title: 'MATH 51: Linear Algebra & Multivariable Calculus',
-      subtitle: 'Eigenbasis, Characteristic Polynomial & SVD Proofs',
-      location: 'Sloan Math Corner 380',
-      instructor: 'Prof. Jonathan Luk',
-      courseCode: 'MATH 51',
+      title: 'ECE2001: Digital Logic Design (Slot D1)',
+      subtitle: 'Carry Lookahead Adders & Synchronous State Machine Design',
+      location: 'TT 418 (Technology Tower)',
+      instructor: 'Prof. Anitha M',
+      courseCode: 'ECE2001',
       cognitiveLoad: 'high',
       details: {
         estimatedMinutes: 50,
-        subtasks: ['Review Gram-Schmidt projection formula', 'Prepare discussion question on orthogonal matrices']
+        subtasks: ['Carry generate and propagate boolean equations', 'State transition minimization table']
       }
     },
     {
       id: 'item-5',
-      time: '12:45',
-      endTime: '13:30',
+      time: '12:30',
+      endTime: '13:45',
       tag: 'BUFFER',
-      title: 'Lunch & Cognitive Rest Recovery',
-      subtitle: 'Tressider Memorial Union · Off-screen restorative buffer',
-      location: 'Tressider Union'
+      title: 'Foodys Gazebo Lunch & Circadian Recharge',
+      subtitle: 'Central Dining Area & Outdoor Lawn · Restorative cognitive buffer',
+      location: 'Foodys Central / Anna Auditorium Lawn'
     },
     {
       id: 'item-6',
       time: '14:00',
-      endTime: '15:30',
-      tag: 'TASK',
-      title: 'P-Set 4: PriorityQueue Debugging',
-      subtitle: 'Dynamic array resize delete[] leak resolution & edge case testing',
-      courseCode: 'CS 106B',
-      taskId: 't-1',
-      isCompleted: tasks.find((t) => t.id === 't-1')?.completed || false,
+      endTime: '15:40',
+      tag: 'CLASS',
+      title: 'ECE2001: Digital Electronics Laboratory (Slot L15+L16)',
+      subtitle: 'Verilog HDL Structural Modeling of 4-Bit ALU on FPGA Board',
+      courseCode: 'ECE2001',
+      location: 'TT 401 (Digital Electronics Lab)',
       cognitiveLoad: 'high',
       details: {
-        estimatedMinutes: 90,
-        subtasks: ['Fix valgrind delete[] memory leak in pq_heap.cpp', 'Pass autograder test 19 & 20'],
-        autograder: { passing: 18, total: 20, leaks: 1 }
+        estimatedMinutes: 100,
+        subtasks: ['Synthesize Verilog HDL module in ModelSim', 'Verify testbench vectors for overflow flags']
       }
     },
     {
       id: 'item-7',
       time: '16:00',
-      endTime: '16:45',
+      endTime: '17:30',
+      tag: 'FOCUS',
+      title: 'Periyar Central Library: Deep Focus Study Window',
+      subtitle: 'POSIX Semaphores Lab implementation & thread synchronization',
+      location: 'Periyar Central Library (Floor 2 Quiet Study Room)',
+      courseCode: 'CSE2005',
+      taskId: 't-1',
+      isCompleted: tasks.find((t) => t.id === 't-1')?.completed || false,
+      cognitiveLoad: 'high',
+      details: {
+        estimatedMinutes: 90,
+        subtasks: ['Implement sem_wait and sem_post loops', 'Verify Valgrind zero leaks on exit']
+      }
+    },
+    {
+      id: 'item-8',
+      time: '17:45',
+      endTime: '18:30',
       tag: 'OFFICE_HOURS',
-      title: 'Durand 353 TA Queue Consultation',
-      subtitle: 'CS 106B Section Leader Helper Suite · Heap memory review',
-      location: 'Durand Building 353',
-      courseCode: 'CS 106B',
+      title: 'SJT 411 Faculty Cabin Consultation',
+      subtitle: 'Dr. K. Senthil Kumar · Operating Systems DA-1 Doubt Clearing',
+      location: 'SJT 411 Faculty Cabin',
+      courseCode: 'CSE2005',
       cognitiveLoad: 'medium',
       details: {
-        taQueueInfo: `${cs106bCourse?.taQueue.studentsInLine || 4} students in line (~12m wait)`
+        taQueueInfo: `${cse2005Course?.taQueue.studentsInLine || 3} students in line (~10m wait)`
       }
     },
     {
@@ -282,19 +302,19 @@ export const OverviewCockpit: React.FC = () => {
           {/* Core Content: What & Where */}
           <div className="space-y-1">
             <div className="text-[12px] font-mono font-medium text-[#686A70] dark:text-[#A0A3AB]">
-              CS 106B · Programming Abstractions
+              CSE2006 · Data Structures and Algorithms (Slot B1)
             </div>
             <h2
               id="next-up-heading"
               className="text-[17px] sm:text-[18px] font-semibold text-[#18181A] dark:text-[#F3F4F6] tracking-tight leading-[26px]"
             >
-              Linked Lists, Pointers & Destructor Implementations
+              Red-Black Tree Balancing & AVL Double Rotations
             </h2>
             <p className="text-[13px] text-[#686A70] dark:text-[#A0A3AB] flex items-center gap-1.5 pt-0.5">
               <MapPin className="w-3.5 h-3.5 text-[#96979B]" />
-              <span>Hewlett Teaching Center 200</span>
+              <span>TT 204 (Technology Tower)</span>
               <span>·</span>
-              <span>Prof. Keith Schwarz</span>
+              <span>Dr. Priya R</span>
             </p>
           </div>
 
@@ -305,9 +325,9 @@ export const OverviewCockpit: React.FC = () => {
               size="md"
               onClick={() => {
                 if (highLoadTask) {
-                  startDeepWork(highLoadTask.id, highLoadTask.title, 'CS 106B', 50);
+                  startDeepWork(highLoadTask.id, highLoadTask.title, 'CSE2006', 50);
                 } else {
-                  startDeepWork('t-1', 'CS 106B Preparation', 'CS 106B', 50);
+                  startDeepWork('t-1', 'CSE2006 Study Block', 'CSE2006', 50);
                 }
                 setView('focus-timer');
               }}
@@ -337,16 +357,16 @@ export const OverviewCockpit: React.FC = () => {
                     Campus Transit Advisory
                   </span>
                   <p className="text-[#18181A] dark:text-[#F3F4F6] mt-0.5">
-                    15 min walk buffer recommended. Hewlett 200 doors open at 10:20 AM.
+                    6 min walk via Periyar Central Library. TT 204 classroom opens at 09:20 AM.
                   </p>
                 </div>
 
                 <div className="p-3 rounded-xl bg-[#FCFBF8] dark:bg-[#1C1E24] border border-[#E7E5DF] dark:border-[#2A2D36]">
                   <span className="font-mono text-[10px] uppercase font-semibold text-[#686A70] dark:text-[#A0A3AB] block">
-                    Durand Office Hours Status
+                    Faculty Cabin Consultation
                   </span>
                   <p className="text-[#18181A] dark:text-[#F3F4F6] mt-0.5">
-                    {cs106bCourse?.taQueue.studentsInLine || 4} students currently in queue (~12 min estimated wait).
+                    {cse2005Course?.taQueue.studentsInLine || 3} students currently in queue at SJT 411 (~10 min estimated wait).
                   </p>
                 </div>
               </div>
@@ -635,10 +655,10 @@ export const OverviewCockpit: React.FC = () => {
                                 {entry.details.taQueueInfo}
                               </span>
                               <button
-                                onClick={() => joinTaQueue('cs106b')}
+                                onClick={() => joinTaQueue('cse2005')}
                                 className="font-semibold text-xs text-[#18181A] dark:text-white hover:underline cursor-pointer"
                               >
-                                Join Durand Queue →
+                                Join Faculty Cabin Queue →
                               </button>
                             </div>
                           )}

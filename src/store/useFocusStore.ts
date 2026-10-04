@@ -322,8 +322,8 @@ export const useFocusStore = create<FocusStore>()(
         ambientSound: 'off',
         completedPomodoros: 3,
         taskId: 't-1',
-        taskTitle: 'P-Set 4: PriorityQueue.cpp & Heap Optimization',
-        courseCode: 'CS 106B'
+        taskTitle: 'CSE2005 Lab: Multi-threaded Producer-Consumer Synchronization',
+        courseCode: 'CSE2005'
       },
 
       setView: (view) => set({ currentView: view }),
@@ -380,12 +380,12 @@ export const useFocusStore = create<FocusStore>()(
           set({
             isAuthenticated: true,
             user: {
-              name: 'Maya Chen',
-              email: 'maya.chen@stanford.edu',
-              institution: 'Stanford University',
-              term: "Fall '24",
-              degree: "B.S. Bioengineering '27",
-              targetUnits: 15,
+              name: 'Maya Lin',
+              email: 'maya.lin2023@vitstudent.ac.in',
+              institution: 'Vellore Institute of Technology (VIT)',
+              term: 'Winter Semester 2025-26',
+              degree: "B.Tech Computer Science & Bioengineering '27",
+              targetUnits: 23,
               chronotype: 'afternoon',
               circadianPeak: { start: '13:00', end: '16:30' },
               weeklyDeepWorkTargetHours: 20,

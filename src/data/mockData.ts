@@ -2,11 +2,11 @@ import { UserProfile, Course, Task, ExamTopic, Flashcard, NoteItem, ScheduleBloc
 
 export const initialUserProfile: UserProfile = {
   name: 'Aarav Sharma',
-  email: 'aarav.sharma@stanford.edu',
-  institution: 'Stanford University',
-  term: "Fall '24",
-  degree: "B.S. Computer Science '26",
-  targetUnits: 17,
+  email: 'aarav.sharma2022@vitstudent.ac.in',
+  institution: 'Vellore Institute of Technology (VIT)',
+  term: 'Winter Semester 2025-26',
+  degree: 'B.Tech Computer Science and Engineering (SCOPE) \'26',
+  targetUnits: 23,
   chronotype: 'lark',
   circadianPeak: {
     start: '08:30',
@@ -18,162 +18,252 @@ export const initialUserProfile: UserProfile = {
 
 export const initialCourses: Course[] = [
   {
-    id: 'cs106b',
-    code: 'CS 106B',
-    name: 'Programming Abstractions',
-    instructor: 'Prof. Julie Zelenski & Keith Schwarz',
-    units: 5,
-    color: '#334155',
-    badgeBg: '#f1f5f9',
-    badgeText: '#334155',
+    id: 'cse2005',
+    code: 'CSE2005',
+    name: 'Operating Systems',
+    instructor: 'Dr. K. Senthil Kumar (SJT 411)',
+    units: 4,
+    color: '#F59E0B',
+    badgeBg: '#FFF7E6',
+    badgeText: '#D97706',
     attendance: {
-      attended: 14,
-      total: 15,
-      maxAllowedAbsences: 2,
-      currentAbsences: 1,
-      policyWarningThreshold: 1,
-      lastVerifiedDate: 'Oct 23, 2024 (Gates B01)',
+      attended: 30,
+      total: 32,
+      maxAllowedAbsences: 8,
+      currentAbsences: 2,
+      policyWarningThreshold: 2,
+      lastVerifiedDate: 'Today, 09:20 AM (SJT 411)',
       panoptoSynced: true
     },
     gradingWeights: [
-      { category: 'Programming Assignments (P-Sets)', weightPercent: 45, score: 97.4 },
-      { category: 'Midterm Examination', weightPercent: 20, score: 91.5 },
-      { category: 'Final Examination', weightPercent: 25, score: undefined },
-      { category: 'Discussion Section Attendance', weightPercent: 10, score: 100 }
+      { category: 'Continuous Assessment 1 (CAT-1)', weightPercent: 15, score: 89.0 },
+      { category: 'Continuous Assessment 2 (CAT-2)', weightPercent: 15, score: 92.0 },
+      { category: 'Digital Assignments (DA1 & DA2)', weightPercent: 10, score: 97.5 },
+      { category: 'Quizzes & Lab Assessment', weightPercent: 20, score: 90.0 },
+      { category: 'Final Assessment Test (FAT)', weightPercent: 40, score: undefined }
     ],
     lateDaysTotal: 3,
-    lateDaysUsed: 1,
+    lateDaysUsed: 0,
     taQueue: {
       isOpen: true,
-      location: 'Durand 353 & Zoom',
-      studentsInLine: 4,
-      waitMinutes: 12
+      location: 'SJT 411 (Faculty Cabin) & MS Teams',
+      studentsInLine: 3,
+      waitMinutes: 10
     },
     syllabus: [
-      { id: 's1', week: 1, topic: 'C++ Fundamentals, Memory & Abstract Data Types', date: 'Sep 23', readings: 'Course Reader Ch 1-3', hasSlides: true, hasCodeRepo: true },
-      { id: 's2', week: 2, topic: 'Vectors, Grid, Stack, Queue implementations', date: 'Sep 30', readings: 'Course Reader Ch 4-5', hasSlides: true, hasCodeRepo: true },
-      { id: 's3', week: 3, topic: 'Recursion, Backtracking & Permutations', date: 'Oct 07', readings: 'Course Reader Ch 7-8', hasSlides: true, hasCodeRepo: true },
-      { id: 's4', week: 4, topic: 'Recursive Backtracking & Memoization', date: 'Oct 14', readings: 'Course Reader Ch 9', hasSlides: true, hasCodeRepo: true },
-      { id: 's5', week: 5, topic: 'Pointers, Dynamic Memory & Linked Lists', date: 'Oct 21', readings: 'Course Reader Ch 11-12', hasSlides: true, hasCodeRepo: true, isCurrentWeek: true, edPostUrl: 'https://edstem.org' },
-      { id: 's6', week: 6, topic: 'Binary Search Trees & Priority Queues', date: 'Oct 28', readings: 'Course Reader Ch 14', hasSlides: false, hasCodeRepo: true },
-      { id: 's7', week: 7, topic: 'Hashing, Hash Tables & Collision Strategies', date: 'Nov 04', readings: 'Course Reader Ch 15', hasSlides: false, hasCodeRepo: false },
-      { id: 's8', week: 8, topic: 'Graphs, BFS, DFS & Dijkstra’s Algorithm', date: 'Nov 11', readings: 'Course Reader Ch 17', hasSlides: false, hasCodeRepo: false },
-      { id: 's9', week: 9, topic: 'Advanced Algorithmic Efficiency & Big-O Proofs', date: 'Nov 18', readings: 'Course Reader Ch 18', hasSlides: false, hasCodeRepo: false },
-      { id: 's10', week: 10, topic: 'Final Review & Special Topics (Huffman Coding)', date: 'Dec 02', readings: 'Exam Handout', hasSlides: false, hasCodeRepo: false }
+      { id: 's1', week: 1, topic: 'OS Architecture, Dual-Mode & System Call Internals', date: 'Jul 22', readings: 'Silberschatz Ch 1-2', hasSlides: true, hasCodeRepo: true },
+      { id: 's2', week: 2, topic: 'Process Scheduling, PCB & Context Switch Overheads', date: 'Jul 29', readings: 'Silberschatz Ch 3', hasSlides: true, hasCodeRepo: true },
+      { id: 's3', week: 3, topic: 'Threads, Kernel vs User Level & POSIX Pthreads', date: 'Aug 05', readings: 'Silberschatz Ch 4', hasSlides: true, hasCodeRepo: true },
+      { id: 's4', week: 4, topic: 'Critical Section, Hardware Instructions & Peterson Algorithm', date: 'Aug 12', readings: 'Silberschatz Ch 5', hasSlides: true, hasCodeRepo: true },
+      { id: 's5', week: 5, topic: 'Semaphores, Mutex Locks & Classical IPC Synchronization', date: 'Aug 19', readings: 'Silberschatz Ch 6', hasSlides: true, hasCodeRepo: true, isCurrentWeek: true, edPostUrl: 'https://vtopcc.vit.ac.in' },
+      { id: 's6', week: 6, topic: 'Deadlock Detection, Prevention & Banker\'s Algorithm', date: 'Aug 26', readings: 'Silberschatz Ch 7', hasSlides: true, hasCodeRepo: true },
+      { id: 's7', week: 7, topic: 'Main Memory, Paging, TLB & Multi-Level Page Tables', date: 'Sep 02', readings: 'Silberschatz Ch 8', hasSlides: false, hasCodeRepo: false },
+      { id: 's8', week: 8, topic: 'Virtual Memory, Demand Paging & Page Replacement Algorithms', date: 'Sep 09', readings: 'Silberschatz Ch 9', hasSlides: false, hasCodeRepo: false },
+      { id: 's9', week: 9, topic: 'File System Interface, Inodes & Directory Allocations', date: 'Sep 16', readings: 'Silberschatz Ch 10', hasSlides: false, hasCodeRepo: false },
+      { id: 's10', week: 10, topic: 'I/O Hardware & Disk Scheduling (SCAN, C-LOOK)', date: 'Sep 23', readings: 'Silberschatz Ch 11', hasSlides: false, hasCodeRepo: false }
     ]
   },
   {
-    id: 'math51',
-    code: 'MATH 51',
-    name: 'Linear Algebra & Multivariable Calculus',
-    instructor: 'Prof. Rafe Mazzeo',
-    units: 5,
-    color: '#475569',
-    badgeBg: '#f4f1eb',
-    badgeText: '#475569',
+    id: 'cse2006',
+    code: 'CSE2006',
+    name: 'Data Structures and Algorithms',
+    instructor: 'Dr. Priya R (TT 204)',
+    units: 4,
+    color: '#6366F1',
+    badgeBg: '#EEF2FF',
+    badgeText: '#4F46E5',
     attendance: {
-      attended: 15,
-      total: 16,
-      maxAllowedAbsences: 2,
-      currentAbsences: 1,
-      policyWarningThreshold: 1,
-      lastVerifiedDate: 'Oct 22, 2024 (Hewlett 200)',
+      attended: 23,
+      total: 26,
+      maxAllowedAbsences: 6,
+      currentAbsences: 3,
+      policyWarningThreshold: 2,
+      lastVerifiedDate: 'Today, 10:20 AM (TT 204)',
       panoptoSynced: true
     },
     gradingWeights: [
-      { category: 'Weekly Homework Problem Sets', weightPercent: 30, score: 94.0 },
-      { category: 'Midterm 1', weightPercent: 20, score: 89.0 },
-      { category: 'Midterm 2', weightPercent: 20, score: undefined },
-      { category: 'Final Exam', weightPercent: 30, score: undefined }
+      { category: 'Continuous Assessment 1 (CAT-1)', weightPercent: 15, score: 84.0 },
+      { category: 'Continuous Assessment 2 (CAT-2)', weightPercent: 15, score: 88.0 },
+      { category: 'Digital Assignments & Coding P-Sets', weightPercent: 20, score: 95.0 },
+      { category: 'Lab Assessment & Model Exam', weightPercent: 15, score: 92.0 },
+      { category: 'Final Assessment Test (FAT)', weightPercent: 35, score: undefined }
     ],
     lateDaysTotal: 2,
-    lateDaysUsed: 2, // warning!
+    lateDaysUsed: 1,
     taQueue: {
       isOpen: false,
-      location: 'Sloan Math Corner 380',
+      location: 'TT 204 Faculty Cabin',
       studentsInLine: 0,
       waitMinutes: 0
     },
     syllabus: [
-      { id: 'm1', week: 1, topic: 'Vector spaces, linear combinations & span', date: 'Sep 23', readings: 'Levandosky Ch 1', hasSlides: true, hasCodeRepo: false },
-      { id: 'm2', week: 2, topic: 'Matrix algebra, Gaussian elimination & rank', date: 'Sep 30', readings: 'Levandosky Ch 2', hasSlides: true, hasCodeRepo: false },
-      { id: 'm3', week: 3, topic: 'Subspaces: null space, column space, dimension', date: 'Oct 07', readings: 'Levandosky Ch 3', hasSlides: true, hasCodeRepo: false },
-      { id: 'm4', week: 4, topic: 'Orthogonality, Gram-Schmidt & Projections', date: 'Oct 14', readings: 'Levandosky Ch 4', hasSlides: true, hasCodeRepo: false },
-      { id: 'm5', week: 5, topic: 'Determinants, Eigenvalues & Eigenvectors', date: 'Oct 21', readings: 'Levandosky Ch 5', hasSlides: true, hasCodeRepo: false, isCurrentWeek: true }
+      { id: 'd1', week: 1, topic: 'Asymptotic Analysis & Recurrence Relations (Master Theorem)', date: 'Jul 22', readings: 'CLRS Ch 1-4', hasSlides: true, hasCodeRepo: true },
+      { id: 'd2', week: 2, topic: 'Linear Data Structures: Stacks, Queues, Circular Buffers', date: 'Jul 29', readings: 'CLRS Ch 10', hasSlides: true, hasCodeRepo: true },
+      { id: 'd3', week: 3, topic: 'Binary Search Trees & AVL Balanced Trees', date: 'Aug 05', readings: 'CLRS Ch 12-13', hasSlides: true, hasCodeRepo: true },
+      { id: 'd4', week: 4, topic: 'Red-Black Tree Insertion & Deletion Properties', date: 'Aug 12', readings: 'CLRS Ch 13', hasSlides: true, hasCodeRepo: true },
+      { id: 'd5', week: 5, topic: 'Heaps, Priority Queues & Disjoint Set Union (DSU)', date: 'Aug 19', readings: 'CLRS Ch 6, 21', hasSlides: true, hasCodeRepo: true, isCurrentWeek: true },
+      { id: 'd6', week: 6, topic: 'Graph Traversals: BFS, DFS & Topological Sort', date: 'Aug 26', readings: 'CLRS Ch 22', hasSlides: false, hasCodeRepo: true },
+      { id: 'd7', week: 7, topic: 'Shortest Paths: Dijkstra and Bellman-Ford Algorithms', date: 'Sep 02', readings: 'CLRS Ch 24', hasSlides: false, hasCodeRepo: false },
+      { id: 'd8', week: 8, topic: 'Minimum Spanning Trees: Kruskal and Prim Algorithms', date: 'Sep 09', readings: 'CLRS Ch 23', hasSlides: false, hasCodeRepo: false }
     ]
   },
   {
-    id: 'cs103',
-    code: 'CS 103',
-    name: 'Mathematical Foundations of Computing',
-    instructor: 'Prof. Keith Schwarz',
-    units: 5,
-    color: '#52525b',
-    badgeBg: '#f4f4f5',
-    badgeText: '#3f3f46',
+    id: 'mat2002',
+    code: 'MAT2002',
+    name: 'Discrete Mathematics and Graph Theory',
+    instructor: 'Dr. Ramesh Babu (MB 112)',
+    units: 3,
+    color: '#10B981',
+    badgeBg: '#ECFDF5',
+    badgeText: '#047857',
     attendance: {
-      attended: 12,
-      total: 12,
-      maxAllowedAbsences: 3,
-      currentAbsences: 0,
+      attended: 31,
+      total: 34,
+      maxAllowedAbsences: 8,
+      currentAbsences: 3,
       policyWarningThreshold: 2,
-      lastVerifiedDate: 'Oct 23, 2024 (NVidia Aud)',
+      lastVerifiedDate: 'Yesterday, 11:30 AM (MB 112)',
       panoptoSynced: true
     },
     gradingWeights: [
-      { category: 'Problem Sets (10 assignments)', weightPercent: 35, score: 98.0 },
-      { category: 'Midterm Exam', weightPercent: 25, score: 94.0 },
-      { category: 'Final Exam', weightPercent: 40, score: undefined }
+      { category: 'Continuous Assessment 1 (CAT-1)', weightPercent: 15, score: 96.0 },
+      { category: 'Continuous Assessment 2 (CAT-2)', weightPercent: 15, score: 91.0 },
+      { category: 'Digital Assignments & Quizzes', weightPercent: 20, score: 95.0 },
+      { category: 'Final Assessment Test (FAT)', weightPercent: 50, score: undefined }
+    ],
+    lateDaysTotal: 2,
+    lateDaysUsed: 0,
+    taQueue: {
+      isOpen: true,
+      location: 'MB 112 Faculty Desk',
+      studentsInLine: 1,
+      waitMinutes: 4
+    },
+    syllabus: [
+      { id: 'm1', week: 1, topic: 'Propositional & Predicate Logic, Inference Rules', date: 'Jul 22', readings: 'Rosen Ch 1', hasSlides: true, hasCodeRepo: false },
+      { id: 'm2', week: 2, topic: 'Set Theory, Relations & Equivalence Classes', date: 'Jul 29', readings: 'Rosen Ch 2', hasSlides: true, hasCodeRepo: false },
+      { id: 'm3', week: 3, topic: 'Mathematical Induction & Pigeonhole Principle', date: 'Aug 05', readings: 'Rosen Ch 5-6', hasSlides: true, hasCodeRepo: false },
+      { id: 'm4', week: 4, topic: 'Recurrence Relations & Generating Functions', date: 'Aug 12', readings: 'Rosen Ch 8', hasSlides: true, hasCodeRepo: false },
+      { id: 'm5', week: 5, topic: 'Graph Models, Isomorphism & Euler vs Hamiltonian Paths', date: 'Aug 19', readings: 'Rosen Ch 10', hasSlides: true, hasCodeRepo: false, isCurrentWeek: true },
+      { id: 'm6', week: 6, topic: 'Planar Graphs, Euler\'s Formula & Chromatic Numbers', date: 'Aug 26', readings: 'Rosen Ch 10', hasSlides: false, hasCodeRepo: false }
+    ]
+  },
+  {
+    id: 'ece2001',
+    code: 'ECE2001',
+    name: 'Digital Logic Design',
+    instructor: 'Prof. Anitha M (TT 418)',
+    units: 4,
+    color: '#EC4899',
+    badgeBg: '#FDF2F8',
+    badgeText: '#BE185D',
+    attendance: {
+      attended: 21,
+      total: 25,
+      maxAllowedAbsences: 6,
+      currentAbsences: 4,
+      policyWarningThreshold: 1, // Alert: 1 absence away from debarment threshold
+      lastVerifiedDate: 'Mon, 12:20 PM (TT 418)',
+      panoptoSynced: true
+    },
+    gradingWeights: [
+      { category: 'Continuous Assessment 1 (CAT-1)', weightPercent: 15, score: 79.0 },
+      { category: 'Continuous Assessment 2 (CAT-2)', weightPercent: 15, score: 82.0 },
+      { category: 'Digital Assignments & Verilog Simulations', weightPercent: 15, score: 85.0 },
+      { category: 'Lab Continuous Assessment & Model Exam', weightPercent: 15, score: 88.0 },
+      { category: 'Final Assessment Test (FAT)', weightPercent: 35, score: undefined }
+    ],
+    lateDaysTotal: 2,
+    lateDaysUsed: 1,
+    taQueue: {
+      isOpen: false,
+      location: 'TT 401 Digital Electronics Lab',
+      studentsInLine: 0,
+      waitMinutes: 0
+    },
+    syllabus: [
+      { id: 'e1', week: 1, topic: 'Boolean Algebra, Logic Gates & Universal NAND/NOR', date: 'Jul 22', readings: 'Mano Ch 1-2', hasSlides: true, hasCodeRepo: true },
+      { id: 'e2', week: 2, topic: 'K-Map Minimization (2-5 Variables) & Don\'t Care Conditions', date: 'Jul 29', readings: 'Mano Ch 3', hasSlides: true, hasCodeRepo: true },
+      { id: 'e3', week: 3, topic: 'Combinational Circuits: Adders, Subtractors, Encoders, Decoders', date: 'Aug 05', readings: 'Mano Ch 4', hasSlides: true, hasCodeRepo: true },
+      { id: 'e4', week: 4, topic: 'Multiplexers, Demultiplexers & Verilog HDL Modules', date: 'Aug 12', readings: 'Mano Ch 4', hasSlides: true, hasCodeRepo: true },
+      { id: 'e5', week: 5, topic: 'Sequential Circuits: Latches, Flip-Flops & State Machine Design', date: 'Aug 19', readings: 'Mano Ch 5', hasSlides: true, hasCodeRepo: true, isCurrentWeek: true }
+    ]
+  },
+  {
+    id: 'cse2004',
+    code: 'CSE2004',
+    name: 'Database Management Systems',
+    instructor: 'Dr. V. Rajesh (SJT 314)',
+    units: 3,
+    color: '#0EA5E9',
+    badgeBg: '#F0F9FF',
+    badgeText: '#0369A1',
+    attendance: {
+      attended: 28,
+      total: 29,
+      maxAllowedAbsences: 7,
+      currentAbsences: 1,
+      policyWarningThreshold: 2,
+      lastVerifiedDate: 'Yesterday, 10:20 AM (SJT 314)',
+      panoptoSynced: true
+    },
+    gradingWeights: [
+      { category: 'Continuous Assessment 1 (CAT-1)', weightPercent: 15, score: 93.0 },
+      { category: 'Continuous Assessment 2 (CAT-2)', weightPercent: 15, score: 94.0 },
+      { category: 'Digital Assignments & SQL Challenges', weightPercent: 20, score: 100.0 },
+      { category: 'Final Assessment Test (FAT)', weightPercent: 50, score: undefined }
     ],
     lateDaysTotal: 3,
     lateDaysUsed: 0,
     taQueue: {
       isOpen: true,
-      location: 'Gates B02',
-      studentsInLine: 1,
-      waitMinutes: 3
+      location: 'SJT 314 Cabin',
+      studentsInLine: 2,
+      waitMinutes: 6
     },
     syllabus: [
-      { id: 'c1', week: 1, topic: 'Mathematical logic, sets, and relations', date: 'Sep 23', readings: 'Guide to Logic', hasSlides: true, hasCodeRepo: false },
-      { id: 'c2', week: 2, topic: 'Direct & indirect proofs, contradictions', date: 'Sep 30', readings: 'Proofwriting Guide', hasSlides: true, hasCodeRepo: false },
-      { id: 'c3', week: 3, topic: 'Mathematical Induction & Well-Ordering', date: 'Oct 07', readings: 'Induction Primer', hasSlides: true, hasCodeRepo: false },
-      { id: 'c4', week: 4, topic: 'Finite Automata (DFA, NFA, RegEx)', date: 'Oct 14', readings: 'Sipser Ch 1', hasSlides: true, hasCodeRepo: false },
-      { id: 'c5', week: 5, topic: 'Context-Free Grammars & Pushdown Automata', date: 'Oct 21', readings: 'Sipser Ch 2', hasSlides: true, hasCodeRepo: false, isCurrentWeek: true }
+      { id: 'db1', week: 1, topic: 'Relational Model, Relational Algebra & Calculus', date: 'Jul 22', readings: 'Korth Ch 1-2', hasSlides: true, hasCodeRepo: true },
+      { id: 'db2', week: 2, topic: 'SQL Queries, Joins, Aggregations & Subqueries', date: 'Jul 29', readings: 'Korth Ch 3-4', hasSlides: true, hasCodeRepo: true },
+      { id: 'db3', week: 3, topic: 'Database Normalization: 1NF, 2NF, 3NF & BCNF', date: 'Aug 05', readings: 'Korth Ch 7', hasSlides: true, hasCodeRepo: true },
+      { id: 'db4', week: 4, topic: 'Transaction Processing, ACID Properties & Serializability', date: 'Aug 12', readings: 'Korth Ch 14', hasSlides: true, hasCodeRepo: true },
+      { id: 'db5', week: 5, topic: 'Indexing & Hashing: B+ Trees & Query Optimization', date: 'Aug 19', readings: 'Korth Ch 11-12', hasSlides: true, hasCodeRepo: true, isCurrentWeek: true }
     ]
   },
   {
-    id: 'phys41',
-    code: 'PHYS 41',
-    name: 'Mechanics & Relativity',
-    instructor: 'Prof. Patricia Burchat',
+    id: 'hum1021',
+    code: 'HUM1021',
+    name: 'Ethics and Values',
+    instructor: 'Dr. Meenakshi S (CDMM 102)',
     units: 2,
-    color: '#15803d',
-    badgeBg: '#f0fdf4',
-    badgeText: '#15803d',
+    color: '#8B5CF6',
+    badgeBg: '#F5F3FF',
+    badgeText: '#6D28D9',
     attendance: {
-      attended: 8,
-      total: 8,
-      maxAllowedAbsences: 1,
-      currentAbsences: 0,
-      policyWarningThreshold: 1,
-      lastVerifiedDate: 'Oct 21, 2024 (Varian Lab)',
-      panoptoSynced: false
+      attended: 19,
+      total: 20,
+      maxAllowedAbsences: 5,
+      currentAbsences: 1,
+      policyWarningThreshold: 2,
+      lastVerifiedDate: 'Thu, 12:20 PM (CDMM 102)',
+      panoptoSynced: true
     },
     gradingWeights: [
-      { category: 'Weekly Physics Labs', weightPercent: 50, score: 98.5 },
-      { category: 'Pre-lab Checkpoints', weightPercent: 20, score: 100 },
-      { category: 'Final Lab Practical', weightPercent: 30, score: undefined }
+      { category: 'Continuous Assessment 1 (CAT-1)', weightPercent: 20, score: 90.0 },
+      { category: 'Continuous Assessment 2 (CAT-2)', weightPercent: 20, score: 88.0 },
+      { category: 'Digital Assignments & Case Studies', weightPercent: 20, score: 95.0 },
+      { category: 'Final Assessment Test (FAT)', weightPercent: 40, score: undefined }
     ],
-    lateDaysTotal: 1,
+    lateDaysTotal: 2,
     lateDaysUsed: 0,
     taQueue: {
       isOpen: false,
-      location: 'Varian Physics Bldg',
+      location: 'CDMM 102 Cabin',
       studentsInLine: 0,
       waitMinutes: 0
     },
     syllabus: [
-      { id: 'p1', week: 5, topic: 'Rotational Dynamics & Angular Momentum', date: 'Oct 21', readings: 'Taylor Classical Mech', hasSlides: true, hasCodeRepo: false, isCurrentWeek: true }
+      { id: 'h1', week: 1, topic: 'Professional Ethics in Engineering & AI Systems', date: 'Jul 22', readings: 'Handout Ch 1', hasSlides: true, hasCodeRepo: false },
+      { id: 'h2', week: 2, topic: 'Environmental Sustainability & Corporate Responsibility', date: 'Jul 29', readings: 'Handout Ch 2', hasSlides: true, hasCodeRepo: false }
     ]
   }
 ];
@@ -181,61 +271,56 @@ export const initialCourses: Course[] = [
 export const initialTasks: Task[] = [
   {
     id: 't-1',
-    courseId: 'cs106b',
-    title: 'P-Set 4: PriorityQueue.cpp & Heap Optimization',
-    description: 'Implement dynamic array resizing and min-heap sift-up/down logic. Zero memory leaks required under Valgrind.',
+    courseId: 'cse2005',
+    title: 'CSE2005 Lab: Multi-threaded Producer-Consumer with POSIX Semaphores',
+    description: 'Implement circular bounded buffer using sem_init, sem_wait, and sem_post to eliminate race conditions.',
     cognitiveLoad: 'high',
-    dueDate: 'Tomorrow at 11:59 PM',
+    dueDate: 'Today at 5:00 PM',
     scheduledDate: '2026-10-24',
     pinned: true,
     estimatedMinutes: 120,
     completed: false,
     status: 'today',
-    progressPercent: 70,
+    progressPercent: 75,
     subtasks: [
-      { id: 'st-1', title: 'Read autograder test failures and trace dequeue() leaks', completed: true },
-      { id: 'st-2', title: 'Inspect recursive sift-down child index math', completed: true },
-      { id: 'st-3', title: 'Implement base case dynamic memory delete[] on resize', completed: false },
-      { id: 'st-4', title: 'Run full Valgrind memory sanity check', completed: false }
+      { id: 'st-1', title: 'Initialize binary mutex and counting empty/full semaphores', completed: true },
+      { id: 'st-2', title: 'Implement thread synchronization loops for producer & consumer', completed: true },
+      { id: 'st-3', title: 'Verify Valgrind memory deallocation on process termination', completed: false },
+      { id: 'st-4', title: 'Submit code archive on VTOP Digital Assignment portal', completed: false }
     ],
     autograder: {
-      testsPassing: 18,
+      testsPassing: 19,
       testsTotal: 20,
-      valgrindLeaks: 1, // Alert! Memory leak in dequeue()
-      lateDaysUsed: 1,
-      coveragePercent: 90,
-      lastRunTimestamp: 'Today, 11:22 AM',
-      leakStacktrace: `==19842== 320 bytes in 1 blocks are definitely lost in loss record 1 of 1
-==19842==    at 0x4C31B25: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==19842==    by 0x40182E: PriorityQueue::resize() (PriorityQueue.cpp:142)
-==19842==    by 0x401A51: PriorityQueue::enqueue(std::string, int) (PriorityQueue.cpp:88)
-==19842==    by 0x402D19: test_massive_heap_operations() (autograder_test.cpp:214)`
+      valgrindLeaks: 0,
+      lateDaysUsed: 0,
+      coveragePercent: 95,
+      lastRunTimestamp: 'Today, 11:35 AM'
     }
   },
   {
     id: 't-2',
-    courseId: 'math51',
-    title: 'P-Set 5: Spectral Theorem & SVD Proofs',
-    description: 'Problems 4.3 through 5.2 on Orthogonal Diagonalization and Singular Value Decomposition.',
+    courseId: 'cse2006',
+    title: 'CSE2006 DA-2: Red-Black Tree Balancing & AVL Rotation Proofs',
+    description: 'Analytical proof of logarithmic height bounds and implementation of left/right tree rotations.',
     cognitiveLoad: 'high',
-    dueDate: 'Friday at 5:00 PM',
+    dueDate: 'Friday at 11:59 PM',
     scheduledDate: '2026-10-25',
     pinned: true,
     estimatedMinutes: 90,
     completed: false,
     status: 'this_week',
-    progressPercent: 30,
+    progressPercent: 40,
     subtasks: [
-      { id: 'st-21', title: 'Review Levandosky Chapter 3 on symmetric matrices', completed: true },
-      { id: 'st-22', title: 'Compute orthogonal eigenvectors for 3x3 matrix', completed: false },
-      { id: 'st-23', title: 'Write SVD derivation and rank-1 approximation proof', completed: false }
+      { id: 'st-21', title: 'Solve 4 cases of Red-Black node insertion violations', completed: true },
+      { id: 'st-22', title: 'Write double-rotation C++ implementation for AVL trees', completed: false },
+      { id: 'st-23', title: 'Generate benchmark chart comparing BST vs AVL search times', completed: false }
     ]
   },
   {
     id: 't-3',
-    courseId: 'cs103',
-    title: 'Reading: Non-Deterministic Finite Automata (NFAs)',
-    description: 'Read Sipser Chapter 1.2 on subset construction and epsilon transitions before discussion section.',
+    courseId: 'mat2002',
+    title: 'MAT2002 CAT-2 Practice: Planar Graphs & Chromatic Polynomials',
+    description: 'Solve tutorial sheet problems on Euler\'s formula (V - E + F = 2) and 4-color theorem bounds.',
     cognitiveLoad: 'medium',
     dueDate: 'Thursday at 9:00 AM',
     scheduledDate: '2026-10-24',
@@ -245,172 +330,213 @@ export const initialTasks: Task[] = [
     status: 'done',
     progressPercent: 100,
     subtasks: [
-      { id: 'st-31', title: 'Read Sipser Section 1.2 pages 47-58', completed: true },
-      { id: 'st-32', title: 'Draw 3 state transition diagrams', completed: true }
+      { id: 'st-31', title: 'Prove K5 and K3,3 non-planarity using Kuratowski Theorem', completed: true },
+      { id: 'st-32', title: 'Compute chromatic polynomials for cycle graphs', completed: true }
     ]
   },
   {
     id: 't-4',
-    courseId: 'cs106b',
-    title: 'Prepare Midterm Flashcards & Tree Invariants',
-    description: 'Review tree structures, BST properties, and binary heap invariants for upcoming exam.',
+    courseId: 'ece2001',
+    title: 'ECE2001 Lab: Verilog HDL Module for 4-Bit Carry Lookahead Adder',
+    description: 'Simulate generate/propagate logic gates in ModelSim and verify timing waveform diagrams.',
     cognitiveLoad: 'medium',
-    dueDate: 'Thursday at 4:30 PM',
-    scheduledDate: '2026-10-24',
+    dueDate: 'Tomorrow at 2:00 PM',
+    scheduledDate: '2026-10-25',
     pinned: true,
-    estimatedMinutes: 30,
+    estimatedMinutes: 60,
     completed: false,
     status: 'today',
-    progressPercent: 30,
+    progressPercent: 50,
     subtasks: [
-      { id: 'st-41', title: 'Review red-black tree 5 invariant rules', completed: true },
-      { id: 'st-42', title: 'Generate 12 Anki practice flashcards', completed: false },
-      { id: 'st-43', title: 'Test Big-O complexity for AVL rotations', completed: false }
+      { id: 'st-41', title: 'Draft Verilog structural module using generate logic', completed: true },
+      { id: 'st-42', title: 'Create testbench vectors for overflow edge cases', completed: false },
+      { id: 'st-43', title: 'Export simulation waveform PDF for lab report', completed: false }
     ]
   },
   {
     id: 't-5',
-    courseId: 'phys41',
-    title: 'Pre-lab Checkpoint: Gyroscopic Precession Setup',
-    description: 'Complete online Canvas quiz on torque and angular momentum vectors.',
+    courseId: 'cse2004',
+    title: 'CSE2004 Benchmark: B+ Tree Indexing vs Hash Indexing in PostgreSQL',
+    description: 'Benchmark query plans using EXPLAIN ANALYZE on a 1-million record schema.',
     cognitiveLoad: 'admin',
-    dueDate: 'Friday at 12:00 PM',
-    scheduledDate: '2026-10-25',
-    pinned: true,
-    estimatedMinutes: 20,
+    dueDate: 'Saturday at 5:00 PM',
+    scheduledDate: '2026-10-26',
+    pinned: false,
+    estimatedMinutes: 30,
     completed: false,
     status: 'this_week',
-    progressPercent: 50,
+    progressPercent: 20,
     subtasks: [
-      { id: 'st-51', title: 'Read pre-lab manual on flywheels', completed: true },
-      { id: 'st-52', title: 'Submit 5 Canvas checkpoint questions', completed: false }
+      { id: 'st-51', title: 'Generate synthetic dataset using Python script', completed: true },
+      { id: 'st-52', title: 'Execute range query performance comparisons', completed: false }
     ]
   },
   {
     id: 't-6',
-    courseId: 'cs106b',
-    title: 'Review Midterm Regrade Window on Gradescope',
-    description: 'Verify Section 2 point attribution for question 3b before the regrade deadline expires.',
+    courseId: 'cse2005',
+    title: 'Verify VTOP CAT-1 Marks Revaluation Window',
+    description: 'Verify 44.5/50 score entry in VTOP and cross-check question 4 rubric attribution.',
     cognitiveLoad: 'admin',
     dueDate: 'Yesterday',
     scheduledDate: '2026-10-23',
     pinned: false,
-    estimatedMinutes: 15,
+    estimatedMinutes: 10,
     completed: true,
     status: 'done',
     progressPercent: 100
+  }
+];
+
+export const initialScheduleBlocks: ScheduleBlock[] = [
+  {
+    id: 'sb-1',
+    title: 'CSE2005: Operating Systems (Slot A1)',
+    courseCode: 'CSE2005',
+    startTime: '08:30',
+    endTime: '09:20',
+    location: 'SJT 411 (Silver Jubilee Tower)',
+    type: 'lecture',
+    cognitiveLoad: 'high'
   },
   {
-    id: 't-7',
-    courseId: 'cs103',
-    title: 'P-Set 4: Regular Expressions & DFA Minimization',
-    description: 'Construct equivalent DFAs for given regexes and apply the table-filling minimization algorithm.',
+    id: 'sb-2',
+    title: 'CSE2006: Data Structures and Algorithms (Slot B1)',
+    courseCode: 'CSE2006',
+    startTime: '09:30',
+    endTime: '10:20',
+    location: 'TT 204 (Technology Tower)',
+    type: 'lecture',
+    cognitiveLoad: 'high'
+  },
+  {
+    id: 'sb-3',
+    title: 'MAT2002: Discrete Mathematics & Graph Theory (Slot C1)',
+    courseCode: 'MAT2002',
+    startTime: '10:30',
+    endTime: '11:20',
+    location: 'MB 112 (Main Building / Dr. MGR Block)',
+    type: 'lecture',
+    cognitiveLoad: 'high'
+  },
+  {
+    id: 'sb-4',
+    title: 'ECE2001: Digital Logic Design (Slot D1)',
+    courseCode: 'ECE2001',
+    startTime: '11:30',
+    endTime: '12:20',
+    location: 'TT 418 (Technology Tower)',
+    type: 'lecture',
+    cognitiveLoad: 'high'
+  },
+  {
+    id: 'sb-5',
+    title: 'Foodys Gazebo Lunch & Circadian Recharge',
+    startTime: '12:30',
+    endTime: '13:45',
+    location: 'Foodys Central / Anna Auditorium Lawn',
+    type: 'break'
+  },
+  {
+    id: 'sb-6',
+    title: 'ECE2001: Digital Electronics Laboratory (Slot L15+L16)',
+    courseCode: 'ECE2001',
+    startTime: '14:00',
+    endTime: '15:40',
+    location: 'TT 401 (Digital Electronics Lab)',
+    type: 'section',
+    cognitiveLoad: 'high'
+  },
+  {
+    id: 'sb-7',
+    title: 'Periyar Central Library: Deep Focus Study Window',
+    courseCode: 'CSE2005',
+    startTime: '16:00',
+    endTime: '17:30',
+    location: 'Periyar Central Library (Floor 2 Quiet Room)',
+    type: 'deep_work',
     cognitiveLoad: 'high',
-    dueDate: 'Monday at 11:59 PM',
-    scheduledDate: '2026-10-27',
-    pinned: true,
-    estimatedMinutes: 110,
-    completed: false,
-    status: 'backlog',
-    progressPercent: 0,
-    subtasks: [
-      { id: 'st-71', title: 'DFA state reduction algorithm', completed: false },
-      { id: 'st-72', title: 'Regex equivalence theorem write-up', completed: false }
-    ]
+    isPeakWindow: true
+  }
+];
+
+export const initialNotes: NoteItem[] = [
+  {
+    id: 'n-1',
+    courseId: 'cse2005',
+    title: 'POSIX Semaphores & Mutex Invariants (Dr. Senthil Kumar)',
+    content: `### Operating Systems Lecture & Lab Key Insights:
+- **Binary Semaphore vs Mutex**: A mutex has ownership semantics (only unlocking thread can release), whereas a binary semaphore can be signaled across different threads.
+- **Counting Semaphore Formula**:
+  - \`sem_init(&empty, 0, BUFFER_SIZE)\`
+  - \`sem_init(&full, 0, 0)\`
+- **Critical Ordering**: Always \`sem_wait(&empty)\` before \`pthread_mutex_lock(&mutex)\` to prevent deadlocks!
+- **Valgrind Watchout**: Ensure \`sem_destroy(&sem)\` and \`pthread_mutex_destroy(&mutex)\` are invoked before process exit.`,
+    timestamp: 'Today, 09:45 AM',
+    tags: ['OS', 'Concurrency', 'Semaphores', 'CSE2005'],
+    hasAudioTranscription: true
   },
   {
-    id: 't-8',
-    courseId: 'math51',
-    title: 'Review Lecture Notes: Matrix Kernel & Image',
-    description: 'Synthesize lecture audio notes into cheat sheet for discussion section.',
-    cognitiveLoad: 'medium',
-    dueDate: 'Today at 6:00 PM',
-    scheduledDate: '2026-10-24',
-    pinned: false,
-    estimatedMinutes: 40,
-    completed: false,
-    status: 'today',
-    progressPercent: 10,
-    subtasks: [
-      { id: 'st-81', title: 'Annotate rank-nullity theorem proof', completed: false },
-      { id: 'st-82', title: 'Extract 3 practice questions', completed: false }
-    ]
-  },
-  {
-    id: 't-9',
-    courseId: 'cs106b',
-    title: 'Independent Study: Cache Locality in C++ Heaps',
-    description: 'Read Dan Saks paper on cache line friendly d-ary heaps vs binary heaps.',
-    cognitiveLoad: 'medium',
-    dueDate: 'Next Week',
-    scheduledDate: '2026-10-30',
-    pinned: false,
-    estimatedMinutes: 60,
-    completed: false,
-    status: 'backlog',
-    progressPercent: 0
-  },
-  {
-    id: 't-10',
-    courseId: 'phys41',
-    title: 'Lab 5 Formal Write-Up: Angular Acceleration & Moments',
-    description: 'Process LoggerPro sensor data, plot linear regressions, and calculate uncertainty bounds.',
-    cognitiveLoad: 'medium',
-    dueDate: 'Tuesday at 11:59 PM',
-    scheduledDate: '2026-11-03',
-    pinned: false,
-    estimatedMinutes: 75,
-    completed: false,
-    status: 'backlog',
-    progressPercent: 0
+    id: 'n-2',
+    courseId: 'cse2006',
+    title: 'Red-Black Tree Properties & Rotations',
+    content: `### 5 Mandatory Red-Black Properties:
+1. Every node is either red or black.
+2. The root is always black.
+3. Every leaf (NIL sentinel) is black.
+4. If a node is red, both its children are black (no consecutive red nodes).
+5. For each node, all simple paths to descendant leaves contain the same number of black nodes (Black-Height).
+- Height proof: Any node with black-height bh has at least 2^(bh) - 1 internal nodes, ensuring h <= 2*log2(n+1).`,
+    timestamp: 'Yesterday, 10:40 AM',
+    tags: ['DSA', 'Trees', 'RedBlack', 'CSE2006'],
+    hasAudioTranscription: false
   }
 ];
 
 export const initialExamTopics: ExamTopic[] = [
   {
     id: 'et-1',
-    courseId: 'cs106b',
-    topic: 'C++ Pointers, Dynamic Array Resizing & Valgrind Leak Debugging',
-    confidencePercent: 42,
-    status: 'critical',
+    courseId: 'cse2005',
+    topic: 'Process Synchronization & POSIX Semaphore Primitives',
+    confidencePercent: 88,
+    status: 'mastered',
     flashcardsCount: 14,
     mockQuestionsTested: 8
   },
   {
     id: 'et-2',
-    courseId: 'math51',
-    topic: 'Orthogonal Diagonalization & Singular Value Decomposition (SVD)',
-    confidencePercent: 48,
-    status: 'critical',
-    flashcardsCount: 18,
-    mockQuestionsTested: 12
+    courseId: 'cse2005',
+    topic: 'Virtual Memory, Multi-level Paging & Inverted Page Tables',
+    confidencePercent: 72,
+    status: 'moderate',
+    flashcardsCount: 16,
+    mockQuestionsTested: 5
   },
   {
     id: 'et-3',
-    courseId: 'cs103',
-    topic: 'Induction over Trees & Structural Well-Ordering Principles',
-    confidencePercent: 78,
-    status: 'moderate',
-    flashcardsCount: 10,
+    courseId: 'cse2006',
+    topic: 'AVL & Red-Black Tree Balancing Rotations',
+    confidencePercent: 80,
+    status: 'mastered',
+    flashcardsCount: 12,
     mockQuestionsTested: 6
   },
   {
     id: 'et-4',
-    courseId: 'cs106b',
-    topic: 'Recursive Backtracking & State Restoration',
-    confidencePercent: 94,
+    courseId: 'mat2002',
+    topic: 'Planar Graphs, Euler\'s Formula & Kuratowski Theorem',
+    confidencePercent: 91,
     status: 'mastered',
-    flashcardsCount: 16,
-    mockQuestionsTested: 15
+    flashcardsCount: 10,
+    mockQuestionsTested: 7
   },
   {
     id: 'et-5',
-    courseId: 'math51',
-    topic: 'Gram-Schmidt Orthonormalization Algorithm',
-    confidencePercent: 91,
-    status: 'mastered',
-    flashcardsCount: 8,
-    mockQuestionsTested: 10
+    courseId: 'ece2001',
+    topic: 'Sequential Circuits, State Minimization & Flip-Flops',
+    confidencePercent: 54,
+    status: 'critical',
+    flashcardsCount: 18,
+    mockQuestionsTested: 4
   }
 ];
 
@@ -418,218 +544,124 @@ export const initialFlashcards: Flashcard[] = [
   {
     id: 'fc-1',
     topicId: 'et-1',
-    front: 'What is the exact signature of the C++ copy assignment operator for a dynamic class?',
-    back: 'ClassName& operator=(const ClassName& rhs);\nRemember: Check for self-assignment (if (this != &rhs)), free old heap memory, allocate new buffer, deep-copy elements, and return *this.',
-    difficulty: 'hard'
-  },
-  {
-    id: 'fc-2',
-    topicId: 'et-1',
-    front: 'How does Valgrind distinguish between a "definitely lost" vs "indirectly lost" memory leak?',
-    back: '• Definitely Lost: Heap memory was allocated, but no pointer anywhere in memory points to the start of the block.\n• Indirectly Lost: Memory was pointed to by a structure that is itself lost (e.g. child nodes in a lost binary tree).',
+    front: 'What are the 4 Coffman conditions required simultaneously for a deadlock to exist?',
+    back: '1. Mutual Exclusion: At least one resource held non-shareably.\n2. Hold and Wait: A process holds resources while requesting new ones.\n3. No Preemption: Resources cannot be forcibly taken.\n4. Circular Wait: A closed chain of processes each waiting for a resource held by the next.',
     difficulty: 'medium'
   },
   {
-    id: 'fc-3',
+    id: 'fc-2',
     topicId: 'et-2',
-    front: 'State the Fundamental Theorem of Linear Algebra regarding the relationship between Col(A) and Null(A^T).',
-    back: 'The column space of A and the null space of A^T are orthogonal complements in R^m: Col(A) ⊥ Null(A^T), and dim(Col(A)) + dim(Null(A^T)) = m.',
+    front: 'Why does an Inverted Page Table reduce memory overhead compared to traditional hierarchical page tables?',
+    back: 'Traditional page tables scale linearly with the virtual address space (size = number of virtual pages). An Inverted Page Table scales with the physical memory (size = number of physical frames), containing one entry per physical frame regardless of how large the virtual address space is.',
     difficulty: 'hard'
+  },
+  {
+    id: 'fc-3',
+    topicId: 'et-3',
+    front: 'Under what condition does an AVL tree require a Left-Right (LR) double rotation?',
+    back: 'When a new node is inserted into the RIGHT subtree of the LEFT child of the unbalanced ancestor node (balance factor = +2, left child balance factor = -1).',
+    difficulty: 'medium'
   },
   {
     id: 'fc-4',
     topicId: 'et-4',
-    front: 'What are the three essential components of an exhaustive recursive backtracking function?',
-    back: '1. Base Case: Test for valid solution / target reached.\n2. Recursive Decision Loop: Iterate over all possible candidate choices at this step.\n3. Make choice → Recurse → Undo choice (backtrack to pristine state).',
+    front: 'State Euler\'s Planar Graph Formula relating vertices (V), edges (E), and faces (F).',
+    back: 'For any connected planar graph drawn in the plane without intersecting edges: V - E + F = 2.',
     difficulty: 'easy'
-  }
-];
-
-export const initialScheduleBlocks: ScheduleBlock[] = [
-  {
-    id: 'sb-1',
-    title: 'Circadian Peak Focus Window',
-    startTime: '08:30',
-    endTime: '10:00',
-    type: 'deep_work',
-    cognitiveLoad: 'high',
-    isPeakWindow: true
-  },
-  {
-    id: 'sb-2',
-    title: 'CS 106B Lecture: Linked Lists & Destructors',
-    courseCode: 'CS 106B',
-    startTime: '10:30',
-    endTime: '11:20',
-    location: 'Hewlett Teaching Center 200',
-    type: 'lecture',
-    cognitiveLoad: 'high'
-  },
-  {
-    id: 'sb-3',
-    title: 'Quad Transit & Buffer Time',
-    startTime: '11:20',
-    endTime: '11:45',
-    location: 'Hewlett → Sloan Math Corner (6 min walk)',
-    type: 'buffer'
-  },
-  {
-    id: 'sb-4',
-    title: 'MATH 51 Lecture: Eigenbasis & Diagonalization',
-    courseCode: 'MATH 51',
-    startTime: '11:45',
-    endTime: '12:35',
-    location: 'Sloan Math Corner 380',
-    type: 'lecture',
-    cognitiveLoad: 'high'
-  },
-  {
-    id: 'sb-5',
-    title: 'Cognitive Recovery / Lunch Break',
-    startTime: '12:45',
-    endTime: '13:45',
-    location: 'Tressider Memorial Union',
-    type: 'break'
-  },
-  {
-    id: 'sb-6',
-    title: 'Deep Work: P-Set 4 Valgrind Bug Hunting',
-    courseCode: 'CS 106B',
-    startTime: '14:00',
-    endTime: '15:30',
-    location: 'Huang Engineering Library',
-    type: 'deep_work',
-    cognitiveLoad: 'high'
-  },
-  {
-    id: 'sb-7',
-    title: 'CS 106B Durand TA Queue Consultation',
-    courseCode: 'CS 106B',
-    startTime: '16:00',
-    endTime: '16:45',
-    location: 'Durand 353 (In-Person)',
-    type: 'section',
-    cognitiveLoad: 'medium'
-  }
-];
-
-export const initialNotes: NoteItem[] = [
-  {
-    id: 'n-1',
-    courseId: 'cs106b',
-    title: 'Priority Queue Heap Invariants & Sift-Down Rule',
-    content: `### Heap Property Notes from Keith's Office Hours:
-- In a min-heap, child index formula for 1-indexed array:
-  - Left child = 2 * index
-  - Right child = 2 * index + 1
-  - Parent = index / 2
-- When dequeuing:
-  1. Swap element at index 1 with the last element in dynamic buffer.
-  2. Decrement size.
-  3. Sift-down from index 1: pick smaller of left/right child, swap if parent > child.
-  4. Repeat until heap property restored.
-- **Valgrind Watchout**: Ensure destructor frees the underlying dynamic array if resizing occurred!`,
-    timestamp: 'Today, 10:45 AM',
-    tags: ['C++', 'Heaps', 'PriorityQueue', 'P-Set 4'],
-    hasAudioTranscription: true
-  },
-  {
-    id: 'n-2',
-    courseId: 'math51',
-    title: 'SVD Matrix Factorization Intuition',
-    content: `### Singular Value Decomposition (A = U Σ V^T)
-- V contains the orthonormal eigenvectors of A^T A (input coordinate basis).
-- U contains the orthonormal eigenvectors of A A^T (output coordinate basis).
-- Σ contains the singular values (square roots of positive eigenvalues of A^T A).
-- Geometric meaning: Any linear transformation maps the unit sphere to a hyper-ellipse.`,
-    timestamp: 'Yesterday, 3:15 PM',
-    tags: ['LinearAlgebra', 'SVD', 'MidtermPrep'],
-    hasAudioTranscription: false
   }
 ];
 
 export const initialMockQuestions: MockExamQuestion[] = [
   {
     id: 'mq-1',
-    question: 'In C++, what occurs when you invoke delete[] on a pointer allocated with single new rather than new[]?',
-    codeSnippet: `int* arr = new int(10);
-delete[] arr; // What is the runtime behavior?`,
+    question: 'In Unix/POSIX C programming, what is the effect of invoking sem_post(&sem) on a semaphore with value 0 where one thread is blocked in sem_wait(&sem)?',
+    codeSnippet: `sem_t sem;\nsem_init(&sem, 0, 0);\n// Thread B is blocked in sem_wait(&sem);\nsem_post(&sem); // Invoked by Thread A`,
     options: [
-      'The memory is safely deallocated without any side-effects.',
-      'Undefined Behavior (potential heap corruption or runtime crash).',
-      'A std::bad_alloc exception is thrown by the C++ runtime.',
-      'Only the first byte of memory is released.'
+      'The semaphore value becomes 1 and Thread B remains blocked.',
+      'One waiting thread (Thread B) is unblocked and permitted to proceed; the semaphore value remains 0.',
+      'The process terminates with a SIGSEGV signal.',
+      'Both threads are deadlocked because the semaphore was initialized to 0.'
     ],
     correctIndex: 1,
-    explanation: 'Matching new with delete, and new[] with delete[] is mandatory in standard C++. Mismatching leads to undefined behavior because delete[] attempts to read an array allocation header cookie.'
+    explanation: 'When threads are waiting on a semaphore with value 0, sem_post() atomically wakes up one waiting thread. The semaphore value conceptually remains 0 because the awakened thread consumes the token.'
   },
   {
     id: 'mq-2',
-    question: 'Given an array-based binary min-heap where index 1 holds the root, at what index is the right child of node i located?',
+    question: 'Under the official VIT 75% attendance policy, if a student has attended 21 out of 25 conducted hours, what is their status?',
     options: [
-      '2 * i',
-      '2 * i + 1',
-      'i / 2',
-      '2 * i - 1'
+      'Below 75%, debarred from Final Assessment Test (FAT).',
+      'Exactly 84.0% attendance; safe margin to miss at most 3 classes before dropping below 75%.',
+      'Attendance policy waived for practical courses.',
+      'Over 90% attendance; eligible for full internal marks credit.'
     ],
     correctIndex: 1,
-    explanation: 'In a 1-indexed binary heap array: Parent is floor(i/2), Left child is 2*i, and Right child is 2*i + 1.'
+    explanation: '21 / 25 = 84.0%. To stay >= 75%: (21) / (25 + x) >= 0.75 => 21 >= 18.75 + 0.75x => 2.25 >= 0.75x => x <= 3. The student can miss 3 more classes safely.'
   },
   {
     id: 'mq-3',
-    question: 'Under Valgrind Memcheck, what does a "Definitely Lost" leak report signify?',
+    question: 'In a B+ Tree index with internal order m, what is the maximum number of child pointers an internal node can store?',
     options: [
-      'A pointer is pointing to the middle of an allocated memory block.',
-      'Memory was allocated on the heap, but no valid pointer anywhere points to its start or within it.',
-      'The memory was allocated in a recursive function that did not return.',
-      'The memory was freed twice in the program execution.'
+      'm - 1',
+      'm',
+      '2 * m',
+      'ceil(m / 2)'
     ],
     correctIndex: 1,
-    explanation: '"Definitely lost" means memory was allocated with malloc/new, but no pointer exists anywhere in the address space to reach it, making freeing it impossible.'
+    explanation: 'By definition of a B+ Tree of order m, each internal node can hold at most m child pointers and at most m - 1 search keys.'
   },
   {
     id: 'mq-4',
-    question: 'For a matrix A of dimension m x n with rank r, what is the dimension of the null space Null(A)?',
+    question: 'For a simple connected planar graph with V >= 3 vertices and no triangles (girth >= 4), what upper bound on the number of edges E is enforced by Euler\'s formula?',
     options: [
-      'm - r',
-      'n - r (Rank-Nullity Theorem)',
-      'r',
-      'm * n - r'
+      'E <= 3V - 6',
+      'E <= 2V - 4',
+      'E <= V - 1',
+      'E <= 4V - 8'
     ],
     correctIndex: 1,
-    explanation: 'By the Rank-Nullity Theorem: dim(Col(A)) + dim(Null(A)) = n (number of columns). Thus dim(Null(A)) = n - r.'
+    explanation: 'Since every face is bounded by at least 4 edges: 2E = sum(deg(F)) >= 4F => F <= E/2. Substituting into Euler\'s V - E + F = 2 yields V - E + E/2 >= 2 => E <= 2V - 4.'
   }
 ];
 
 export const initialCampusRoutes: CampusRoute[] = [
   {
     id: 'cr-1',
-    from: 'Hewlett Teaching Center',
-    to: 'Sloan Math Corner (Bldg 380)',
+    from: 'SJT (Silver Jubilee Tower)',
+    to: 'TT (Technology Tower)',
+    walkMinutes: 5,
+    bikeMinutes: 2,
+    distanceMiles: 0.22,
+    quadCrowdLevel: 'Moderate',
+    bufferRecommendation: 'Direct walkway past Foodys Gazebo. Clear 10-minute passing window between slots.'
+  },
+  {
+    id: 'cr-2',
+    from: 'TT (Technology Tower)',
+    to: 'MB (Dr. MGR Block / Main Building)',
     walkMinutes: 6,
     bikeMinutes: 2,
     distanceMiles: 0.28,
     quadCrowdLevel: 'Moderate',
-    bufferRecommendation: 'Direct route via Main Quad arcade. Clear 10-minute passing window.'
-  },
-  {
-    id: 'cr-2',
-    from: 'Gates Computer Science',
-    to: 'Durand Building',
-    walkMinutes: 4,
-    bikeMinutes: 1,
-    distanceMiles: 0.18,
-    quadCrowdLevel: 'Low',
-    bufferRecommendation: 'Short transit along Via Ortega. Optimal for rushing to TA hours.'
+    bufferRecommendation: 'Shaded path via Periyar Central Library. Optimal transit before 10:30 AM Slot C1.'
   },
   {
     id: 'cr-3',
-    from: 'Sloan Math Corner',
-    to: 'Huang Engineering Center',
-    walkMinutes: 8,
+    from: 'SJT (Silver Jubilee Tower)',
+    to: 'PRP Building',
+    walkMinutes: 7,
     bikeMinutes: 3,
-    distanceMiles: 0.42,
+    distanceMiles: 0.35,
     quadCrowdLevel: 'Heavy',
-    bufferRecommendation: 'Passing through White Plaza during lunch hour (12:30 PM). Use Panama Mall bike path.'
+    bufferRecommendation: 'Transit path via Anna Auditorium and outdoor stadium during lunch hour peak.'
+  },
+  {
+    id: 'cr-4',
+    from: 'MB (Main Building)',
+    to: 'CDMM (Disaster Management Center)',
+    walkMinutes: 4,
+    bikeMinutes: 1,
+    distanceMiles: 0.16,
+    quadCrowdLevel: 'Low',
+    bufferRecommendation: 'Short direct walk through Academic Quad. 5-minute buffer is ample.'
   }
 ];

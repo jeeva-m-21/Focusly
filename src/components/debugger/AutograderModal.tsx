@@ -239,7 +239,7 @@ export const AutograderModal: React.FC = () => {
 
         {/* Modal Footer */}
         <div className="px-5 py-3 bg-[#f8f6f2] dark:bg-[#181920] border-t border-[#e8e5df] dark:border-[#232630] flex items-center justify-between text-xs text-[#64676e] dark:text-[#9ba0a9]">
-          <span>Stanford Gradescope Diagnostic</span>
+          <span>VTOP Lab Autograder Diagnostic</span>
           <Button variant="outline" size="sm" onClick={closeAutograder}>
             Close
           </Button>

@@ -61,7 +61,7 @@ export const CommandPalette: React.FC = () => {
     { id: 'tasks', title: 'Go to Tasks & Assignments', category: 'Navigation', icon: <CheckSquare className="w-4 h-4" /> },
     { id: 'exam-prep', title: 'Go to Exam Prep', category: 'Navigation', icon: <GraduationCap className="w-4 h-4" /> },
     { id: 'focus-timer', title: 'Start Focus Session (50m)', category: 'Action', icon: <Flame className="w-4 h-4 text-amber-500" /> },
-    { id: 'course-cs106b', title: 'Open CS 106B Course', category: 'Courses', icon: <BookOpen className="w-4 h-4" /> },
+    { id: 'course-cs106b', title: 'Open CSE2005 Course Workspace', category: 'Courses', icon: <BookOpen className="w-4 h-4" /> },
     { id: 'notes', title: 'Open Study Notes', category: 'Study', icon: <FileText className="w-4 h-4" /> },
     { id: 'attendance', title: 'View Attendance Records', category: 'Records', icon: <ShieldCheck className="w-4 h-4" /> },
     { id: 'analytics', title: 'View Study Stats', category: 'Records', icon: <BarChart3 className="w-4 h-4" /> }
@@ -135,7 +135,7 @@ export const CommandPalette: React.FC = () => {
                 className="w-full flex items-center gap-2 p-2 rounded-lg bg-[#f8f6f2] dark:bg-[#1a1c24] hover:bg-[#f0ede6] dark:hover:bg-[#222530] text-xs font-medium cursor-pointer transition-colors text-left text-[#1c1d21] dark:text-[#f0eff4]"
               >
                 <Terminal className="w-4 h-4 text-[#64676e] dark:text-[#9ba0a9]" />
-                <span>Open Code Diagnostics (CS 106B)</span>
+                <span>Open Code Diagnostics (CSE2005)</span>
               </button>
             </div>
           </div>

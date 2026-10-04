@@ -171,11 +171,13 @@ export const CalendarView: React.FC = () => {
     return iso ? iso[0] : '2026-10-24';
   };
 
-  // Automatic Exam Deadlines & Milestones
+  // Automatic Exam Deadlines & Milestones (VIT Continuous Assessment & FAT)
   const examMilestones = [
-    { id: 'ex-1', title: 'CS 106B Midterm Exam', courseCode: 'CS 106B', dateStr: '2026-10-18', time: '7:00 PM', location: 'Hewlett 200', weight: '20%' },
-    { id: 'ex-2', title: 'CS 103 Midterm Exam', courseCode: 'CS 103', dateStr: '2026-10-29', time: '6:30 PM', location: 'Cemex Aud', weight: '25%' },
-    { id: 'ex-3', title: 'MATH 51 Midterm 2', courseCode: 'MATH 51', dateStr: '2026-11-04', time: '7:00 PM', location: 'Packard 101', weight: '20%' }
+    { id: 'ex-1', title: 'CSE2005 CAT-1 (Operating Systems)', courseCode: 'CSE2005', dateStr: '2026-10-18', time: '09:30 AM', location: 'SJT 411 (Slot A1)', weight: '15%' },
+    { id: 'ex-2', title: 'CSE2006 CAT-1 (Data Structures)', courseCode: 'CSE2006', dateStr: '2026-10-20', time: '02:00 PM', location: 'TT 204 (Slot B1)', weight: '15%' },
+    { id: 'ex-3', title: 'MAT2002 CAT-1 (Discrete Math)', courseCode: 'MAT2002', dateStr: '2026-10-22', time: '09:30 AM', location: 'MB 112 (Slot C1)', weight: '15%' },
+    { id: 'ex-4', title: 'ECE2001 CAT-1 (Digital Logic)', courseCode: 'ECE2001', dateStr: '2026-10-24', time: '02:00 PM', location: 'TT 418 (Slot D1)', weight: '15%' },
+    { id: 'ex-5', title: 'CSE2004 CAT-1 (DBMS)', courseCode: 'CSE2004', dateStr: '2026-10-26', time: '09:30 AM', location: 'SJT 314 (Slot E1)', weight: '15%' }
   ];
 
   // Filter visible days if in 2-week view
@@ -234,9 +236,9 @@ export const CalendarView: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-xs font-mono font-medium bg-[#f4f1eb] dark:bg-[#1f212a] text-[#1c1d21] dark:text-[#f0eff4] px-2 py-0.5 rounded border border-[#e8e5df] dark:border-[#2a2d39]">
-              Fall Quarter 2026 • Stanford
+              Winter Semester 2025-26 • VIT Vellore
             </span>
-            <span className="text-xs text-[#787b84] dark:text-[#8d929e]">Week 5 of 10</span>
+            <span className="text-xs text-[#787b84] dark:text-[#8d929e]">Instructional Day Order: Day 1 - Day 5</span>
           </div>
           <h1 className="text-2xl font-bold text-[#1c1d21] dark:text-[#f0eff4] mt-1 tracking-tight">
             Academic Calendar

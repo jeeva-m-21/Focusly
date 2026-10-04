@@ -44,10 +44,10 @@ export const AnalyticsView: React.FC = () => {
   });
 
   const subjectEffortBalance = [
-    { code: 'CS 106B', units: 5, actualHours: 11.5, expectedHours: 10.0, balance: '+1.5h deep focus' },
-    { code: 'MATH 51', units: 5, actualHours: 8.5, expectedHours: 10.0, balance: '-1.5h study deficit' },
-    { code: 'CS 103', units: 5, actualHours: 9.0, expectedHours: 10.0, balance: 'On pacing target' },
-    { code: 'PHYS 41', units: 2, actualHours: 3.5, expectedHours: 4.0, balance: 'On pacing target' }
+    { code: 'CSE2005', units: 4, actualHours: 10.5, expectedHours: 8.0, balance: '+2.5h deep focus' },
+    { code: 'CSE2006', units: 4, actualHours: 8.0, expectedHours: 8.0, balance: 'On pacing target' },
+    { code: 'MAT2002', units: 3, actualHours: 6.5, expectedHours: 6.0, balance: '+0.5h ahead' },
+    { code: 'ECE2001', units: 4, actualHours: 5.5, expectedHours: 8.0, balance: '-2.5h study deficit' }
   ];
 
   return (
@@ -347,7 +347,7 @@ export const AnalyticsView: React.FC = () => {
           </div>
           <div className="flex items-center justify-between text-xs text-[#787b84] dark:text-[#8d929e] pt-3">
             <span>Chart notes: Black bars represent peak cortisol focus sessions.</span>
-            <span className="font-mono font-semibold text-[#1c1d21] dark:text-[#f0eff4]">Stanford Term Average: 68%</span>
+            <span className="font-mono font-semibold text-[#1c1d21] dark:text-[#f0eff4]">VIT Term Focus Average: 74%</span>
           </div>
         </CardBody>
       </Card>

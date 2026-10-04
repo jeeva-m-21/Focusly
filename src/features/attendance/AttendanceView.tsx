@@ -39,10 +39,10 @@ export const AttendanceView: React.FC = () => {
   };
 
   const attendanceLogHistory = [
-    { course: 'CS 106B', date: 'Oct 22, 11:30 AM', status: 'Present', location: 'Gates B02', sync: 'Panopto Verified' },
-    { course: 'MATH 51', date: 'Oct 22, 10:00 AM', status: 'Present', location: 'Hewlett 200', sync: 'In-Person Section Sign-in' },
-    { course: 'MATH 51', date: 'Oct 15, 10:00 AM', status: 'Absent', location: 'Packard 101', sync: 'Unexcused (1 buffer used)' },
-    { course: 'CS 103', date: 'Oct 21, 09:00 AM', status: 'Present', location: 'Tressider Union', sync: 'In-Person Verified' }
+    { course: 'CSE2005', date: 'Today, 09:20 AM', status: 'Present', location: 'SJT 411 (Slot A1)', sync: 'VTOP Biometric Verified' },
+    { course: 'CSE2006', date: 'Today, 10:20 AM', status: 'Present', location: 'TT 204 (Slot B1)', sync: 'VTOP Biometric Verified' },
+    { course: 'ECE2001', date: 'Mon, 12:20 PM', status: 'Absent', location: 'TT 418 (Slot D1)', sync: 'Unexcused (1 cushion used)' },
+    { course: 'MAT2002', date: 'Yesterday, 11:30 AM', status: 'Present', location: 'MB 112 (Slot C1)', sync: 'Faculty Roll Call Verified' }
   ];
 
   return (
@@ -51,20 +51,20 @@ export const AttendanceView: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#e8e5df] dark:border-[#22242f] pb-4">
         <div>
           <span className="text-[11px] font-mono uppercase tracking-wider text-[#9da0a6] dark:text-[#676b76] font-semibold">
-            ACADEMIC POLICY & VERIFICATION
+            VIT ACADEMIC REGULATIONS & ATTENDANCE
           </span>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-[#1c1d21] dark:text-[#f0eff4] tracking-tight mt-0.5">
-            Attendance & Policy Tracking
+            Attendance & 75% Rule Monitor
           </h1>
           <p className="text-xs text-[#64676e] dark:text-[#9ba0a9] mt-0.5">
-            Syllabus absence allowances, live lecture check-ins, section buffers, and Panopto lecture sync.
+            Real-time VTOP attendance tracking, 75% mandatory FAT eligibility cushion, and slot absence budgets.
           </p>
         </div>
 
         <div className="flex items-center gap-2">
           <Badge variant="emerald">
             <ShieldCheck className="w-3.5 h-3.5" />
-            <span>Overall Standing: 94.1% (Safe)</span>
+            <span>Overall Standing: 91.8% (Eligible for FAT)</span>
           </Badge>
         </div>
       </div>
@@ -76,15 +76,15 @@ export const AttendanceView: React.FC = () => {
         </div>
       )}
 
-      {/* Critical Policy Alert Banner */}
+      {/* Critical VIT 75% Policy Alert Banner */}
       <div className="p-4 rounded-xl bg-[#fffdfa] dark:bg-[#181611] border border-amber-200 dark:border-amber-900/60 flex items-start gap-3 shadow-xs">
         <ShieldAlert className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
         <div className="space-y-0.5">
           <h4 className="text-xs font-bold text-[#1c1d21] dark:text-[#f0eff4]">
-            Section Policy Alert: MATH 51 Absence Buffer at Risk
+            VTOP 75% Policy Alert: ECE2001 (Digital Logic Design) Buffer Narrowing
           </h4>
           <p className="text-xs text-[#64676e] dark:text-[#9ba0a9] leading-relaxed">
-            You have logged <strong className="text-[#1c1d21] dark:text-[#f0eff4]">1 of 2 allowed unexcused absences</strong>. Course syllabus penalizes a 3rd unexcused section absence with a 3% letter grade deduction (e.g. A to A-). Tomorrow's 10:00 AM discussion section attendance is required.
+            Current attendance is <strong className="text-[#1c1d21] dark:text-[#f0eff4]">84.0% (21/25 hrs)</strong>. Under the mandatory VIT 75% rule, you have a safe cushion of only <strong className="text-amber-600 dark:text-amber-400">1 class</strong> remaining before entering the debarment warning zone for Final Assessment Tests (FAT).
           </p>
         </div>
       </div>

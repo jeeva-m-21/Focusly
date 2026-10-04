@@ -14,10 +14,10 @@ interface CourseShare {
 }
 
 const courseShares: CourseShare[] = [
-  { id: 'cs106b', code: 'CS 106B', name: 'Programming Abstractions', hours: 11.5, expectedHours: 10.0, color: '#3b82f6', colorDark: '#60a5fa' },
-  { id: 'math51', code: 'MATH 51', name: 'Linear Algebra & Diff Calc', hours: 8.5, expectedHours: 10.0, color: '#10b981', colorDark: '#34d399' },
-  { id: 'cs103', code: 'CS 103', name: 'Mathematical Foundations', hours: 9.0, expectedHours: 10.0, color: '#f59e0b', colorDark: '#fbbf24' },
-  { id: 'phys41', code: 'PHYS 41', name: 'Mechanics & Relativity', hours: 4.0, expectedHours: 4.0, color: '#8b5cf6', colorDark: '#a78bfa' }
+  { id: 'cse2005', code: 'CSE2005', name: 'Operating Systems', hours: 11.5, expectedHours: 10.0, color: '#F59E0B', colorDark: '#D97706' },
+  { id: 'cse2006', code: 'CSE2006', name: 'Data Structures and Algorithms', hours: 8.5, expectedHours: 10.0, color: '#6366F1', colorDark: '#4F46E5' },
+  { id: 'mat2002', code: 'MAT2002', name: 'Discrete Math & Graph Theory', hours: 9.0, expectedHours: 8.0, color: '#10B981', colorDark: '#059669' },
+  { id: 'ece2001', code: 'ECE2001', name: 'Digital Logic Design', hours: 6.0, expectedHours: 6.0, color: '#EC4899', colorDark: '#DB2777' }
 ];
 
 export const CourseDistributionDonut: React.FC<{ className?: string }> = ({ className }) => {

@@ -14,13 +14,13 @@ export interface DayFocusData {
 }
 
 const mockWeeklyData: DayFocusData[] = [
-  { day: 'Mon', label: 'Monday', hours: 3.5, targetHours: 3.4, sessions: 3, topSubject: 'MATH 51 Matrices' },
-  { day: 'Tue', label: 'Tuesday', hours: 5.1, targetHours: 3.4, sessions: 4, topSubject: 'CS 106B PriorityQueue' },
-  { day: 'Wed', label: 'Wednesday', hours: 4.0, targetHours: 3.4, sessions: 3, topSubject: 'CS 103 Induction' },
-  { day: 'Thu', label: 'Thursday', hours: 3.2, targetHours: 3.4, sessions: 2, topSubject: 'CS 106B Debugging', isToday: true },
-  { day: 'Fri', label: 'Friday', hours: 2.7, targetHours: 3.4, sessions: 2, topSubject: 'PHYS 41 Lab Prep' },
+  { day: 'Mon', label: 'Monday', hours: 3.5, targetHours: 3.4, sessions: 3, topSubject: 'MAT2002 Planar Graphs' },
+  { day: 'Tue', label: 'Tuesday', hours: 5.1, targetHours: 3.4, sessions: 4, topSubject: 'CSE2005 POSIX Semaphores' },
+  { day: 'Wed', label: 'Wednesday', hours: 4.0, targetHours: 3.4, sessions: 3, topSubject: 'CSE2006 Red-Black Trees' },
+  { day: 'Thu', label: 'Thursday', hours: 3.2, targetHours: 3.4, sessions: 2, topSubject: 'ECE2001 Verilog Simulation', isToday: true },
+  { day: 'Fri', label: 'Friday', hours: 2.7, targetHours: 3.4, sessions: 2, topSubject: 'CSE2004 B+ Tree Indexing' },
   { day: 'Sat', label: 'Saturday', hours: 0.0, targetHours: 2.0, sessions: 0, topSubject: 'Rest Day' },
-  { day: 'Sun', label: 'Sunday', hours: 0.0, targetHours: 2.0, sessions: 0, topSubject: 'Weekly Review' }
+  { day: 'Sun', label: 'Sunday', hours: 0.0, targetHours: 2.0, sessions: 0, topSubject: 'Weekly VTOP Review' }
 ];
 
 export const WeeklyFocusWaveChart: React.FC<{ className?: string }> = ({ className }) => {

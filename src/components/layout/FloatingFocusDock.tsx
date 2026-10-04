@@ -31,7 +31,7 @@ export const FloatingFocusDock: React.FC = () => {
   return (
     <div className="fixed bottom-16 md:bottom-6 right-3 sm:right-6 z-40 select-none animate-in fade-in duration-200">
       <div className="bg-[#1c1d21]/95 dark:bg-[#14151a]/95 text-white backdrop-blur-md rounded-2xl shadow-calm-lg border border-[#2d2f38] dark:border-[#2a2d3c] p-2.5 transition-all text-xs">
-        {/* Minimalist Persistent Bar: 🔥 48:12 CS 106B  ⏸ */}
+        {/* Minimalist Persistent Bar: 🔥 48:12 CSE2005  ⏸ */}
         <div className="flex items-center gap-3">
           <div
             onClick={() => setIsExpanded(!isExpanded)}

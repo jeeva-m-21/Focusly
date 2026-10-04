@@ -34,7 +34,7 @@ export const CourseDetailView: React.FC = () => {
     openAutograder
   } = useFocusStore();
 
-  const [selectedCourseId, setSelectedCourseId] = useState<string>('cs106b');
+  const [selectedCourseId, setSelectedCourseId] = useState<string>(courses[0]?.id || 'cse2005');
   const [activeTab, setActiveTab] = useState<'overview' | 'assignments' | 'notes' | 'exams' | 'progress'>('overview');
   const [queueJoined, setQueueJoined] = useState(false);
 
@@ -213,7 +213,7 @@ export const CourseDetailView: React.FC = () => {
                 <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#fcfbf9] dark:bg-[#161720] border border-[#e8e5df] dark:border-[#22242f] text-xs">
                   <div>
                     <h4 className="font-semibold text-[#1c1d21] dark:text-[#f0eff4]">
-                      Midterm Examination (Hewlett 200)
+                      Continuous Assessment 1 (SJT 411)
                     </h4>
                     <span className="text-[11px] text-[#787b84] dark:text-[#8d929e] font-mono">
                       Oct 18, 7:00 PM • 90 min

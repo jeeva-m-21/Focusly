@@ -371,7 +371,7 @@ export const SettingsView: React.FC = () => {
 
                 <div className="p-3 rounded-xl bg-[#faf8f5] dark:bg-[#181922] border border-[#e8e5df] dark:border-[#262834]">
                   <div className="flex justify-between text-xs mb-1 font-medium">
-                    <span>Durand Rain</span>
+                    <span>Vellore Monsoon Rain</span>
                     <span className="font-mono">{soundMixer.rainVolume}%</span>
                   </div>
                   <input
@@ -456,7 +456,7 @@ export const SettingsView: React.FC = () => {
         <Card className="bg-white dark:bg-[#14151c] border border-[#e8e5df] dark:border-[#22242f] shadow-xs">
           <CardHeader
             title="Campus Mobility & Circadian Chronotype"
-            subtitle="Transit speeds between Packard, Gates, and Durand, and energy scheduling"
+            subtitle="Transit speeds between SJT, Technology Tower, and Central Library, and energy scheduling"
           />
           <CardBody className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

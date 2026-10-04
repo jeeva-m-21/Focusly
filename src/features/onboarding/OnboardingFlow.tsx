@@ -89,7 +89,7 @@ export const OnboardingFlow: React.FC = () => {
   };
 
   const stepTitles = [
-    { title: 'Academic Profile & Load', subtitle: 'Target course load and Stanford Axess sync' },
+    { title: 'Academic Profile & Load', subtitle: 'Target course credit load and VTOP portal sync' },
     { title: 'Circadian Peak Calibration', subtitle: 'Algorithmic alignment with your biological focus window' },
     { title: 'Attendance Guardrails', subtitle: 'Course absence limits, Canvas sync & safety buffers' },
     { title: 'Workspace Launch', subtitle: 'Personalized study schedule and algorithmic solver ready' }
@@ -239,7 +239,7 @@ export const OnboardingFlow: React.FC = () => {
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
                     <label className="block text-xs font-medium text-[#1c1d21] dark:text-[#f0eff4]">
-                      Imported Courses (Stanford Axess Sync)
+                      Registered Courses (VTOP Portal Sync)
                     </label>
                     <span className="text-[10.5px] font-mono text-emerald-600 dark:text-emerald-400">
                       ✓ 4 courses synchronized
@@ -608,7 +608,7 @@ export const OnboardingFlow: React.FC = () => {
 
       {/* Footer */}
       <footer className="max-w-2xl mx-auto w-full text-center py-3 text-[11px] text-[#9da0a6] dark:text-[#676b76]">
-        Focusly • Stanford Academic Operating System
+        Focusly • Academic Operating System for VIT
       </footer>
     </div>
   );

@@ -70,7 +70,7 @@ export const PlannerDay: React.FC = () => {
       endTime: endHourStr,
       type: 'deep_work',
       cognitiveLoad: task.cognitiveLoad,
-      location: course?.code === 'CS 106B' ? 'Gates B02' : 'Green Library'
+      location: course?.code === 'CSE2005' ? 'SJT 411' : 'Periyar Central Library'
     };
 
     addScheduleBlock(newBlock);
@@ -441,7 +441,7 @@ export const PlannerDay: React.FC = () => {
               <span>Transit Buffer Intelligence</span>
             </div>
             <p className="text-[11px] text-[#64676e] dark:text-[#9ba0a9] leading-relaxed">
-              Between Gates B02 and Packard 101, an automatic 15-minute campus walk buffer is preserved to prevent tardiness.
+              Between SJT (Silver Jubilee Tower) and TT (Technology Tower), an automatic 10-minute walk buffer via Foodys Gazebo is preserved.
             </p>
           </div>
         </div>

@@ -10,7 +10,7 @@ export interface CampusEdge {
   distanceFeet: number;
   walkSpeedMph: number;
   bikeSpeedMph: number;
-  crowdDelayMinutes: number; // additional congestion delay between 11:20 - 11:45
+  crowdDelayMinutes: number; // additional congestion delay during slot changes
 }
 
 export interface TransitRouteResult {
@@ -23,34 +23,39 @@ export interface TransitRouteResult {
   suggestedBufferMinutes: number;
 }
 
-export const STANFORD_CAMPUS_NODES: Record<string, CampusNode> = {
-  gates: { id: 'gates', name: 'Gates Computer Science', buildingCode: 'Gates B02' },
-  packard: { id: 'packard', name: 'Packard Electrical Engineering', buildingCode: 'Packard 101' },
-  hewlett: { id: 'hewlett', name: 'Hewlett Teaching Center', buildingCode: 'Hewlett 200' },
-  sloan: { id: 'sloan', name: 'Sloan Math Corner', buildingCode: 'Sloan 380' },
-  durand: { id: 'durand', name: 'Durand Hall', buildingCode: 'Durand 353' },
-  huang: { id: 'huang', name: 'Huang Engineering Center', buildingCode: 'Huang Lib' },
-  tressider: { id: 'tressider', name: 'Tressider Memorial Union', buildingCode: 'Tressider' },
-  green: { id: 'green', name: 'Green Library', buildingCode: 'Bing Wing' }
+export const VIT_CAMPUS_NODES: Record<string, CampusNode> = {
+  sjt: { id: 'sjt', name: 'Silver Jubilee Tower (SJT)', buildingCode: 'SJT 411' },
+  tt: { id: 'tt', name: 'Technology Tower (TT)', buildingCode: 'TT 204' },
+  mb: { id: 'mb', name: 'Main Building / Dr. MGR Block', buildingCode: 'MB 112' },
+  prp: { id: 'prp', name: 'PRP Academic Block', buildingCode: 'PRP 202' },
+  cdmm: { id: 'cdmm', name: 'Center for Disaster Mitigation (CDMM)', buildingCode: 'CDMM 102' },
+  library: { id: 'library', name: 'Periyar Central Library', buildingCode: 'PCL Floor 2' },
+  foodys: { id: 'foodys', name: 'Foodys Central Gazebo', buildingCode: 'Foodys' },
+  auditorium: { id: 'auditorium', name: 'Anna Auditorium', buildingCode: 'Auditorium' }
 };
 
-export const STANFORD_EDGES: CampusEdge[] = [
-  { from: 'hewlett', to: 'packard', distanceFeet: 850, walkSpeedMph: 3.2, bikeSpeedMph: 9.5, crowdDelayMinutes: 1 },
-  { from: 'packard', to: 'gates', distanceFeet: 1200, walkSpeedMph: 3.2, bikeSpeedMph: 9.5, crowdDelayMinutes: 2 },
-  { from: 'gates', to: 'durand', distanceFeet: 1400, walkSpeedMph: 3.2, bikeSpeedMph: 9.5, crowdDelayMinutes: 1 },
-  { from: 'hewlett', to: 'sloan', distanceFeet: 1800, walkSpeedMph: 3.2, bikeSpeedMph: 9.5, crowdDelayMinutes: 3 },
-  { from: 'sloan', to: 'tressider', distanceFeet: 1600, walkSpeedMph: 3.2, bikeSpeedMph: 9.5, crowdDelayMinutes: 2 },
-  { from: 'durand', to: 'huang', distanceFeet: 600, walkSpeedMph: 3.2, bikeSpeedMph: 9.5, crowdDelayMinutes: 1 },
-  { from: 'huang', to: 'gates', distanceFeet: 900, walkSpeedMph: 3.2, bikeSpeedMph: 9.5, crowdDelayMinutes: 1 },
-  { from: 'sloan', to: 'green', distanceFeet: 1100, walkSpeedMph: 3.2, bikeSpeedMph: 9.5, crowdDelayMinutes: 2 }
+// Backward-compatible alias
+export const STANFORD_CAMPUS_NODES = VIT_CAMPUS_NODES;
+
+export const VIT_EDGES: CampusEdge[] = [
+  { from: 'sjt', to: 'foodys', distanceFeet: 650, walkSpeedMph: 3.2, bikeSpeedMph: 9.5, crowdDelayMinutes: 1 },
+  { from: 'foodys', to: 'tt', distanceFeet: 700, walkSpeedMph: 3.2, bikeSpeedMph: 9.5, crowdDelayMinutes: 1 },
+  { from: 'tt', to: 'library', distanceFeet: 850, walkSpeedMph: 3.2, bikeSpeedMph: 9.5, crowdDelayMinutes: 1 },
+  { from: 'library', to: 'mb', distanceFeet: 900, walkSpeedMph: 3.2, bikeSpeedMph: 9.5, crowdDelayMinutes: 2 },
+  { from: 'mb', to: 'cdmm', distanceFeet: 600, walkSpeedMph: 3.2, bikeSpeedMph: 9.5, crowdDelayMinutes: 1 },
+  { from: 'sjt', to: 'auditorium', distanceFeet: 1200, walkSpeedMph: 3.2, bikeSpeedMph: 9.5, crowdDelayMinutes: 2 },
+  { from: 'auditorium', to: 'prp', distanceFeet: 950, walkSpeedMph: 3.2, bikeSpeedMph: 9.5, crowdDelayMinutes: 1 },
+  { from: 'tt', to: 'mb', distanceFeet: 1600, walkSpeedMph: 3.2, bikeSpeedMph: 9.5, crowdDelayMinutes: 2 }
 ];
 
+export const STANFORD_EDGES = VIT_EDGES;
+
 /**
- * Dijkstra's shortest path algorithm between campus landmarks.
+ * Dijkstra's shortest path algorithm between VIT Vellore campus landmarks.
  */
 export function findShortestCampusRoute(fromId: string, toId: string): TransitRouteResult {
-  const fromNode = STANFORD_CAMPUS_NODES[fromId.toLowerCase()] || STANFORD_CAMPUS_NODES.gates;
-  const toNode = STANFORD_CAMPUS_NODES[toId.toLowerCase()] || STANFORD_CAMPUS_NODES.sloan;
+  const fromNode = VIT_CAMPUS_NODES[fromId.toLowerCase()] || VIT_CAMPUS_NODES.sjt;
+  const toNode = VIT_CAMPUS_NODES[toId.toLowerCase()] || VIT_CAMPUS_NODES.tt;
 
   if (fromNode.id === toNode.id) {
     return {
@@ -66,11 +71,11 @@ export function findShortestCampusRoute(fromId: string, toId: string): TransitRo
 
   // Build adjacency graph
   const graph: Record<string, Array<{ to: string; distance: number; crowd: number }>> = {};
-  for (const nodeKey of Object.keys(STANFORD_CAMPUS_NODES)) {
+  for (const nodeKey of Object.keys(VIT_CAMPUS_NODES)) {
     graph[nodeKey] = [];
   }
 
-  for (const edge of STANFORD_EDGES) {
+  for (const edge of VIT_EDGES) {
     graph[edge.from].push({ to: edge.to, distance: edge.distanceFeet, crowd: edge.crowdDelayMinutes });
     graph[edge.to].push({ to: edge.from, distance: edge.distanceFeet, crowd: edge.crowdDelayMinutes });
   }
@@ -80,7 +85,7 @@ export function findShortestCampusRoute(fromId: string, toId: string): TransitRo
   const previous: Record<string, string | null> = {};
   const unvisited = new Set<string>();
 
-  for (const key of Object.keys(STANFORD_CAMPUS_NODES)) {
+  for (const key of Object.keys(VIT_CAMPUS_NODES)) {
     distances[key] = Infinity;
     previous[key] = null;
     unvisited.add(key);
@@ -119,11 +124,11 @@ export function findShortestCampusRoute(fromId: string, toId: string): TransitRo
   const path: string[] = [];
   let curr: string | null = toNode.id;
   while (curr) {
-    path.unshift(STANFORD_CAMPUS_NODES[curr]?.name || curr);
+    path.unshift(VIT_CAMPUS_NODES[curr]?.name || curr);
     curr = previous[curr];
   }
 
-  const totalFeet = distances[toNode.id] === Infinity ? 1800 : distances[toNode.id];
+  const totalFeet = distances[toNode.id] === Infinity ? 1200 : distances[toNode.id];
   const miles = Number((totalFeet / 5280).toFixed(2));
   // Walking at 3.2 mph = 5280 * 3.2 / 60 = 281.6 feet/min
   const walkMinutes = Math.max(3, Math.round(totalFeet / 281.6) + 2); // 2 min buffer

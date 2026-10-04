@@ -109,8 +109,8 @@ export const Header: React.FC = () => {
                   >
                     <UserCheck className="w-4 h-4 text-emerald-500 group-hover:scale-110 transition-transform" />
                     <div>
-                      <div className="font-semibold text-xs">Open Sign In & SSO Doorway</div>
-                      <div className="text-[10px] text-[#787b84] dark:text-[#8d929e]">Stanford Duo 2FA & email login</div>
+                      <div className="font-semibold text-xs">Open Sign In & VTOP Doorway</div>
+                      <div className="text-[10px] text-[#787b84] dark:text-[#8d929e]">VTOP portal & CAPTCHA gateway</div>
                     </div>
                   </button>
 
@@ -140,8 +140,8 @@ export const Header: React.FC = () => {
                     }}
                     className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-left hover:bg-[#f4f1eb] dark:hover:bg-[#1f212c] text-[#1c1d21] dark:text-[#f0eff4] transition-colors cursor-pointer"
                   >
-                    <span className="font-medium text-xs">Aarav (Stanford CS '26)</span>
-                    <span className="text-[10px] font-mono text-[#787b84]">Active Term</span>
+                    <span className="font-medium text-xs">Aarav (VIT CSE '26)</span>
+                    <span className="text-[10px] font-mono text-[#787b84]">22BCE1042</span>
                   </button>
                   <button
                     onClick={() => {
@@ -150,7 +150,7 @@ export const Header: React.FC = () => {
                     }}
                     className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-left hover:bg-[#f4f1eb] dark:hover:bg-[#1f212c] text-[#1c1d21] dark:text-[#f0eff4] transition-colors cursor-pointer"
                   >
-                    <span className="font-medium text-xs">Maya (BioE '27)</span>
+                    <span className="font-medium text-xs">Maya (VIT '27)</span>
                     <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400">Onboarding</span>
                   </button>
                 </div>

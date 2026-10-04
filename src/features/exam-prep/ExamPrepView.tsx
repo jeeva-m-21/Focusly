@@ -33,7 +33,7 @@ export const ExamPrepView: React.FC = () => {
     resetMockExam
   } = useFocusStore();
 
-  const [activeTab, setActiveTab] = useState<'matrix' | 'flashcards' | 'mock'>('matrix');
+  const [activeTab, setActiveTab] = useState<'matrix' | 'flashcards' | 'mock' | 'marks'>('marks');
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -98,10 +98,20 @@ export const ExamPrepView: React.FC = () => {
         </div>
 
         {/* View Tabs */}
-        <div className="flex items-center bg-[#f4f1eb] dark:bg-[#181922] p-1 rounded-xl border border-[#e8e5df] dark:border-[#242630] text-xs font-semibold">
+        <div className="flex items-center bg-[#f4f1eb] dark:bg-[#181922] p-1 rounded-xl border border-[#e8e5df] dark:border-[#242630] text-xs font-semibold overflow-x-auto">
+          <button
+            onClick={() => setActiveTab('marks')}
+            className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
+              activeTab === 'marks'
+                ? 'bg-white dark:bg-[#252834] text-[#1c1d21] dark:text-[#f0eff4] shadow-xs text-[#F59E0B] font-bold'
+                : 'text-[#64676e] dark:text-[#8d929e] hover:text-[#1c1d21] dark:hover:text-white'
+            }`}
+          >
+            VTOP Marks & FAT Calculator
+          </button>
           <button
             onClick={() => setActiveTab('matrix')}
-            className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'matrix'
                 ? 'bg-white dark:bg-[#252834] text-[#1c1d21] dark:text-[#f0eff4] shadow-xs'
                 : 'text-[#64676e] dark:text-[#8d929e] hover:text-[#1c1d21] dark:hover:text-white'
@@ -111,7 +121,7 @@ export const ExamPrepView: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('flashcards')}
-            className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'flashcards'
                 ? 'bg-white dark:bg-[#252834] text-[#1c1d21] dark:text-[#f0eff4] shadow-xs'
                 : 'text-[#64676e] dark:text-[#8d929e] hover:text-[#1c1d21] dark:hover:text-white'
@@ -121,7 +131,7 @@ export const ExamPrepView: React.FC = () => {
           </button>
           <button
             onClick={() => setActiveTab('mock')}
-            className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'mock'
                 ? 'bg-white dark:bg-[#252834] text-[#1c1d21] dark:text-[#f0eff4] shadow-xs'
                 : 'text-[#64676e] dark:text-[#8d929e] hover:text-[#1c1d21] dark:hover:text-white'
@@ -435,13 +445,13 @@ export const ExamPrepView: React.FC = () => {
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#f4f1eb] dark:border-[#1e2029]">
               <div>
                 <span className="text-[11px] font-mono uppercase tracking-wider text-amber-600 dark:text-amber-400 font-bold">
-                  FALL '26 MIDTERM SIMULATOR
+                  WINTER '25-26 CAT-1 SIMULATOR
                 </span>
                 <h2 className="text-xl font-bold text-[#1c1d21] dark:text-[#f0eff4] mt-0.5 tracking-tight">
-                  CS 106B Midterm Practice Test #2
+                  CSE2005 Operating Systems CAT-1 Practice Test
                 </h2>
                 <p className="text-xs text-[#64676e] dark:text-[#9ba0a9] mt-0.5">
-                  Algorithmic efficiency, recursive backtracking, pointers & heap invariants.
+                  CPU scheduling, POSIX semaphores, Banker's deadlock avoidance & paging invariants.
                 </p>
               </div>
 
@@ -573,6 +583,118 @@ export const ExamPrepView: React.FC = () => {
                   </span>
                 </div>
               )}
+            </div>
+          </Card>
+        </div>
+      )}
+
+      {/* TAB 4: VTOP CONTINUOUS ASSESSMENT & FAT TARGET CALCULATOR */}
+      {activeTab === 'marks' && (
+        <div className="space-y-6 animate-in fade-in">
+          {/* Top Metric Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <Card className="p-4 bg-white dark:bg-[#14151C] border-[#E7E5DF] dark:border-[#22242F] shadow-2xs">
+              <div className="flex items-center justify-between text-xs text-[#686A70] dark:text-[#96979B] mb-1">
+                <span>Internal CGPA Standing</span>
+                <Award className="w-4 h-4 text-[#F59E0B]" />
+              </div>
+              <div className="text-2xl font-extrabold text-[#18181A] dark:text-white">9.18</div>
+              <p className="text-[11px] text-[#16A368] font-medium mt-0.5">Top 3% • S-Grade Bracket</p>
+            </Card>
+
+            <Card className="p-4 bg-white dark:bg-[#14151C] border-[#E7E5DF] dark:border-[#22242F] shadow-2xs">
+              <div className="flex items-center justify-between text-xs text-[#686A70] dark:text-[#96979B] mb-1">
+                <span>Average CAT-1 Score</span>
+                <CheckCircle2 className="w-4 h-4 text-[#16A368]" />
+              </div>
+              <div className="text-2xl font-extrabold text-[#18181A] dark:text-white">88.2%</div>
+              <p className="text-[11px] text-[#686A70] dark:text-[#96979B] mt-0.5">44.1 / 50 class mean</p>
+            </Card>
+
+            <Card className="p-4 bg-white dark:bg-[#14151C] border-[#E7E5DF] dark:border-[#22242F] shadow-2xs">
+              <div className="flex items-center justify-between text-xs text-[#686A70] dark:text-[#96979B] mb-1">
+                <span>Average CAT-2 Score</span>
+                <CheckCircle2 className="w-4 h-4 text-[#16A368]" />
+              </div>
+              <div className="text-2xl font-extrabold text-[#18181A] dark:text-white">89.4%</div>
+              <p className="text-[11px] text-[#686A70] dark:text-[#96979B] mt-0.5">44.7 / 50 class mean</p>
+            </Card>
+
+            <Card className="p-4 bg-white dark:bg-[#14151C] border-[#E7E5DF] dark:border-[#22242F] shadow-2xs">
+              <div className="flex items-center justify-between text-xs text-[#686A70] dark:text-[#96979B] mb-1">
+                <span>Digital Assignments</span>
+                <Sparkles className="w-4 h-4 text-[#F59E0B]" />
+              </div>
+              <div className="text-2xl font-extrabold text-[#18181A] dark:text-white">100%</div>
+              <p className="text-[11px] text-[#16A368] font-medium mt-0.5">All DA-1 & DA-2 submitted</p>
+            </Card>
+          </div>
+
+          {/* Detailed Course-by-Course VTOP Marks Table */}
+          <Card className="p-5 bg-white dark:bg-[#14151C] border-[#E7E5DF] dark:border-[#22242F] shadow-xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-[#E7E5DF] dark:border-[#22242F]">
+              <div>
+                <h3 className="text-sm font-bold text-[#18181A] dark:text-white flex items-center gap-2">
+                  <span>Continuous Assessment Breakdown (Winter Semester 2025-26)</span>
+                  <span className="text-[10px] font-mono bg-[#FFF7E6] text-[#D97706] px-2 py-0.5 rounded font-semibold border border-[#F59E0B]/30">
+                    VTOP Verified
+                  </span>
+                </h3>
+                <p className="text-xs text-[#686A70] dark:text-[#96979B] mt-0.5">
+                  Calculated continuous assessment totals and required FAT scores for guaranteed 'S' (90%) and 'A' (80%) grades.
+                </p>
+              </div>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead>
+                  <tr className="border-b border-[#E7E5DF] dark:border-[#22242F] text-[11px] font-mono text-[#686A70] dark:text-[#96979B] uppercase">
+                    <th className="py-2.5 px-3">Course Code & Title</th>
+                    <th className="py-2.5 px-3">Slot</th>
+                    <th className="py-2.5 px-3 text-center">CAT-1 (/50)</th>
+                    <th className="py-2.5 px-3 text-center">CAT-2 (/50)</th>
+                    <th className="py-2.5 px-3 text-center">DA & Quiz (/20)</th>
+                    <th className="py-2.5 px-3 text-center">Internal Total (/50)</th>
+                    <th className="py-2.5 px-3 text-center">FAT Target ('S')</th>
+                    <th className="py-2.5 px-3 text-center">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#F7F6F2] dark:divide-[#1F212C]">
+                  {[
+                    { code: 'CSE2005', title: 'Operating Systems', slot: 'A1+TA1', cat1: '44.5', cat2: '46.0', da: '19.5', total: '45.90', fatTarget: '88/100', status: 'S Grade Trajectory' },
+                    { code: 'CSE2006', title: 'Data Structures and Algorithms', slot: 'B1+TB1', cat1: '42.0', cat2: '44.0', da: '20.0', total: '44.30', fatTarget: '91/100', status: 'A/S Trajectory' },
+                    { code: 'MAT2002', title: 'Discrete Math & Graph Theory', slot: 'C1+TC1', cat1: '48.0', cat2: '45.5', da: '19.0', total: '47.55', fatTarget: '85/100', status: 'Top 5% Standing' },
+                    { code: 'ECE2001', title: 'Digital Logic Design', slot: 'D1+TD1', cat1: '39.5', cat2: '41.0', da: '17.5', total: '40.90', fatTarget: '98/100', status: 'Needs FAT Focus' },
+                    { code: 'CSE2004', title: 'Database Management Systems', slot: 'E1+TE1', cat1: '46.5', cat2: '47.0', da: '20.0', total: '47.55', fatTarget: '85/100', status: 'Top 5% Standing' },
+                    { code: 'HUM1021', title: 'Ethics and Values', slot: 'F1+TF1', cat1: '45.0', cat2: '44.0', da: '19.0', total: '45.70', fatTarget: '89/100', status: 'Safe S Standing' }
+                  ].map((row) => (
+                    <tr key={row.code} className="hover:bg-[#FCFBF8] dark:hover:bg-[#181924] transition-colors">
+                      <td className="py-3 px-3">
+                        <div className="font-bold text-[#18181A] dark:text-white font-mono">{row.code}</div>
+                        <div className="text-[11px] text-[#686A70] dark:text-[#96979B]">{row.title}</div>
+                      </td>
+                      <td className="py-3 px-3 font-mono text-[11px] text-[#686A70] dark:text-[#96979B]">{row.slot}</td>
+                      <td className="py-3 px-3 text-center font-mono font-semibold text-[#18181A] dark:text-white">{row.cat1}</td>
+                      <td className="py-3 px-3 text-center font-mono font-semibold text-[#18181A] dark:text-white">{row.cat2}</td>
+                      <td className="py-3 px-3 text-center font-mono font-semibold text-[#18181A] dark:text-white">{row.da}</td>
+                      <td className="py-3 px-3 text-center">
+                        <span className="font-mono font-bold text-[#D97706] dark:text-[#F59E0B] bg-[#FFF7E6] dark:bg-[#F59E0B]/10 px-2 py-0.5 rounded border border-[#F59E0B]/30">
+                          {row.total}
+                        </span>
+                      </td>
+                      <td className="py-3 px-3 text-center font-mono font-bold text-[#16A368]">
+                        ≥ {row.fatTarget}
+                      </td>
+                      <td className="py-3 px-3 text-center">
+                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-[#16A368] border border-emerald-200 dark:border-emerald-800">
+                          {row.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </Card>
         </div>

@@ -231,12 +231,12 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
           >
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-bold text-[#18181A] dark:text-white group-hover:text-[#F59E0B] truncate">
-                Aarav Sharma
+                Aarav · 22BCE1042
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-[#16A368]" />
             </div>
             <div className="text-[9.5px] text-[#686A70] dark:text-[#96979B] truncate mt-0.5">
-              CSE '26 • Full Dashboard
+              CSE '26 • SCOPE, VIT Vellore
             </div>
           </button>
           <button
@@ -245,12 +245,12 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
           >
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-bold text-[#18181A] dark:text-white group-hover:text-[#F59E0B] truncate">
-                Maya Chen
+                Maya · 23BCE0814
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-[#F59E0B]" />
             </div>
             <div className="text-[9.5px] text-[#686A70] dark:text-[#96979B] truncate mt-0.5">
-              Bioeng '27 • Onboarding Flow
+              New Student • Onboarding Flow
             </div>
           </button>
         </div>
@@ -386,21 +386,23 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
                   </div>
                 </div>
 
-                {/* Semester Selection */}
+                {/* Active Semester: Auto-Selected from Portal */}
                 <div>
-                  <label className="block text-xs font-medium text-[#18181A] dark:text-[#F0EFF4] mb-1">
-                    Academic Term / Semester
-                  </label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-xs font-medium text-[#18181A] dark:text-[#F0EFF4]">
+                      Academic Semester
+                    </label>
+                    <span className="text-[10px] font-mono text-[#16A368] bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 px-2 py-0.2 rounded-full font-semibold flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#16A368]" />
+                      Auto-Selected
+                    </span>
+                  </div>
                   <div className="relative">
-                    <Calendar className="w-3.5 h-3.5 absolute left-3 top-2.5 text-[#96979B]" />
-                    <select
-                      value={vtopSemester}
-                      onChange={(e) => setVtopSemester(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2 text-xs border border-[#E7E5DF] dark:border-[#262836] bg-[#FCFBF8] dark:bg-[#181924] text-[#18181A] dark:text-[#F0EFF4] rounded-xl focus:outline-none focus:border-[#F59E0B] transition-colors"
-                    >
-                      <option value="WS202526">Winter Semester 2025-26</option>
-                      <option value="FS202526">Fall Semester 2025-26</option>
-                    </select>
+                    <Calendar className="w-3.5 h-3.5 absolute left-3 top-2.5 text-[#F59E0B]" />
+                    <div className="w-full pl-9 pr-3 py-2 text-xs border border-[#E7E5DF] dark:border-[#262836] bg-[#FCFBF8] dark:bg-[#181924] text-[#18181A] dark:text-[#F0EFF4] rounded-xl flex items-center justify-between shadow-2xs">
+                      <span className="font-semibold text-[#18181A] dark:text-white">Winter Semester 2025-26</span>
+                      <span className="font-mono text-[10px] text-[#686A70] dark:text-[#96979B] bg-[#F7F6F2] dark:bg-[#20222B] px-1.5 py-0.5 rounded border border-[#E7E5DF] dark:border-[#2A2D36]">WS202526</span>
+                    </div>
                   </div>
                 </div>
 
@@ -517,17 +519,6 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
             <div className="space-y-2 mb-4">
               <button
                 type="button"
-                onClick={() => handleTriggerSSO('stanford')}
-                className="w-full flex items-center justify-center gap-2.5 px-4 py-2 border border-[#E7E5DF] dark:border-[#262836] bg-[#FCFBF8] dark:bg-[#181A23] hover:bg-[#F7F6F2] dark:hover:bg-[#202230] rounded-xl text-[#18181A] dark:text-[#F0EFF4] text-xs font-medium shadow-2xs transition-all cursor-pointer group"
-              >
-                <div className="w-4 h-4 rounded-full bg-[#8C1515] text-white flex items-center justify-center text-[9px] font-bold shadow-2xs">
-                  S
-                </div>
-                <span>Continue with Stanford Cardinal Key / SSO</span>
-              </button>
-
-              <button
-                type="button"
                 onClick={() => handleTriggerSSO('google')}
                 className="w-full flex items-center justify-center gap-2.5 px-4 py-2 border border-[#E7E5DF] dark:border-[#262836] bg-[#FCFBF8] dark:bg-[#181A23] hover:bg-[#F7F6F2] dark:hover:bg-[#202230] rounded-xl text-[#18181A] dark:text-[#F0EFF4] text-xs font-medium shadow-2xs transition-all cursor-pointer"
               >
@@ -549,7 +540,7 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
                     d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
                   />
                 </svg>
-                <span>Continue with Google Workspace</span>
+                <span>Continue with VIT Student Google Account</span>
               </button>
             </div>
 
@@ -559,7 +550,7 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
               </div>
               <div className="relative flex justify-center text-[10px] uppercase font-bold tracking-wider">
                 <span className="bg-white dark:bg-[#14151C] px-3 text-[#96979B] dark:text-[#686A70]">
-                  or with email credentials
+                  or with student credentials
                 </span>
               </div>
             </div>
@@ -576,7 +567,7 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
                       <input
                         type="text"
                         required
-                        placeholder="e.g. Maya Chen"
+                        placeholder="e.g. Aarav Sharma"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         className="w-full pl-9 pr-3 py-2 text-xs border border-[#E7E5DF] dark:border-[#262836] bg-[#FCFBF8] dark:bg-[#181924] text-[#18181A] dark:text-[#F0EFF4] rounded-xl focus:outline-none focus:border-[#F59E0B] transition-colors"
@@ -587,17 +578,17 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
                   <div className="grid grid-cols-2 gap-2">
                     <div>
                       <label className="block text-xs font-medium text-[#18181A] dark:text-[#F0EFF4] mb-1">
-                        Institution
+                        Campus / School
                       </label>
                       <select
                         value={institution}
                         onChange={(e) => setInstitution(e.target.value)}
                         className="w-full px-2 py-2 text-xs border border-[#E7E5DF] dark:border-[#262836] bg-[#FCFBF8] dark:bg-[#181924] text-[#18181A] dark:text-[#F0EFF4] rounded-xl focus:outline-none focus:border-[#F59E0B] transition-colors"
                       >
-                        <option value="Stanford University">Stanford</option>
-                        <option value="VIT Vellore">VIT Vellore</option>
-                        <option value="UC Berkeley">Berkeley</option>
-                        <option value="MIT">MIT</option>
+                        <option value="VIT Vellore (SCOPE)">VIT Vellore (SCOPE)</option>
+                        <option value="VIT Vellore (SENSE)">VIT Vellore (SENSE)</option>
+                        <option value="VIT Vellore (SITE)">VIT Vellore (SITE)</option>
+                        <option value="VIT Chennai">VIT Chennai</option>
                       </select>
                     </div>
 
