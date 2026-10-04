@@ -52,7 +52,8 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
   const [vtopStep, setVtopStep] = useState<'credentials' | 'authenticating' | 'select_semester' | 'syncing'>('credentials');
   const [vtopRegNo, setVtopRegNo] = useState('22BCE1042');
   const [vtopPassword, setVtopPassword] = useState('••••••••••••');
-  const [selectedSemesterCode, setSelectedSemesterCode] = useState('WS202526');
+  const [selectedSemesterCode, setSelectedSemesterCode] = useState('CH2025262');
+  const [availableSemesters, setAvailableSemesters] = useState<VtopSemesterOption[]>(AVAILABLE_SEMESTERS);
   const [authenticatedStudent, setAuthenticatedStudent] = useState<{
     name: string;
     regNo: string;
@@ -129,6 +130,17 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
         branch: authResult.branch,
         campus: authResult.campus
       });
+
+      if (authResult.semesters && authResult.semesters.length > 0) {
+        const dynamicList: VtopSemesterOption[] = authResult.semesters.map((s, idx) => ({
+          code: s.id,
+          name: s.name,
+          type: idx === 0 ? 'Current' : 'Previous',
+          description: `VTOP semester ID: ${s.id}`
+        }));
+        setAvailableSemesters(dynamicList);
+        setSelectedSemesterCode(dynamicList[0].code);
+      }
 
       setVtopStep('select_semester');
     } catch (err: any) {
@@ -375,7 +387,7 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
                   />
                 </div>
                 <div className="flex justify-between items-center text-[10px] text-[#96979B] font-mono">
-                  <span>Harvesting {AVAILABLE_SEMESTERS.find(s => s.code === selectedSemesterCode)?.name.split(' ')[0] || 'Academic'} Term</span>
+                  <span>Harvesting {(availableSemesters.find(s => s.code === selectedSemesterCode) || AVAILABLE_SEMESTERS.find(s => s.code === selectedSemesterCode))?.name.split(' ')[0] || 'Academic'} Term</span>
                   <span>{vtopPercent}%</span>
                 </div>
               </div>
@@ -427,7 +439,7 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
 
                 {/* Semester Options Radio Cards */}
                 <div className="space-y-2">
-                  {AVAILABLE_SEMESTERS.map((sem) => {
+                  {availableSemesters.map((sem) => {
                     const isSelected = selectedSemesterCode === sem.code;
                     return (
                       <button
@@ -500,7 +512,7 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
                     className="flex-1 py-2.5 text-xs font-semibold shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <School className="w-3.5 h-3.5" />
-                    <span>Load {AVAILABLE_SEMESTERS.find(s => s.code === selectedSemesterCode)?.name.split(' ')[0] || 'Selected'} Semester</span>
+                    <span>Load {(availableSemesters.find(s => s.code === selectedSemesterCode) || AVAILABLE_SEMESTERS.find(s => s.code === selectedSemesterCode))?.name.split(' ')[0] || 'Selected'} Semester</span>
                     <ArrowRight className="w-3.5 h-3.5 ml-1" />
                   </Button>
                 </div>
