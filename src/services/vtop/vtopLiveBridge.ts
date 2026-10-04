@@ -110,8 +110,12 @@ function httpsRequest(
         const newCookies = (res.headers['set-cookie'] || []).map((c: string) => c.split(';')[0]);
         const cookieMap: Record<string, string> = {};
         [...cookies, ...newCookies].forEach((c) => {
-          const [k, v] = c.split('=');
-          if (k) cookieMap[k.trim()] = v ? v.trim() : '';
+          const eqIdx = c.indexOf('=');
+          if (eqIdx !== -1) {
+            const k = c.substring(0, eqIdx).trim();
+            const v = c.substring(eqIdx + 1).trim();
+            if (k) cookieMap[k] = v;
+          }
         });
         const combined = Object.entries(cookieMap).map(([k, v]) => `${k}=${v}`);
         resolve({
@@ -223,12 +227,16 @@ export async function authenticateLiveStudent(
     throw new Error('Session expired or invalid. Please refresh the captcha.');
   }
 
+  const cleanRegNo = regNo.toUpperCase().trim();
+  const cleanCaptcha = captcha.trim();
+
+  console.log(`[VTOP Gateway] Authenticating ${cleanRegNo} (captcha length: ${cleanCaptcha.length})`);
+
   const postPayload = querystring.stringify({
     _csrf: session.formCsrf || '',
-    username: regNo.toUpperCase().trim(),
+    username: cleanRegNo,
     password: password.trim(),
-    captchaStr: captcha.toUpperCase().trim(),
-    gResponse: captcha.toUpperCase().trim()
+    captchaStr: cleanCaptcha
   });
 
   const loginRes = await httpsRequest(
@@ -246,81 +254,75 @@ export async function authenticateLiveStudent(
     session.cookies
   );
 
-  let loginHtml = loginRes.data;
-  let finalCookies = loginRes.cookies;
-
-  // Handle HTTP 302 / 301 redirects from /vtop/login
-  if (loginRes.statusCode === 302 || loginRes.statusCode === 301) {
-    const loc = loginRes.headers['location'] || '';
-    const isError = loc.includes('error');
-
-    const redirectPage = await httpsRequest(
-      {
-        hostname: 'vtopcc.vit.ac.in',
-        path: loc.startsWith('http') ? new URL(loc).pathname : loc,
-        method: 'GET'
-      },
-      null,
-      loginRes.cookies
-    );
-
-    loginHtml = redirectPage.data;
-    finalCookies = redirectPage.cookies;
-
-    if (isError) {
-      const errorMsgMatch =
-        loginHtml.match(/<span[^>]*class=["'][^"']*text-danger[^"']*["'][^>]*>([\s\S]*?)<\/span>/i) ||
-        loginHtml.match(/<strong>\s*(Invalid[^<]+)\s*<\/strong>/i) ||
-        loginHtml.match(/<div[^>]*class=["'][^"']*alert[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
-
-      let cleanMsg = errorMsgMatch ? errorMsgMatch[1].replace(/<[^>]+>/g, '').trim() : '';
-
-      if (!cleanMsg) {
-        if (/invalid\s*captcha/i.test(loginHtml)) {
-          cleanMsg = 'Invalid Captcha. Please enter the captcha code carefully.';
-        } else if (/invalid\s*(user\s*name|login\s*id|user\s*id)\s*\/\s*password/i.test(loginHtml)) {
-          cleanMsg = 'Invalid Registration Number or Password.';
-        } else if (/account\s*is\s*locked/i.test(loginHtml)) {
-          cleanMsg = 'Your VTOP account is currently locked.';
-        } else if (/maximum\s*fail\s*attempts\s*reached/i.test(loginHtml)) {
-          cleanMsg = 'Maximum failed login attempts reached. Please wait a few minutes.';
-        } else {
-          cleanMsg = 'Authentication failed. Please verify your credentials.';
-        }
-      }
-
-      console.warn(`[VTOP Gateway] Login rejected for ${regNo}: ${cleanMsg}`);
-      throw new Error(cleanMsg);
+  let currRes = loginRes;
+  for (let r = 0; r < 5; r++) {
+    if (currRes.statusCode === 301 || currRes.statusCode === 302) {
+      const loc = currRes.headers['location'] || '';
+      console.log(`[VTOP Gateway] Redirect hop ${r + 1} -> ${loc}`);
+      const nextPath = loc.startsWith('http')
+        ? new URL(loc).pathname + new URL(loc).search
+        : loc;
+      currRes = await httpsRequest(
+        {
+          hostname: 'vtopcc.vit.ac.in',
+          path: nextPath,
+          method: 'GET'
+        },
+        null,
+        currRes.cookies
+      );
+    } else {
+      break;
     }
   }
 
-  // Check for error patterns in 200 response HTML
-  if (/invalid\s*captcha/i.test(loginHtml)) {
-    throw new Error('Invalid Captcha. Please enter the captcha code carefully.');
-  }
-  if (/invalid\s*(user\s*name|login\s*id|user\s*id)\s*\/\s*password/i.test(loginHtml)) {
-    throw new Error('Invalid Registration Number or Password.');
-  }
-  if (/account\s*is\s*locked/i.test(loginHtml)) {
-    throw new Error('Your VTOP account is currently locked.');
-  }
-  if (/maximum\s*fail\s*attempts\s*reached/i.test(loginHtml)) {
-    throw new Error('Maximum failed login attempts reached. Please wait a few minutes.');
+  let loginHtml = currRes.data;
+  let finalCookies = currRes.cookies;
+
+  // Check for error patterns in response HTML
+  const errorMsgMatch =
+    loginHtml.match(/<span[^>]*class=["'][^"']*text-danger[^"']*["'][^>]*>([\s\S]*?)<\/span>/i) ||
+    loginHtml.match(/<strong>\s*(Invalid[^<]+)\s*<\/strong>/i) ||
+    loginHtml.match(/<div[^>]*class=["'][^"']*alert[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
+
+  let cleanMsg = errorMsgMatch ? errorMsgMatch[1].replace(/<[^>]+>/g, '').trim().replace(/\s+/g, ' ') : '';
+
+  if (!cleanMsg) {
+    if (/invalid\s*captcha/i.test(loginHtml)) {
+      cleanMsg = 'Invalid Captcha. Please enter the verification code carefully.';
+    } else if (/invalid\s*(user\s*name|login\s*id|user\s*id)\s*\/\s*password/i.test(loginHtml)) {
+      cleanMsg = 'Invalid Username/Password. Please verify your Registration Number and Password.';
+    } else if (/account\s*is\s*locked/i.test(loginHtml)) {
+      cleanMsg = 'Your VTOP account is currently locked.';
+    } else if (/maximum\s*fail\s*attempts\s*reached/i.test(loginHtml)) {
+      cleanMsg = 'Maximum failed login attempts reached. Please wait a few minutes.';
+    }
   }
 
-  const authIdMatch = loginHtml.match(/id=["']authorizedIDX["']\s+value=["']([^"']+)["']/i);
-  const csrfMatch = loginHtml.match(/name=["']_csrf["']\s+value=["']([^"']+)["']/i);
-  const winImageMatch = loginHtml.match(/id=["']winImage["']\s+value=["']([^"']+)["']/i);
+  if (cleanMsg) {
+    console.warn(`[VTOP Gateway] Login rejected for ${cleanRegNo}: ${cleanMsg}`);
+    throw new Error(cleanMsg);
+  }
+
+  const authIdMatch =
+    loginHtml.match(/id=["']authorizedIDX["']\s+value=["']([^"']+)["']/i) ||
+    loginHtml.match(/value=["']([^"']+)["']\s+id=["']authorizedIDX["']/i);
+  const csrfMatch =
+    loginHtml.match(/name=["']_csrf["']\s+value=["']([^"']+)["']/i) ||
+    loginHtml.match(/value=["']([^"']+)["']\s+name=["']_csrf["']/i);
+  const winImageMatch =
+    loginHtml.match(/id=["']winImage["']\s+value=["']([^"']+)["']/i) ||
+    loginHtml.match(/value=["']([^"']+)["']\s+id=["']winImage["']/i);
 
   if (!authIdMatch) {
-    console.warn(`[VTOP Gateway] authorizedIDX not found in HTML response for ${regNo}. HTML length: ${loginHtml.length}`);
+    console.warn(`[VTOP Gateway] authorizedIDX not found in HTML response for ${cleanRegNo}. HTML length: ${loginHtml.length}`);
     throw new Error('Authentication rejected by university portal. Please check your credentials.');
   }
 
   session.authorizedID = authIdMatch[1];
   session.csrfToken = csrfMatch ? csrfMatch[1] : session.formCsrf;
   session.winImage = winImageMatch ? winImageMatch[1] : '';
-  session.regNo = regNo.toUpperCase().trim();
+  session.regNo = cleanRegNo;
   session.cookies = finalCookies;
 
   // Step 1: Fetch Available Semesters
@@ -364,6 +366,8 @@ export async function authenticateLiveStudent(
     );
   }
 
+  (session as any).semesters = semesters;
+
   // Step 2: Fetch Student Profile (Student Name)
   const profilePayload = querystring.stringify({
     verifyMenu: 'true',
@@ -404,10 +408,20 @@ export async function authenticateLiveStudent(
   }
 
   if (!studentName) {
-    studentName = session.regNo.startsWith('22B') ? 'Aarav Sharma' : 'VIT Scholar';
+    const headerMatch = loginHtml.match(/([0-9]{2}[A-Z]{3}[0-9]{4,5})\s*-\s*([A-Z\s.]{3,50})/i);
+    if (headerMatch && headerMatch[2]) {
+      studentName = headerMatch[2].trim();
+    }
+  }
+
+  if (!studentName) {
+    studentName = session.regNo;
   }
 
   session.studentName = studentName;
+  (session as any).branch = branch;
+
+  console.log(`[VTOP Gateway] Authenticated successfully: ${studentName} (${session.regNo}) - Found ${semesters.length} semesters`);
 
   return {
     success: true,
@@ -550,17 +564,17 @@ export async function harvestLiveSemesterData(
   const exams = parseLiveExams(examRes.data);
 
   const profile: VtopStudentProfile = {
-    regNo: session.regNo || '22BCE1042',
-    name: session.studentName || 'VIT Scholar',
-    branch: 'Computer Science and Engineering',
-    degree: 'B.Tech Computer Science and Engineering (SCOPE)',
+    regNo: session.regNo || '',
+    name: session.studentName || session.regNo || 'Student',
+    branch: (session as any).branch || 'Computer Science and Engineering',
+    degree: (session as any).branch || 'B.Tech Computer Science and Engineering (SCOPE)',
     campus: 'Vellore Institute of Technology (VIT Chennai)',
     cgpa: cgpaInfo.cgpa,
     totalCredits: cgpaInfo.totalCredits
   };
 
-  const isFall = cleanSemId.includes('1') && !cleanSemId.includes('2');
-  const semesterName = isFall ? 'Fall Semester 2025-26' : 'Winter Semester 2025-26';
+  const foundSem = (session as any).semesters?.find((s: any) => s.id === cleanSemId);
+  const semesterName = foundSem?.name || (cleanSemId.includes('1') && !cleanSemId.includes('2') ? 'Fall Semester 2025-26' : 'Winter Semester 2025-26');
 
   return {
     profile,

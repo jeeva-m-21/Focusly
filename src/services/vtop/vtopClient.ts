@@ -60,9 +60,9 @@ export class VtopClient {
     campus: string;
     semesters?: { id: string; name: string }[];
   }> {
-    const cleanReg = (credentials.regNo || '22BCE1042').toUpperCase().trim();
+    const cleanReg = (credentials.regNo || '').toUpperCase().trim();
     if (!cleanReg) {
-      throw new Error('Please enter a valid Registration Number');
+      throw new Error('Please enter your Registration Number');
     }
     if (!credentials.password || credentials.password.length < 3) {
       throw new Error('Please enter your VTOP password');
@@ -78,7 +78,7 @@ export class VtopClient {
           sessionId: this.currentSessionId,
           regNo: cleanReg,
           password: credentials.password,
-          captcha: credentials.captcha
+          captcha: credentials.captcha.trim()
         },
         { timeout: 20000 }
       );
@@ -126,12 +126,15 @@ export class VtopClient {
         onProgress?.('Academic synchronization complete.', 100);
         return harvestRes.data;
       }
+      throw new Error(harvestRes.data?.message || 'Incomplete academic data received from portal.');
     } catch (err: any) {
-      console.warn('Live harvest encountered error or is offline, using verified college data generator:', err.message);
+      const errMsg =
+        err.response?.data?.message ||
+        err.message ||
+        'Failed to harvest semester data from university portal';
+      console.error('[VTOP Client] Live harvest error:', errMsg);
+      throw new Error(errMsg);
     }
-
-    // In case portal network is offline or user is testing offline:
-    return this.generateCollegeDataForStudent(credentials.regNo, semesterCode);
   }
 
   private generateSimulatedCaptcha(): { captchaImage: string; sessionId: string } {

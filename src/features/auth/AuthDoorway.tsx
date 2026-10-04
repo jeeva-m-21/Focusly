@@ -50,8 +50,8 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
   // Phase 1: 'credentials' -> User enters Reg No, Password, Captcha (NO pre-selected semester)
   // Phase 2: 'select_semester' -> Once authenticated, user explicitly chooses which semester to sync
   const [vtopStep, setVtopStep] = useState<'credentials' | 'authenticating' | 'select_semester' | 'syncing'>('credentials');
-  const [vtopRegNo, setVtopRegNo] = useState('22BCE1042');
-  const [vtopPassword, setVtopPassword] = useState('••••••••••••');
+  const [vtopRegNo, setVtopRegNo] = useState('');
+  const [vtopPassword, setVtopPassword] = useState('');
   const [selectedSemesterCode, setSelectedSemesterCode] = useState('CH2025262');
   const [availableSemesters, setAvailableSemesters] = useState<VtopSemesterOption[]>(AVAILABLE_SEMESTERS);
   const [authenticatedStudent, setAuthenticatedStudent] = useState<{
@@ -121,7 +121,7 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
       const authResult = await vtopClient.authenticate({
         regNo: vtopRegNo.trim().toUpperCase(),
         password: vtopPassword.trim(),
-        captcha: captchaInput.trim().toUpperCase()
+        captcha: captchaInput.trim()
       });
 
       setAuthenticatedStudent({
@@ -161,7 +161,7 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
         {
           regNo: vtopRegNo.trim().toUpperCase(),
           password: vtopPassword.trim(),
-          captcha: captchaInput.trim().toUpperCase()
+          captcha: captchaInput.trim()
         },
         selectedSemesterCode,
         (step, pct) => {
@@ -402,10 +402,10 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
                     </div>
                     <div>
                       <p className="text-xs font-bold text-emerald-900 dark:text-emerald-200">
-                        {authenticatedStudent?.name || 'Aarav Sharma'} · <span className="font-mono">{authenticatedStudent?.regNo || vtopRegNo}</span>
+                        {authenticatedStudent?.name || authenticatedStudent?.regNo || vtopRegNo} · <span className="font-mono">{authenticatedStudent?.regNo || vtopRegNo}</span>
                       </p>
                       <p className="text-[10.5px] text-emerald-700 dark:text-emerald-400">
-                        {authenticatedStudent?.branch || 'Computer Science & Engineering (SCOPE)'} · {authenticatedStudent?.campus || 'VIT Vellore'}
+                        {authenticatedStudent?.branch || 'Computer Science & Engineering'} · {authenticatedStudent?.campus || 'VIT Chennai'}
                       </p>
                     </div>
                   </div>
@@ -601,11 +601,11 @@ export const AuthDoorway: React.FC<{ initialMode?: 'login' | 'signup' }> = ({
                       <input
                         type="text"
                         required
-                        placeholder="Enter 5-digit code"
+                        placeholder="Case-sensitive code"
                         value={captchaInput}
-                        onChange={(e) => setCaptchaInput(e.target.value.toUpperCase())}
-                        maxLength={6}
-                        className="w-full px-3 py-2 text-xs border border-[#E7E5DF] dark:border-[#262836] bg-white dark:bg-[#14151C] text-[#18181A] dark:text-white rounded-lg focus:outline-none focus:border-[#F59E0B] font-mono uppercase tracking-widest text-center font-bold"
+                        onChange={(e) => setCaptchaInput(e.target.value)}
+                        maxLength={8}
+                        className="w-full px-3 py-2 text-xs border border-[#E7E5DF] dark:border-[#262836] bg-white dark:bg-[#14151C] text-[#18181A] dark:text-white rounded-lg focus:outline-none focus:border-[#F59E0B] font-mono tracking-widest text-center font-bold"
                       />
                     </div>
                   </div>

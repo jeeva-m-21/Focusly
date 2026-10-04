@@ -89,7 +89,7 @@ export const VtopSyncModal: React.FC = () => {
       const authResult = await vtopClient.authenticate({
         regNo: regNo.trim().toUpperCase(),
         password: password.trim(),
-        captcha: captchaInput.trim().toUpperCase()
+        captcha: captchaInput.trim()
       });
 
       setAuthenticatedStudent({
@@ -118,7 +118,7 @@ export const VtopSyncModal: React.FC = () => {
         {
           regNo: regNo.trim().toUpperCase(),
           password: password.trim(),
-          captcha: captchaInput.trim().toUpperCase()
+          captcha: captchaInput.trim()
         },
         selectedSemesterCode,
         (step, pct) => {
@@ -231,10 +231,10 @@ export const VtopSyncModal: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-xs font-bold text-emerald-900 dark:text-emerald-200">
-                    {authenticatedStudent?.name || 'Aarav Sharma'} · <span className="font-mono">{authenticatedStudent?.regNo || regNo}</span>
+                    {authenticatedStudent?.name || authenticatedStudent?.regNo || regNo} · <span className="font-mono">{authenticatedStudent?.regNo || regNo}</span>
                   </p>
                   <p className="text-[10.5px] text-emerald-700 dark:text-emerald-400">
-                    {authenticatedStudent?.branch || 'Computer Science & Engineering (SCOPE)'} · {authenticatedStudent?.campus || 'VIT Vellore'}
+                    {authenticatedStudent?.branch || 'Computer Science & Engineering'} · {authenticatedStudent?.campus || 'VIT Chennai'}
                   </p>
                 </div>
               </div>
@@ -421,11 +421,11 @@ export const VtopSyncModal: React.FC = () => {
                   <input
                     type="text"
                     required
-                    maxLength={6}
+                    maxLength={8}
                     value={captchaInput}
-                    onChange={(e) => setCaptchaInput(e.target.value.toUpperCase())}
-                    placeholder="Enter characters"
-                    className="flex-1 py-2 px-3 bg-[#FCFBF8] dark:bg-[#1C1E24] border border-[#E7E5DF] dark:border-[#2A2D36] rounded-xl text-xs font-mono font-bold tracking-widest text-[#18181A] dark:text-white focus:outline-none focus:border-[#F59E0B] uppercase text-center"
+                    onChange={(e) => setCaptchaInput(e.target.value)}
+                    placeholder="Case-sensitive code"
+                    className="flex-1 py-2 px-3 bg-[#FCFBF8] dark:bg-[#1C1E24] border border-[#E7E5DF] dark:border-[#2A2D36] rounded-xl text-xs font-mono font-bold tracking-widest text-[#18181A] dark:text-white focus:outline-none focus:border-[#F59E0B] text-center"
                   />
                 </div>
               </div>
