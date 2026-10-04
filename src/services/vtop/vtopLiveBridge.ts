@@ -236,7 +236,8 @@ export async function authenticateLiveStudent(
     _csrf: session.formCsrf || '',
     username: cleanRegNo,
     password: password.trim(),
-    captchaStr: cleanCaptcha
+    captchaStr: cleanCaptcha,
+    gResponse: cleanCaptcha
   });
 
   const loginRes = await httpsRequest(
@@ -245,7 +246,7 @@ export async function authenticateLiveStudent(
       path: '/vtop/login',
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
         'Content-Length': String(Buffer.byteLength(postPayload)),
         Referer: 'https://vtopcc.vit.ac.in/vtop/login'
       }
@@ -304,9 +305,28 @@ export async function authenticateLiveStudent(
     throw new Error(cleanMsg);
   }
 
-  const authIdMatch =
+  let authIdMatch =
     loginHtml.match(/id=["']authorizedIDX["']\s+value=["']([^"']+)["']/i) ||
     loginHtml.match(/value=["']([^"']+)["']\s+id=["']authorizedIDX["']/i);
+
+  if (!authIdMatch) {
+    console.log('[VTOP Gateway] Fetching /vtop/content shell to extract security tokens...');
+    const contentRes = await httpsRequest(
+      {
+        hostname: 'vtopcc.vit.ac.in',
+        path: '/vtop/content',
+        method: 'GET'
+      },
+      null,
+      finalCookies
+    );
+    loginHtml = contentRes.data;
+    finalCookies = contentRes.cookies;
+    authIdMatch =
+      loginHtml.match(/id=["']authorizedIDX["']\s+value=["']([^"']+)["']/i) ||
+      loginHtml.match(/value=["']([^"']+)["']\s+id=["']authorizedIDX["']/i);
+  }
+
   const csrfMatch =
     loginHtml.match(/name=["']_csrf["']\s+value=["']([^"']+)["']/i) ||
     loginHtml.match(/value=["']([^"']+)["']\s+name=["']_csrf["']/i);
