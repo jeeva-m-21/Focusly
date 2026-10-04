@@ -1,0 +1,56 @@
+{
+  "name": "Focusly — Academic Study & Focus OS",
+  "short_name": "Focusly",
+  "description": "Calm student operating system with circadian energy scheduling, Pomodoro timer, and exam mastery.",
+  "start_url": "/",
+  "id": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#faf8f5",
+  "theme_color": "#1c1d21",
+  "orientation": "portrait-primary",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Focus Timer",
+      "short_name": "Focus",
+      "description": "Start an immersive Pomodoro deep work session",
+      "url": "/#focus-timer",
+      "icons": [{ "src": "/icon-192.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Today's Schedule",
+      "short_name": "Schedule",
+      "description": "View classes and timeline flow",
+      "url": "/#planner-day",
+      "icons": [{ "src": "/icon-192.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Academic Tasks",
+      "short_name": "Tasks",
+      "description": "Manage assignments and deliverables",
+      "url": "/#tasks",
+      "icons": [{ "src": "/icon-192.svg", "sizes": "192x192" }]
+    }
+  ]
+}
